@@ -61,19 +61,3 @@ vim.keymap.set('n', ',d', function ()
    nvim_command('tabnext')
    nvim_input('A')
 end)
-
-
-vim.api.nvim_create_autocmd('BufWritePost', {
-   pattern  = {'*.ex', '*.exs'},
-   callback = function(_ev)
-      local channel
-      for _, ch in pairs(vim.api.nvim_list_chans()) do
-         -- sets channel to `id' of first channel w/ pty
-         channel = channel or (ch['pty'] and ch['id'])
-      end
-
-      if channel then
-         vim.api.nvim_chan_send(channel, ' ' .. 'recompile\n')
-      end
-   end,
-})
