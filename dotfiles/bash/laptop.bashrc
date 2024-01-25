@@ -22,6 +22,10 @@ export LS_COLORS=':di=1;34:ex=1;37:ln=36'
 export PATH="${PATH0:-~/bin:~/.local/bin:$PATH}"
 export PATH0="$PATH"
 
+export ELIXIR_EDITOR="alacritty \
+   --config-file ${HOME}/.config/alacritty/alacritty.toml \
+   --command nvim +__LINE__ __FILE__"
+
 # usability, builtins, etc.
 #-------------------------------------------------------------------------------
 alias ..='cd ..'
