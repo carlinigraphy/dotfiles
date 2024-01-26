@@ -24,7 +24,7 @@ export PATH0="$PATH"
 
 export ELIXIR_EDITOR="alacritty \
    --config-file ${HOME}/.config/alacritty/alacritty.toml \
-   --command nvim +__LINE__ __FILE__"
+   --command nvim -R +__LINE__ __FILE__"
 
 # usability, builtins, etc.
 #-------------------------------------------------------------------------------
