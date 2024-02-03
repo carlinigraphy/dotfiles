@@ -3,6 +3,9 @@ syntax: rootglob
 logs/*
 share/README.html
 
+# Don't need their whole repo + node_modules. Oof.
+dotfiles/fonts/Iosevka/
+
 # Some stuff here I'm not 100% on licensing or whatever. There's copy/pasted
 # bits of stuff I've cited in comments for references. The original sources are
 # a mix of BSD{2,3}, MIT, Unlicense, etc..
