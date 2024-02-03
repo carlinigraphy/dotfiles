@@ -148,6 +148,7 @@ for_window [ class="firefoxdeveloperedition" instance="Places" ] floating enable
 
 for_window [ class="Alacritty"      ] border pixel 1
 for_window [ class="qutebrowser"    ] border pixel 1
+for_window [ class="GNS3"           ] border pixel 1
 for_window [ class="brogue"         ] floating enable, border pixel 1
 for_window [ class="Dwarf_Fortress" ] floating enable, border pixel 1
 for_window [ class="Anki"           ] floating enable, border pixel 1

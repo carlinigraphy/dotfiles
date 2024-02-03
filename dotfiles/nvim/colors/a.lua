@@ -189,6 +189,7 @@ for name, highlight in pairs({
    SpellBad   = { fg = fg_mono[2], bg = red[0] },
    SpellLocal = { fg = fg_mono[2], bg = blue[0] },
    Conceal    = { link = 'Comment' },
+   Character  = { link = 'String'  },
 
    --- Variables & functions ---------------------------------------------------
    Macro      = { link = 'Normal' },
