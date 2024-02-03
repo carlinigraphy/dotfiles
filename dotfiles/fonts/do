@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+PROGDIR=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd )
+CURRENT="${PROGDIR}/Iosevka/private-build-plans.toml"
+SELECTED="${1?Requires file}"
+
+FONT_FAMILY=
+function find_family {
+   while IFS=$'\n' read -r line ; do
+      if [[ $line =~ family[[:space:]]*=[[:space:]]*\"(.*)\" ]] ; then
+         FONT_FAMILY="${BASH_REMATCH[1]}"
+         FONT_FAMILY="${FONT_FAMILY//[[:space:]]}"
+      fi
+   done < "$1"
+}
+
+function archive_current {
+   for f in "${PROGDIR}"/build_plans/* ; do
+      cmp --quiet "$f" "$CURRENT" && return
+   done
+
+   find_family "$CURRENT"
+   mv -v --backup=numbered "$CURRENT" "${PROGDIR}/build_plans/${FONT_FAMILY,,}.toml"
+}
+
+archive_current
+cp "$SELECTED" "$CURRENT"
+
+find_family "$SELECTED"
+cd "${PROGDIR}"/Iosevka && \
+   npm run build -- ttf::"${FONT_FAMILY}"
