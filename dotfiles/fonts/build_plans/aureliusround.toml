@@ -1,8 +1,8 @@
 [buildPlans.AureliusRound]
-family = "Aurelius Round"
-spacing = "fixed"
-serifs = "sans"
-noCvSs = true
+family           = "Aurelius Round"
+spacing          = "fixed"
+serifs           = "sans"
+noCvSs           = true
 exportGlyphNames = false
 
 [buildPlans.AureliusRound.variants.design]
@@ -31,6 +31,7 @@ capital-w = "straight-flat-top-serifless"
 capital-x = "curly-serifless"
 capital-y = "curly-serifless"
 capital-z = "straight-serifed"
+
 a = "double-storey-toothless-corner"
 b = "toothless-rounded-serifless"
 c = "serifless"
@@ -55,45 +56,48 @@ w = "cursive-serifless"
 x = "curly-serifless"
 y = "cursive-serifless"
 z = "curly-serifless"
-long-s = "flat-hook-tailed"
-eszet = "sulzbacher-tailed-serifless"
-lower-eth = "curly-bar"
-lower-delta = "flat-top"
+
+long-s         = "flat-hook-tailed"
+eszet          = "sulzbacher-tailed-serifless"
+lower-eth      = "curly-bar"
+lower-delta    = "flat-top"
 capital-lambda = "straight-serifless"
-lower-lambda = "tailed-turn"
-lower-mu = "toothless-corner-serifless"
-lower-xi = "flat-top"
-zero = "tall-slashed"
-one = "base"
-two = "curly-neck"
+lower-lambda   = "tailed-turn"
+lower-mu       = "toothless-corner-serifless"
+lower-xi       = "flat-top"
+
+zero  = "tall-slashed"
+one   = "base"
+two   = "curly-neck"
 three = "two-arcs"
-four = "open-non-crossing"
-five = "upright-arched"
-six = "open-contour"
+four  = "open-non-crossing"
+five  = "upright-arched"
+six   = "open-contour"
 seven = "bend-serifed"
 eight = "crossing-asymmetric"
-nine = "open-contour"
-diacritic-dot = "round"
-punctuation-dot = "round"
-tilde = "low"
-asterisk = "penta-high"
-underscore = "above-baseline"
-caret = "medium"
-ascii-grave = "straight"
+nine  = "open-contour"
+
+diacritic-dot      = "round"
+punctuation-dot    = "round"
+tilde              = "low"
+asterisk           = "penta-high"
+underscore         = "above-baseline"
+caret              = "medium"
+ascii-grave        = "straight"
 ascii-single-quote = "straight"
-paren = "normal"
-brace = "curly"
-number-sign = "upright"
-ampersand = "lower-open"
-at = "compact"
-dollar = "through"
-cent = "open"
-percent = "rings-continuous-slash"
-bar = "force-upright"
-question = "smooth"
-pilcrow = "low"
+paren              = "normal"
+brace              = "curly"
+number-sign        = "upright"
+ampersand          = "lower-open"
+at                 = "compact"
+dollar             = "through"
+cent               = "open"
+percent            = "rings-continuous-slash"
+bar                = "force-upright"
+question           = "smooth"
+pilcrow            = "low"
 partial-derivative = "curly-bar"
-micro-sign = "toothless-corner-serifless"
+micro-sign         = "toothless-corner-serifless"
 
 [buildPlans.AureliusRound.variants.italic]
 capital-a = "curly-serifless"
@@ -121,6 +125,7 @@ capital-w = "straight-flat-top-serifless"
 capital-x = "curly-serifless"
 capital-y = "curly-serifless"
 capital-z = "straight-serifed"
+
 a = "double-storey-toothless-corner"
 b = "toothless-rounded-serifless"
 c = "serifless"
@@ -145,82 +150,62 @@ w = "cursive-serifless"
 x = "curly-serifless"
 y = "cursive-flat-hook-serifless"
 z = "cursive"
-long-s = "flat-hook-tailed"
-eszet = "sulzbacher-tailed-serifless"
-lower-eth = "curly-bar"
-lower-delta = "flat-top"
+
+long-s         = "flat-hook-tailed"
+eszet          = "sulzbacher-tailed-serifless"
+lower-eth      = "curly-bar"
+lower-delta    = "flat-top"
 capital-lambda = "straight-serifless"
-lower-lambda = "tailed-turn"
-lower-mu = "toothless-corner-serifless"
-lower-xi = "flat-top"
-zero = "tall-slashed"
-one = "base"
-two = "curly-neck"
-three = "two-arcs"
-four = "open-non-crossing"
-five = "upright-arched"
-six = "open-contour"
-seven = "bend-serifed"
-eight = "crossing-asymmetric"
-nine = "open-contour"
-diacritic-dot = "round"
-punctuation-dot = "round"
-tilde = "low"
-asterisk = "penta-high"
-underscore = "above-baseline"
-caret = "medium"
-ascii-grave = "straight"
+lower-lambda   = "tailed-turn"
+lower-mu       = "toothless-corner-serifless"
+lower-xi       = "flat-top"
+
+zero   = "tall-slashed"
+one    = "base"
+two    = "curly-neck"
+three  = "two-arcs"
+four   = "open-non-crossing"
+five   = "upright-arched"
+six    = "open-contour"
+seven  = "bend-serifed"
+eight  = "crossing-asymmetric"
+nine   = "open-contour"
+
+diacritic-dot      = "round"
+punctuation-dot    = "round"
+tilde              = "low"
+asterisk           = "penta-high"
+underscore         = "above-baseline"
+caret              = "medium"
+ascii-grave        = "straight"
 ascii-single-quote = "straight"
-paren = "normal"
-brace = "curly"
-number-sign = "upright"
-ampersand = "lower-open"
-at = "compact"
-dollar = "through"
-cent = "open"
-percent = "rings-continuous-slash"
-bar = "force-upright"
-question = "smooth"
-pilcrow = "low"
+paren              = "normal"
+brace              = "curly"
+number-sign        = "upright"
+ampersand          = "lower-open"
+at                 = "compact"
+dollar             = "through"
+cent               = "open"
+percent            = "rings-continuous-slash"
+bar                = "force-upright"
+question           = "smooth"
+pilcrow            = "low"
 partial-derivative = "curly-bar"
-micro-sign = "toothless-corner-serifless"
+micro-sign         = "toothless-corner-serifless"
 
-[buildPlans.AureliusRound.weights.ExtraLight]
-shape = 200
-menu = 200
-css = 200
+#- Widths ----------------------------------------------------------------------
+[buildPlans.AureliusRound.widths.Normal]
+shape = 650
+menu  = 5
+css   = "normal"
 
+#- Weights ---------------------------------------------------------------------
 [buildPlans.AureliusRound.weights.Regular]
-shape = 400
-menu = 400
-css = 400
+shape = 350
+menu  = 400
+css   = 400
 
 [buildPlans.AureliusRound.weights.Bold]
 shape = 700
-menu = 700
-css = 700
-
-[buildPlans.AureliusRound.weights.ExtraBold]
-shape = 800
-menu = 800
-css = 800
-
-[buildPlans.AureliusRound.widths.Condensed]
-shape = 500
-menu = 3
-css = "condensed"
-
-[buildPlans.AureliusRound.widths.Normal]
-shape = 600
-menu = 5
-css = "normal"
-
-[buildPlans.AureliusRound.widths.SemiExtended]
-shape = 658
-menu = 6
-css = "semi-expanded"
-
-[buildPlans.AureliusRound.widths.Extended]
-shape = 720
-menu = 7
-css = "expanded"
+menu  = 700
+css   = 700
