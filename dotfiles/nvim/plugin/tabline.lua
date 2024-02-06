@@ -9,9 +9,9 @@ TODO:
 --]]
 
 for group, hl in pairs({
-   Tabline     = { fg = '#424242', bg = '#121212' },
+   Tabline     = { fg = '#404040', bg = '#121212' },
    TablineFill = { bg = '#121212'                 },
-   TablineSel  = { fg = '#c8ced5', bg = '#121212' },
+   TablineSel  = { fg = '#b0b0b0', bg = '#121212' },
 }) do
    vim.api.nvim_set_hl(0, group, hl)
 end
