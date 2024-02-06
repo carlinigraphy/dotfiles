@@ -1,5 +1,5 @@
 -- vim: tw=80
--- paynes_grayscale
+-- payne's gray(scale)
 --
 --[[
 
@@ -29,52 +29,6 @@ Refinement of my old colorscheme(s).
        highlight group. Is there a reason one would highlight floats differently
        from ints. Or bools differently from strings. Maybe. Depends on language
        and function.
-
-Yes emphasis
-- Strings (white for escape chars)
-- Types
-- User-defined methods
-- "Named values"
-   - nil/none/null
-   - true/false
-- Control flow
-   - if/else
-   - cond/case
-   - while/until
-
-No emph.
-- Statements
-- Built-ins
-- Operators
-
-Grayscale should be used to push "less important" bits to the background. Still
-visible, but less so. E.g., brackets. String start/end quotes.
-
-Unimportant
-- Brackets
-- String start/end tokens
-- Comments
-
-Colors:
- #161a1d    co.bg[0]
- #22262b    co.bg[1]
- #2d333a    co.bg[2]
- #5a6673    co.fg.dim
- #708090    co.fg.norm
-
-Monochrome:
-bg:
- #000000    mc.bg[-2]
- #0d0d0d    mc.bg[-1]
- #121212    mc.bg[ 0]
- #181818    mc.bg[ 1]
- #222222    mc.bg[ 2]
- #282828    mc.bg[ 3]
-fg:
- #404040    mc.fg.comment
- #707070    mc.fg.dim
- #b0b0b0    mc.fg.norm
- #f0f0f0    mc.fg.emph
 
 --]]
 
@@ -108,6 +62,7 @@ local red = {
    fg = '#A7485A',
 }
 
+--- Regular colors -------------------------------------------------------------
 local color = {
    bg = {
       [0] = '#161a1d',
@@ -159,23 +114,49 @@ local nvim_set_hl = vim.api.nvim_set_hl
 for name, highlight in pairs({
    Normal = { fg = fg },
 
+   --- Literals ----------------------------------------------------------------
+   Boolean    = { fg = mono.fg.emph     },
+   String     = { fg = color.fg.dim     },
+   Constant   = { link = 'Normal'       },
+   Float      = { link = 'Normal'       },
+   Number     = { link = 'Normal'       },
+   Character  = { link = 'String'       },
+   SpecialKey = { link = 'Special'      }, -- Lit. repr of ^V, ^C, etc.
+
+   --- Language features, built-ins, etc. --------------------------------------
+   Statement   = { link = 'Normal'      },
+   Keyword     = { link = 'Normal'      },
+   Special     = { link = 'Normal'      },
+   Macro       = { link = 'Normal'      },
+   Function    = { link = 'Normal'      },
+   Identifier  = { fg = mono.fg.emph    },
+   Conditional = { fg = mono.fg.emph    },
+   Repeat      = { fg = mono.fg.emph    },
+   Exception   = { fg = mono.fg.emph    },
+   PreProc     = { fg = mono.fg.dim     },
+   Define      = { fg = mono.fg.dim     },
+   Operator    = { fg = mono.fg.dim     },
+   Delimiter   = { fg = mono.fg.comment },
+   Type        = { fg = color.fg.norm   },
+   TypeDef     = { fg = color.fg.norm, bold = true },
+
    --- Text --------------------------------------------------------------------
    Comment    = { fg = mono.fg.comment },
-   NonText    = { link = 'Normal' },
-   Todo       = { fg = yellow },
-   DiffAdd    = { fg = fg, bg = green.bg },
-   DiffDelete = { fg = mono.bg[1], bg = bg },
-   DiffChange = { fg = fg, bg = blue.bg[0] },
-   DiffText   = { fg = mono.fg.emph, bg = blue.bg[1], bold = true },
-   SpellBad   = { fg = mono.fg.emph, bg = red.bg[0] },
-   SpellLocal = { fg = mono.fg.emph, bg = blue.bg[0] },
-   Conceal    = { link = 'Comment' },
+   Conceal    = { link = 'Comment'     },
+   NonText    = { link = 'Normal'      },
+   Todo       = { fg = yellow          },
+   DiffAdd    = { fg = fg           , bg = green.bg                },
+   DiffChange = { fg = fg           , bg = blue.bg[0]              },
+   DiffDelete = { fg = mono.bg[1]   , bg = bg                      },
+   DiffText   = { fg = mono.fg.emph , bg = blue.bg[1], bold = true },
+   SpellBad   = { fg = mono.fg.emph , bg = red.bg[0]               },
+   SpellLocal = { fg = mono.fg.emph , bg = blue.bg[0]              },
 
    --- User interface ----------------------------------------------------------
    -- The color blue I picked for diff changed is the same as visual selection.
    -- I'm consider changing the selection color, but for now just doing this...
    Visual       = vim.o.diff and { reverse = true }
-                  or { fg = mono.fg.emph, bg = blue.bg[0] },
+                              or { fg = mono.fg.emph, bg = blue.bg[0] },
 
    Pmenu        = { fg = mono.fg.comment, bg = mono.bg[-1] },
    PmenuSel     = { fg = fg, bg = mono.bg[-1]  },
@@ -214,32 +195,6 @@ for name, highlight in pairs({
       ModeArea
       MsgSeparator
    --]]
-
-   --- Literals ----------------------------------------------------------------
-   Boolean    = { fg = mono.fg.emph },
-   String     = { fg = color.fg.dim },
-   Constant   = { link = 'Normal'   },
-   Float      = { link = 'Normal'   },
-   Number     = { link = 'Normal'   },
-   Character  = { link = 'String'   },
-   SpecialKey = { link = 'Special'  }, -- Lit. repr of ^V, ^C, etc.
-
-   --- Language features, built-ins, etc. --------------------------------------
-   Statement   = { link = 'Normal' },
-   Keyword     = { link = 'Normal' },
-   Special     = { link = 'Normal' },
-   Macro       = { link = 'Normal' },
-   Function    = { link = 'Normal' },
-   Identifier  = { fg = mono.fg.emph    },
-   Conditional = { fg = mono.fg.emph    },
-   Repeat      = { fg = mono.fg.emph    },
-   Exception   = { fg = mono.fg.emph    },
-   PreProc     = { fg = mono.fg.dim     },
-   Define      = { fg = mono.fg.dim     },
-   Operator    = { fg = mono.fg.dim     },
-   Delimiter   = { fg = mono.fg.comment },
-   Type        = { fg = color.fg.norm   },
-   TypeDef     = { fg = color.fg.norm, bold = true },
 
    -- My statusline groups.
    Statusline_Filetype     = { fg = fg, bg = bg },
@@ -288,14 +243,14 @@ for name, highlight in pairs({
    TreesitterContext = { bg = mono.bg[1] },
 
    -- LSP nonsense
-   DiagnosticHint             = { link = 'Comment' },
-   DiagnosticInfo             = { link = 'Comment' },
-   DiagnosticWarn             = { fg = fg },
-   DiagnosticError            = { fg = mono.fg.dim },
-   DiagnosticVirtualTextHint  = { link = 'Comment' },
-   DiagnosticVirtualTextInfo  = { link = 'Comment' },
-   DiagnosticVirtualTextWarn  = { link = 'Comment' },
-   DiagnosticVirtualTextError = { fg = red.fg },
+   DiagnosticHint             = { link = 'Comment'  },
+   DiagnosticInfo             = { link = 'Comment'  },
+   DiagnosticWarn             = { fg = fg           },
+   DiagnosticError            = { fg = mono.fg.dim  },
+   DiagnosticVirtualTextHint  = { link = 'Comment'  },
+   DiagnosticVirtualTextInfo  = { link = 'Comment'  },
+   DiagnosticVirtualTextWarn  = { link = 'Comment'  },
+   DiagnosticVirtualTextError = { fg = red.fg       },
    DiagnosticFloatingHint     = { fg = mono.fg.emph },
    DiagnosticFloatingInfo     = { fg = mono.fg.emph },
    DiagnosticFloatingWarn     = { fg = mono.fg.emph },
@@ -306,67 +261,3 @@ for name, highlight in pairs({
 }) do
    nvim_set_hl(0, name, highlight)
 end
-
-
-
-
-
-
---[[ 2024-02-03, colors update
-
-After several months of use, several tweaks are necessary:
-
-   (1) Background colors were too far apart. Made for difficult popup windows.
-
-      "#000000"
-      "#090909"
-      "#0d0d0d"
-      "#121212"  #< bg[0]?
-      "#161616"
-      "#1b1b1b"
-
-      May want to shift the background color darker by 1, think it is more
-      useful to have colors above bg[0] RAERPB below it.
-      
-
-   (2) Foreground contrast needs to be greater for low-light
-
-      Re-thinking having +2 above-fg colors. Little difficult to see the
-      differentiation. May want to do a bit more with bold and italic. Both are
-      feeling underutilized.
-
-      Use for italics?
-         types
-
-      Use for bold?
-         constants
-         types
-         flow control
-
-      I think it's better to start by only touching the bg colors. Can use
-      emphasis in the form of bold/italic for fg. Revisit after.
-
---]]
---[[ 2024-02-04, more thinkies
-
-I believe I've come to the conclusion that there are too many foreground colors.
-There should be exactly 4 monochrome colors.
-   - COMMENT #404040
-   - dim     #707070
-   - normal  #b0b0b0
-   - bright  #f0f0f0
-
-Then perhaps only 1 or two colored monochrome colors:
-   - dim      #536878
-   - normal   #708090
-
-Bright w/ color is too similar to uncolored bright.
-
-TODO:    All `@' color groups need to link to their normal equivalent. E.g.,
-            @boolean -> Boolean
-            @field   -> Field
-         Ensures that when there's no treesitter, colors are still (mostly)
-         behaving as expected. Obviously can't use in the case where there is no
-         normal vim HL group.
-
---]]
