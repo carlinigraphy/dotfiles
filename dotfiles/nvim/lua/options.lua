@@ -1,7 +1,7 @@
 local opt = vim.opt
 local g   = vim.g
 
-vim.cmd.colorscheme('a')
+vim.cmd.colorscheme('paynes-grayscale')
 
 -- Wondering if these should be set in colorscheme?
 vim.cmd.set('t_Co=256')
