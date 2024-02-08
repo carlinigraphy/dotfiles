@@ -216,13 +216,20 @@ for name, highlight in pairs({
    ['@punctuation'] = { link = '@bracket'  },
    ['@constructor'] = { link = '@bracket'  },
 
+   ['@keyword.function']      = { link = 'Operator'   },
    --['@keyword.repeat']      = { link = 'Repeat'      },
    --['@keyword.conditional'] = { link = 'Conditional' },
 
    --- Language-specific  ------------------------------------------------------
+   -- bash.
    ['@variable.bash'] = { link = 'Identifier' },
    ['@constant.bash'] = { link = '@variable.bash' },
    ['@punctuation.special.bash'] = { link = '@variable.bash' },
+
+   -- elixir.
+   ['@module.elixir']    = { link = 'Type'       },
+   ['@keyword.elixir']   = { link = 'Operator'   },
+   ['@function.elixir']  = { link = 'Identifier' },
 
    --- Plugins -----------------------------------------------------------------
    --- lazy.nvim ---------------------------------------------------------------
