@@ -17,7 +17,7 @@ complete -cf sudo
 
 # Aesthetic nonsense:
 PS1='\[\e[34m\]\W\[\e[0m\] \$ '
-export LS_COLORS=':di=1;34:ex=1;37:ln=36'
+export LS_COLORS=':di=1;33:ex=1;37:ln=36'
 
 export PATH="${PATH0:-~/bin:~/.local/bin:$PATH}"
 export PATH0="$PATH"
@@ -91,6 +91,11 @@ alias f='fzf'
 alias hg='chg'
 alias scm='chez'
 alias sdb='chez --script --debug-on-exception'
+
+export MINIKUBE_IN_STYLE=false # fuck off with emojis in the terminal.
+alias mk='minikube'
+alias mkctl='minikube kubectl --'
+
 
 function steno {
    local dir today

@@ -9,7 +9,6 @@
   "nvim-treesitter": { "branch": "master", "commit": "504fe1043298c468f56a6ef6dc61f35b2d69495a" },
   "nvim-treesitter-context": { "branch": "master", "commit": "e75357fa49ddcdeaf9ba1e60f4582398fed3266b" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
-  "paredit": { "branch": "master", "commit": "3609c637d1be6bfea21dc4930f0901f2430d665b" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "slimv": { "branch": "master", "commit": "f4775f044cbb28ff4a444143cd2e6712b3694f21" },
   "toggleterm.nvim": { "branch": "main", "commit": "193786e0371e3286d3bc9aa0079da1cd41beaa62" },

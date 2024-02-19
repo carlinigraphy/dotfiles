@@ -1,6 +1,7 @@
 // vim: ft=asciidoc nowrap spell
 
 = dotfiles
+
 Better centralized dotfile management.
 
 
@@ -24,11 +25,3 @@ dotfiles/
       +-- arch.bashrc
       `-- macos.bashrc
 ----
-
-
-== TODO
-This approach still doesn't feel completely '`right`'.
-There's far more similarity between different versions of a _.bashrc_ or _i3/config_ than different.
-
-There is merit to the older version(s) of this project that assumed a *base* file of common elements, and *additions* files to account for differences.
-Worth revisiting at a later date.
