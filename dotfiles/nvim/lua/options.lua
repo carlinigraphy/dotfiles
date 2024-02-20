@@ -64,3 +64,12 @@ autocmd('CompleteDone', {
       vim.cmd.pclose()
    end,
 })
+
+-- No line numbers in terminal.
+autocmd('TermOpen', {
+   pattern = '*',
+   callback = function()
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+   end
+})
