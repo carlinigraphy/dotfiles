@@ -14,23 +14,34 @@
 #      the functionality to purely native bash. To that end, may want to swap
 #      out realpath. Go as native as possible.
 #
-#
 #      CURRENT CHANGES:
 #      - Database stored with slightly less human-readable output. Only single
 #        tab delineates the columns. Output can be pretty printed with `dot ls`.
 #
+#  [ ] deploying just straight up doesn't work, and/or it's annoying to use.
+#      difficult currently to clone my laptop's bashrc to my desktop, but also
+#      allow for a future difference in the config; need a `clone copy` option
+#
+#  [ ] don't love the directory structure I currently have, in which files are
+#      listed like `laptop.bashrc` and whatnot. Need to rethink.
+#
 #-------------------------------------------------------------------------------
 set -eo pipefail
+
+declare -g  THIS=$( realpath "${BASH_SOURCE[0]}" )
+declare -g  PROGDIR="${THIS%/*}"
+declare -g  DATABASE="${PROGDIR}/database"
+declare -gA DATA=()   # { source -> dest }
 
 if ! command -v realpath >/dev/null ; then
    printf 'requires [realpath].\n'
    exit 1
 fi
 
-declare -g  THIS=$( realpath "${BASH_SOURCE[0]}" )
-declare -g  PROGDIR="${THIS%/*}"
-declare -g  DATABASE="${PROGDIR}/database"
-declare -gA DATA=()   # { source -> dest }
+if [[ ! -d "${PROGDIR}/.hg" ]] ; then
+   printf 'must be an hg repo.\n'
+   exit 1
+fi
 
 touch "${DATABASE}" -a
 mkdir -p "${PROGDIR}/dotfiles"
