@@ -3,7 +3,29 @@
 # shellcheck disable=SC2155,SC2016,SC2295,SC2086
 #
 #-------------------------------------------------------------------------------
+# TODO:
+#  [ ] compat issues, not respecting BSD variants for
+#        - cp        (missing --backup)
+#        - mv        (missing --backup)
+#        - ln        (missing --backup)
+#        - column    (missing -o)
+#        - tree?
+#      can use bash-isms, as I'm always running bash. Need to rewrite some of
+#      the functionality to purely native bash. To that end, may want to swap
+#      out realpath. Go as native as possible.
+#
+#
+#      CURRENT CHANGES:
+#      - Database stored with slightly less human-readable output. Only single
+#        tab delineates the columns. Output can be pretty printed with `dot ls`.
+#
+#-------------------------------------------------------------------------------
 set -eo pipefail
+
+if ! command -v realpath >/dev/null ; then
+   printf 'requires [realpath].\n'
+   exit 1
+fi
 
 declare -g  THIS=$( realpath "${BASH_SOURCE[0]}" )
 declare -g  PROGDIR="${THIS%/*}"
@@ -31,6 +53,7 @@ commands:
    tree              \`tree dotfiles/\`
    validate          assert NAMEs in database exist
    hg ARGS           \`hg\` relative to this repo
+   cd                \`cd\` to this repo in subshell
 
 EOF
 exit "$status"
@@ -50,10 +73,7 @@ function store_data {
    for src in "${!DATA[@]}" ; do
       local dst="${DATA["$src"]}"
       printf '%s\t%s\n' "$src" "$dst"
-   done                        \
-   | sort -k2                  \
-   | column -t -s$'\t' -o$'\t' \
-   > "${DATABASE}"
+   done | sort -k2 > "${DATABASE}"
 }
 
 
@@ -265,26 +285,48 @@ case "$1" in
 
    # Regular commands.
    add) shift
-      cmd_add "$@" ;;
+      cmd_add "$@"
+      ;;
 
    deploy) shift
-      cmd_deploy "$@" ;;
+      cmd_deploy "$@"
+      ;;
 
    tree) shift
       cd "$PROGDIR"
-      tree --noreport --prune -a "$@" dotfiles ;;
+      tree --noreport --prune -a "$@" dotfiles
+      ;;
 
    ls | list)
-      sort -k2 "${DATABASE}" | column -t ;;
+      sort -k2 "${DATABASE}" | column -t
+      ;;
 
    validate)
-      validate_database ;;
+      validate_database
+      ;;
 
    diff)
-      cmd_diff "$2" ;;
+      cmd_diff "$2"
+      ;;
 
    hg)
-      chg --cwd "${PROGDIR}" "${@:2}" ;;
+      chg --cwd "${PROGDIR}" "${@:2}"
+      ;;
+
+   cd)
+      if ! cd "${dst}" 2>/dev/null; then
+         { printf "(Cannot \`cd' to\n"
+         printf "  '%s'\n"  "${dst}"
+         printf ')\n'
+         } >&2
+         exit 1
+      fi
+
+      printf '(in subshell, SHLVL is %d. <C-D> to exit.)\n'  "$(( SHLVL - 1))"
+      exec /bin/bash --rcfile <( printf '
+         . ~/.bashrc ; export PS1="[dot] ${PS1}"
+      ')
+      ;;
 
    *) usage 1 ;;
 esac
