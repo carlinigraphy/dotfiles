@@ -14,6 +14,22 @@ and always setting `noremap`. It is equivalent to:
 ref. https://neovim.io/news/2022/04
 ref. :h vim.keymap.set
 
+THINKIES: couple keys aren't used for very much, and are good candidates for
+buffer-local bindings.
+   _ :: equiv. to `^'
+   | :: equiv to `0'
+   \ :: noop
+   s :: equiv to cl
+   S :: equiv to CC, I never use this
+
+`s' is an interesting prefix. It's on the left side of the keyboard, on the
+home row. Makes it perfect to bind to keys that operate on hjkl motions. E.g.,
+sh, sj, sk, sl.
+
+`|' and `\' make more sense as infrequently pressed keys. Perhaps a toggle?
+Maybe can be for toggling a terminal.
+
+`_' also good candidate for a toggle-able something semi-frequent.
 --]]
 vim.g.mapleader = ' '
 
