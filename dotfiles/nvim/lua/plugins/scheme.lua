@@ -42,7 +42,7 @@ return {
       pin = true,
 
       dependencies = {
-         'windwp/nvim-autopairs',
+         { 'windwp/nvim-autopairs', opts={} }
       },
 
       config = function ()
