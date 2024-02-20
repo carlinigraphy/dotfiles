@@ -26,20 +26,27 @@ return {
       end,
    },
 
-   { 'kovisoft/slimv'   , ft = { 'lisp'   }},
-   --{ 'kovisoft/paredit' , ft = { 'scheme' }},
+   { 'ekaitz-zarraga/nvim-paredit-scheme',
+      ft = { 'scheme' },
+      pin = true,
+      dependencies = { 'julienvincent/nvim-paredit' },
+      config = function ()
+         local paredit = require('nvim-paredit')
+         local paredit_scheme = require('nvim-paredit-scheme')
+         paredit_scheme.setup(paredit)
+      end,
+   },
 
    { 'julienvincent/nvim-paredit',
       ft = { 'scheme' },
+      pin = true,
+
       dependencies = {
-         'ekaitz-zarraga/nvim-paredit-scheme',
          'windwp/nvim-autopairs',
       },
 
       config = function ()
          local paredit = require('nvim-paredit')
-         local paredit_scheme  = require "nvim-paredit-scheme"
-         paredit_scheme.setup(paredit)
 
          --- Don't know if I want to use localleader. Keeping here for a bit in
          --- case.
