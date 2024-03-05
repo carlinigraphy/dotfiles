@@ -20,10 +20,8 @@ function __dot {
 
    local -a cmds=(
       add
-      deploy
-      tree
+      from
       ls
-      validate
       diff
       hg
    )
