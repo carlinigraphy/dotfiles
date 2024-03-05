@@ -183,10 +183,11 @@ for name, highlight in pairs({
    QuickFixLine = { link = 'Visual' },
 
    NormalInactive = { bg = bg },
-   NormalFloat    = { bg = mono.bg[-1] },
-   FloatBorder    = { fg = color.fg.dim, bg = mono.bg[0] },
-   FloatShadow    = { bg = color.bg[0] },
-   FloatShadowThrough = { bg = bg },
+   NormalFloat    = { bg = mono.bg[0] },
+   FloatBorder    = { fg = color.bg[0], bg = mono.bg[0] },
+   FloatShadow    = { bg = mono.bg[1] },
+   FloatShadowThrough = { bg = bg, fg = fg },
+   --^ The square cutouts not covered by the float shadow.
 
    -- TODO: To add from `:h highlight-groups` docs:
    --[[
@@ -207,7 +208,7 @@ for name, highlight in pairs({
    -- Built-in statusline groups, but should probably go with the above.
    StatusLineNC = { fg = mono.fg.dim, bg = mono.bg[1] },
    StatusLine   = { fg = fg, bg = mono.bg[1] },
- 
+
    -- LSP groups.
    ['@field']       = { fg = fg },
    ['@variable']    = { fg = fg },
@@ -216,9 +217,12 @@ for name, highlight in pairs({
    ['@punctuation'] = { link = '@bracket'  },
    ['@constructor'] = { link = '@bracket'  },
 
-   ['@keyword.function']      = { link = 'Operator'   },
-   --['@keyword.repeat']      = { link = 'Repeat'      },
-   --['@keyword.conditional'] = { link = 'Conditional' },
+   -- For some reason more nodes are disappearing from regular @conditional, and
+   -- becomming @keyword.conditional. Iunno. Need to look more into this later.
+   ['@keyword.function']    = { link = 'Operator'    },
+   ['@keyword.operator']    = { link = 'Operator'    },
+   ['@keyword.repeat']      = { link = 'Repeat'      },
+   ['@keyword.conditional'] = { link = 'Conditional' },
 
    --- Language-specific  ------------------------------------------------------
    -- bash.
@@ -235,11 +239,12 @@ for name, highlight in pairs({
    --- lazy.nvim ---------------------------------------------------------------
    -- Just :Inspect the element in the :Lazy ui and change its highlight or
    -- whatever.
+   LazyNormal       = { bg = mono.bg[-1] },
    LazyH1           = { fg = mono.fg.emph },
    LazyReasonPlugin = { fg = fg },
    LazySpecial      = { fg = fg },
    LazyProp         = { fg = mono.fg.dim },
-   LazyButton       = { fg = mono.fg.dim, bg = bg },
+   LazyButton       = { fg = mono.fg.dim, bg = mono.bg[0] },
    LazyReasonStart  = { fg = color.fg.norm },
    LazyReasonCmd    = { link = 'Comment' },
    LazyReasonFt     = { link = 'Comment' },

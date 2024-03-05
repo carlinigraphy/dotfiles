@@ -12,3 +12,8 @@ dotfiles/fonts/Iosevka/
 dotfiles/nvim/colors/ref
 dotfiles/nvim/colors/old
 dotfiles/nvim/spell
+
+
+syntax: glob
+
+.luarc.json
