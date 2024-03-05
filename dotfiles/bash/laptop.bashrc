@@ -70,6 +70,7 @@ function po {
 #-------------------------------------------------------------------------------
 alias p='paru'
 alias sys='sudo -E systemctl'
+alias jou='sudo -E journalctl'
 alias remnt='sudo systemctl restart media-{share,backup}.mount'
 
 # apps, etc.
@@ -95,7 +96,6 @@ alias sdb='chez --script --debug-on-exception'
 export MINIKUBE_IN_STYLE=false # fuck off with emojis in the terminal.
 alias mk='minikube'
 alias mkctl='minikube kubectl --'
-
 
 function steno {
    local dir today
