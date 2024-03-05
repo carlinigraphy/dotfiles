@@ -4,47 +4,8 @@
 
 Better centralized dotfile management.
 
-
 == What is it?
 Both...
 
 . A growing collection of my dotfiles, as I find the time/will to import them, and
 . A shell script to help achieve the prior
-
-
-== How it work?
-Running `dot` moves a file/dir here, then symlinks it back.
-
-I got tired of trying to maintain a version of my _.bashrc_ for macOS, another for my Debian server, another for my Arch laptop...
-This makes it easier.
-
-.E.g.,
-----
-dotfiles/
- `-- bash
-      +-- arch.bashrc
-      `-- macos.bashrc
-----
-
-
-== THINKIES
-
-Global namespaces, not individual based on where it's from.
-
-.E.g.,
----
-dotfiles/
-   +-- work_laptop/
-   +-- laptop/
-   +-- server/
-   +-- desktop/
----
-
-Need to think about what I want the concept of my dotfile repo to be.
-Is it to be able to deploy easily to another machine?
-Is it so they stay up to date across laptop/desktop/etc. without active maintenance?
-
-I think having things kept distinct, like above, but with a `cp`, and `mv` option.
-. `cp` is for creating a *new* config based on an existing one
-.. will fail if the destination already exists
-. `mv` is for overwriting a config (after making a backup)
