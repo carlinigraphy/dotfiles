@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2207
 
-function __dot_deploy {
+function __dot_from {
    local base
    base=$(realpath "$(which dot)")
    local database="${base%/*}/database"
@@ -35,8 +35,8 @@ function __dot {
       add)
          compopt -o default ;;
 
-      deploy)
-         __dot_deploy ;;
+      from)
+         __dot_from ;;
    esac
 
 }
