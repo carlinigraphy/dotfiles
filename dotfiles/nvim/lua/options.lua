@@ -7,6 +7,9 @@ vim.cmd.colorscheme('paynes-grayscale')
 vim.cmd.set('t_Co=256')
 opt.termguicolors  = true
 
+-- Still playing around with this. It's not yet where I want it to be.
+--opt.formatoptions  = 'croqnj'
+
 opt.mouse          = nil
 opt.fillchars      = 'fold:─,vert:│,diff:╲'
 opt.backspace      = 'indent,eol,start'
