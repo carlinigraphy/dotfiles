@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 # vim: ft=bash tw=80
 # shellcheck disable=SC2155,SC2016,SC2295,SC2086
-#
-#-------------------------------------------------------------------------------
-# TODO
-#  [x] Update filesystem & database
-#
-#-------------------------------------------------------------------------------
+
 set -eo pipefail
 
 declare -g  THIS=$( realpath "${BASH_SOURCE[0]}" )
