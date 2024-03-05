@@ -1,19 +1,18 @@
-syntax: rootglob
+syntax: glob
+*.html
+*.luarc.json
 
-logs/*
-share/README.html
+syntax: regexp
 
-# Don't need their whole repo + node_modules. Oof.
-dotfiles/fonts/Iosevka/
+# `dot`s own logs.
+^logs/*
 
 # Some stuff here I'm not 100% on licensing or whatever. There's copy/pasted
 # bits of stuff I've cited in comments for references. The original sources are
 # a mix of BSD{2,3}, MIT, Unlicense, etc..
-dotfiles/nvim/colors/ref
-dotfiles/nvim/colors/old
-dotfiles/nvim/spell
+nvim/colors/ref
+nvim/colors/old
+nvim/spell
 
-
-syntax: glob
-
-.luarc.json
+# Don't need their whole repo + node_modules. Oof.
+Iosevka/

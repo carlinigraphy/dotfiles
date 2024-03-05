@@ -3,40 +3,8 @@
 # shellcheck disable=SC2155,SC2016,SC2295,SC2086
 #
 #-------------------------------------------------------------------------------
-# TODO:
-#  [x] compat issues, not respecting BSD variants for
-#        - cp        (missing --backup)
-#        - mv        (missing --backup)
-#        - ln        (missing --backup)
-#        - column    (missing -o)
-#        - stat      (missing --printf)
-#      can use bash-isms, as I'm always running bash. Need to rewrite some of
-#      the functionality to purely native bash. To that end, may want to swap
-#      out realpath. Go as native as possible.
-#
-#      CURRENT CHANGES:
-#      - Database stored with slightly less human-readable output. Only single
-#        tab delineates the columns. Output can be pretty printed with `dot ls`.
-#      - [X] column no longer using -o option
-#      - [x] cp
-#      - [x] mv
-#      - [x] ln
-#      - [x] tree
-#      - [x] stat
-#
-#  [x] deploying just straight up doesn't work, and/or it's annoying to use.
-#      difficult currently to clone my laptop's bashrc to my desktop, but also
-#      allow for a future difference in the config; need a `clone copy` option
-#
-#  [x] don't love the directory structure I currently have, in which files are
-#      listed like `laptop.bashrc` and whatnot. Need to rethink.
-#
-#      I think a directory for each machine, with a new command to copy an
-#      existing src under another environment. E.g.,
-#      $ dot from laptop/nvim
-#      $ dot add ~/.config/nvim desktop/nvim
-#
-#  [ ] Update database for new format above
+# TODO
+#  [x] Update filesystem & database
 #
 #-------------------------------------------------------------------------------
 set -eo pipefail
@@ -69,11 +37,9 @@ usage: ${THIS##*/} <command>
 
 commands:
    add PATH NAME     own \$PATH as relative \$NAME
-   deploy NAME       symlink owned \$NAME to host
+   from NAME         copy \$NAME to use locally
    ls                print owned files
    diff PATH         vimdiff's multiple NAMEs for \$PATH
-   tree              \`tree dotfiles/\`
-   validate          assert NAMEs in database exist
    hg ARGS           \`hg\` relative to this repo
    cd                \`cd\` to this repo in subshell
 
@@ -280,6 +246,7 @@ function cmd_from {
       [[ -f "$destination" ]]
    do :; done
 
+   mkdir -p "${destination%%/*}"
    cp -va "$abs_src" "$destination"
 }
 
