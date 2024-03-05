@@ -1,8 +1,8 @@
-bash/laptop.bashrc          	.bashrc
-alacritty	.config/alacritty
-display/dunst/laptop.dunstrc	.config/dunst/dunstrc
-fonts                       	.config/fonts
-display/i3/laptop.config    	.config/i3/config
-nvim                        	.config/nvim
-display/polybar.laptop      	.config/polybar
-bash/inputrc                	.inputrc
+bash/laptop.bashrc		.bashrc
+alacritty		.config/alacritty
+display/dunst/laptop.dunstrc		.config/dunst/dunstrc
+fonts		.config/fonts
+display/i3/laptop.config		.config/i3/config
+nvim		.config/nvim
+display/polybar.laptop		.config/polybar
+bash/inputrc		.inputrc

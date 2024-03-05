@@ -4,12 +4,12 @@
 #
 #-------------------------------------------------------------------------------
 # TODO:
-#  [ ] compat issues, not respecting BSD variants for
+#  [x] compat issues, not respecting BSD variants for
 #        - cp        (missing --backup)
 #        - mv        (missing --backup)
 #        - ln        (missing --backup)
 #        - column    (missing -o)
-#        - tree?
+#        - stat      (missing --printf)
 #      can use bash-isms, as I'm always running bash. Need to rewrite some of
 #      the functionality to purely native bash. To that end, may want to swap
 #      out realpath. Go as native as possible.
@@ -17,13 +17,26 @@
 #      CURRENT CHANGES:
 #      - Database stored with slightly less human-readable output. Only single
 #        tab delineates the columns. Output can be pretty printed with `dot ls`.
+#      - [X] column no longer using -o option
+#      - [x] cp
+#      - [x] mv
+#      - [x] ln
+#      - [x] tree
+#      - [x] stat
 #
-#  [ ] deploying just straight up doesn't work, and/or it's annoying to use.
+#  [x] deploying just straight up doesn't work, and/or it's annoying to use.
 #      difficult currently to clone my laptop's bashrc to my desktop, but also
 #      allow for a future difference in the config; need a `clone copy` option
 #
-#  [ ] don't love the directory structure I currently have, in which files are
+#  [x] don't love the directory structure I currently have, in which files are
 #      listed like `laptop.bashrc` and whatnot. Need to rethink.
+#
+#      I think a directory for each machine, with a new command to copy an
+#      existing src under another environment. E.g.,
+#      $ dot from laptop/nvim
+#      $ dot add ~/.config/nvim desktop/nvim
+#
+#  [ ] Update database for new format above
 #
 #-------------------------------------------------------------------------------
 set -eo pipefail
@@ -45,9 +58,7 @@ fi
 
 touch "${DATABASE}" -a
 mkdir -p "${PROGDIR}/dotfiles"
-
 mkdir -p "${PROGDIR}/logs"
-declare -g LOGFILE="${PROGDIR}/logs/log"
 
 
 function usage {
@@ -83,7 +94,7 @@ function store_data {
    local src dst
    for src in "${!DATA[@]}" ; do
       local dst="${DATA["$src"]}"
-      printf '%s\t%s\n' "$src" "$dst"
+      printf '%s\t\t%s\n' "$src" "$dst"
    done | sort -k2 > "${DATABASE}"
 }
 
@@ -126,30 +137,6 @@ function validate_add {
 }
 
 
-function validate_database {
-   local -a deleted=()
-
-   local _k
-   for _k in "${!DATA[@]}" ; do
-      local _v="${DATA["$_k"]}"
-      deleted["$_k"]="$_v"
-   done
-
-   local src
-   for src in "${!DATA[@]}" ; do
-      if [[ -e "${PROGDIR}/dotfiles/${src}" ]] ; then
-         unset 'deleted[$src]'
-      fi
-   done
-
-   if (( ${#deleted[@]} )) ; then
-      printf 'these are in the database, but not the filesystem\n'
-      printf ' %s\n'  "${deleted[@]}"
-      exit 1
-   fi
-}
-
-
 function cmd_add {
    local dst="$1"
    local src="$2"
@@ -175,49 +162,58 @@ function cmd_add {
    fi
 
    # Setup --------------------------------------------------------------------
-   printf '\033[37;1m%s\033[0m\n'  'creating logfile'
-   local tmpfile=$( mktemp --tmpdir="${PROGDIR}/logs" log.XXX )
-   mv -v --backup='numbered' "$tmpfile" "$LOGFILE"
+   printf '\e[37;1m%s\e[0m\n'  'creating logfile'
+
+   local logfile
+   local log_base="${PROGDIR}/logs/log"
+   local -i log_num=1
+
+   while
+      logfile="${log_base}_$(( log_num++ ))" &&
+      [[ -f "$logfile" ]]
+   do :; done
+
+   touch "$logfile"
 
    # Local backup -------------------------------------------------------------
-   printf '\n\033[37;1m%s\033[0m\n'  'make local backup...'
-   cp -vrT --backup='existing' "$abs_dst" "${abs_dst}.bak" \
-      2>&1 | tee -a "$LOGFILE"
+   printf '\n\e[37;1m%s\e[0m\n'  'make local backup...'
+   cp -van "$abs_dst" "${abs_dst}.bak" \
+      2>&1 | tee -a "$logfile"
 
    # Assume ownership ---------------------------------------------------------
-   printf '\n\033[37;1m%s\033[0m\n'  'assume ownership...'
-   mkdir -vp "${abs_src%/*}"     2>&1 | tee -a  "$LOGFILE"
-   mv -vn "$abs_dst" "$abs_src"  2>&1 | tee -a  "$LOGFILE"
+   printf '\n\e[37;1m%s\e[0m\n'  'assume ownership...'
+   mkdir -vp "${abs_src%/*}"     2>&1 | tee -a "$logfile"
+   mv -vn "$abs_dst" "$abs_src"  2>&1 | tee -a "$logfile"
 
    # Symlink back -------------------------------------------------------------
-   printf '\n\033[37;1m%s\033[0m\n'  'link back...'
-   ln -sv "$abs_src" "$abs_dst"  2>&1 | tee -a "$LOGFILE"
+   printf '\n\e[37;1m%s\e[0m\n'  'link back...'
+   ln -sv "$abs_src" "$abs_dst"  2>&1 | tee -a "$logfile"
 
    DATA["$src"]="$rel_dst"
    store_data
 
    # Sanity checks ------------------------------------------------------------
-   printf '\n\033[37;1m%s\033[0m\n'  'sanity checks...'
+   printf '\n\e[37;1m%s\e[0m\n'  'sanity checks...'
    local -i errors=0
 
    if [[ -L $abs_dst ]] ; then                      # (1) is a symlink
-      printf '\033[32;1m%s\033[0m'  '.'
+      printf '\e[32;1m%s\e[0m'  '.'
    else
-      printf '\033[31;1m%s\033[0m'  'X'
+      printf '\e[31;1m%s\e[0m'  'X'
       (( ++errors ))
    fi
 
    if diff "${abs_dst}"{,.bak} >/dev/null ; then    # (2) .bak matches
-      printf '\033[32;1m.\033[0m'
+      printf '\e[32;1m.\e[0m'
    else
-      printf '\033[31;1mX\033[0m'
+      printf '\e[31;1mX\e[0m'
       (( ++errors ))
    fi
 
    if diff "$abs_dst" "$abs_src" >/dev/null ; then  # (3) dst/src match
-      printf '\033[32;1m.\033[0m'
+      printf '\e[32;1m.\e[0m'
    else
-      printf '\033[31;1mX\033[0m'
+      printf '\e[31;1mX\e[0m'
       (( ++errors ))
    fi
 
@@ -225,20 +221,26 @@ function cmd_add {
    (( ! errors ))
 
    # Commit result ------------------------------------------------------------
-   printf '\n\033[37;1madd & commit...\033[0m\n'
+   #
+   # TODO: add `--commit` flag for something that doesn't potentially require
+   # adding to the .hgignore. If ommitted, should 
+   #
+   printf '\n\e[37;1madd & commit...\e[0m\n'
+
    set -x
    hg --cwd ${PROGDIR} add "$abs_src"
-   hg --cwd ${PROGDIR} commit "$abs_src" "$DATABASE" -m "Add ${rel_dst} as ${src}"
+   hg --cwd ${PROGDIR} commit "$abs_src" "$DATABASE" \
+      -m "add: ${rel_dst} as ${src}"
    set +x
 
-   printf '\n\033[37;1m%s\033[0m\n'  'safe to remove'
-   printf '\033[37m%s\033[0m\n'      "${abs_src}.bak"
+   printf '\n\e[37;1m%s\e[0m\n'  'safe to remove'
+   printf '\e[37m%s\e[0m\n'      "${abs_src}.bak"
 
-   printf '\n\033[32;1m%s\033[0m\n'  'done.'
+   printf '\n\e[32;1m%s\e[0m\n'  'done.'
 }
 
 
-function cmd_deploy {
+function cmd_from {
    local src="$1"
 
    if [[ ! $src ]] ; then
@@ -263,13 +265,22 @@ function cmd_deploy {
       exit 1
    fi
 
-   if [[ -L $abs_src ]] ; then
+   if [[ -L $abs_dst ]] ; then
       printf 'dst already a symlink:\n'
-      stat --printf '%N\n'  "$dst"
+      ls -l "$abs_dst"
       exit 1
    fi
 
-   ln -sv --backup='numbered' "$abs_src" "$abs_dst"
+   local -i dst_num=1
+   local dst_base="${abs_dst}"
+   local destination
+
+   while
+      destination="${dst_base}.bak$(( dst_num++ ))" &&
+      [[ -f "$destination" ]]
+   do :; done
+
+   cp -va "$abs_src" "$destination"
 }
 
 
@@ -294,26 +305,17 @@ case "$1" in
    '' | -h | --help)
       usage 0 ;;
 
-   # Regular commands.
    add) shift
       cmd_add "$@"
       ;;
 
-   deploy) shift
-      cmd_deploy "$@"
-      ;;
-
-   tree) shift
-      cd "$PROGDIR"
-      tree --noreport --prune -a "$@" dotfiles
+   from)
+      shift
+      cmd_from "$@"
       ;;
 
    ls | list)
-      sort -k2 "${DATABASE}" | column -t
-      ;;
-
-   validate)
-      validate_database
+      sort -k2 "${DATABASE}" | column -t -s $'\t'
       ;;
 
    diff)
@@ -326,10 +328,7 @@ case "$1" in
 
    cd)
       if ! cd "${PROGDIR}" 2>/dev/null; then
-         { printf "(Cannot \`cd' to\n"
-           printf "  '%s'\n"  "${PROGDIR}"
-           printf ')\n'
-         } >&2
+         printf "cannot \`cd\`\n" >&2
          exit 1
       fi
 
