@@ -26,6 +26,8 @@ export ELIXIR_EDITOR="alacritty \
    --config-file ${HOME}/.config/alacritty/alacritty.toml \
    --command nvim -R +__LINE__ __FILE__"
 
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}"/ssh-agent.socket
+
 # usability, builtins, etc.
 #-------------------------------------------------------------------------------
 alias ..='cd ..'

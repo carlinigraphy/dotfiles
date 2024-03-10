@@ -1,5 +1,6 @@
 return {
-   {  'ThenWhenceComethEvil/scm-edit.nvim',
+   {  --'carlinigraphy/scm-edit.nvim',
+      dir = '/home/aurelius/hg/nvim_plugins/scm-edit.nvim/',
       ft = 'scheme',
       config = true,
    },
