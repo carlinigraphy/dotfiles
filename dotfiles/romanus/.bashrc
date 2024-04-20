@@ -31,7 +31,6 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}"/ssh-agent.socket
 # usability, builtins, etc.
 #-------------------------------------------------------------------------------
 alias ..='cd ..'
-alias ...='cd ../../'
 alias c='clear'
 alias l=' \ls      --color=auto --file-type'
 alias ls='\ls      --color=auto --group-directories-first'

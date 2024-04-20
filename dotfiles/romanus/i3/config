@@ -87,7 +87,7 @@ mode "resize" {
 
 #--- gaps ----------------------------------------------------------------------
 default_border pixel
-gaps inner     20
+gaps inner     12
 gaps outer     0
 smart_borders  on
 
@@ -110,6 +110,7 @@ exec i3-msg "workspace $ws9; exec /usr/bin/firefox-developer-edition"
 # i3.
 bindsym Mod1+Shift+c  reload
 bindsym Mod1+Shift+r  restart
+bindsym Mod1+y        exec ~/bin/rofi_i3_layout.sh
 
 # applications.
 bindsym Mod1+Return   exec /usr/bin/alacritty
@@ -130,21 +131,24 @@ bindsym Mod1+F12      exec ~/bin/br_step "10"
 bindsym Mod1+s        exec ~/bin/screenshot
 bindsym Mod1+less     exec ~/bin/fmt-reply
 bindsym Mod1+greater  exec ~/bin/fmt-reply --prefix='>'
-bindsym Mod1+b        exec ~/bin/bt_rofi                                    #}}}
+bindsym Mod1+b        exec ~/bin/bt_rofi
+#}}}
 #--- for_window -------------------------------------------------------------{{{
 # `alacritty --class float`
 for_window [ class="float" ] floating enable
 
-for_window [ instance="df"              ] resize set 3000 1600, move position center
+for_window [ instance="df"              ] floating enable, resize set 3000 1600, move position center
 for_window [ instance="pinentry-gtk-2"  ] floating enable, border pixel 1
 for_window [ instance="Msgcompose"      ] floating enable
 for_window [ instance="pavucontrol"     ] floating enable
 for_window [ instance="syncthingtray"   ] floating enable
 for_window [ instance="blueman-manager" ] floating enable
+for_window [ instance="ssh-askpass"     ] border pixel 1
 
 # Forces `picture-in-picture` windows to not have title bars
 for_window [ class="firefoxdeveloperedition"                   ] border pixel 1
 for_window [ class="firefoxdeveloperedition" instance="Places" ] floating enable
+for_window [ class="firefoxdeveloperedition" instance="Alert"  ] floating enable
 
 for_window [ class="Alacritty"      ] border pixel 1
 for_window [ class="qutebrowser"    ] border pixel 1
@@ -153,18 +157,16 @@ for_window [ class="brogue"         ] floating enable, border pixel 1
 for_window [ class="Dwarf_Fortress" ] floating enable, border pixel 1
 for_window [ class="Anki"           ] floating enable, border pixel 1
 for_window [ class="calibre"        ] floating enable, border pixel 1
-for_window [ class="mpv"            ] floating enable
 for_window [ class="feh"            ] floating enable
 for_window [ class="Bitwarden"      ] floating enable
 for_window [ class="Thunar"         ] floating enable
 for_window [ class="fontforge"      ] floating enable
 
+for_window [ title="Blanket"               ] floating enable
 for_window [ title="Wireshark · .*"        ] floating enable, border pixel 1, move position center
+for_window [ title="Plover.*"              ] floating enable, border pixel 1
 for_window [ title="^neomutt$"             ] resize set 1800 1600, move position center
 for_window [ title="^pulsemixer$"          ] resize set 1200 500
-for_window [ title="^Plover$"              ] floating enable
-for_window [ title="Plover: Paper Tape"    ] floating enable
-for_window [ title="Plover: Suggestions"   ] floating enable
 for_window [ title="calibre - Preferences" ] border pixel 1
 #}}}
 #}}}

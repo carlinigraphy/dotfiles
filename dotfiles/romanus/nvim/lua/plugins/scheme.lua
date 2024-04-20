@@ -1,12 +1,12 @@
 return {
-   {  --'carlinigraphy/scm-edit.nvim',
-      dir = '/home/aurelius/hg/nvim_plugins/scm-edit.nvim/',
+   {  'carlinigraphy/scm-edit.nvim',
+      --dir = '/home/aurelius/hg/nvim_plugins/scm-edit.nvim/',
       ft = 'scheme',
       config = true,
    },
 
    { 'Olical/conjure',
-      ft = { 'scheme' },
+      ft = { 'scheme', 'racket' },
       config = function ()
          vim.g['conjure#log#hud#enabled'] = false
 
@@ -32,6 +32,28 @@ return {
       end,
    },
 
+   --[[ 2024-03-27
+   Very good plugin, but kinda annoying needing to re-build w/ cargo on
+   updates and whatnot.
+   --]]
+   { 'eraserhd/parinfer-rust',
+      enabled = false,
+      ft = { 'scheme' },
+      build = {
+         'cargo build --release',
+      },
+   },
+
+   --[[ 2024-03-27
+   Has a touch of stuttering in some situations. E.g., adding an invalid closing
+   paren. Seems to insert it, then delete it. Causes a flicker. Not that big of
+   a deal. Does set `SpellBad` if there's an unclosed quote, rather than
+   silently failing like parinfer-rust does. Also, no exeternal depdencies.
+   --]]
+   { 'gpanders/nvim-parinfer',
+      ft = { 'scheme' },
+   },
+
    { 'ekaitz-zarraga/nvim-paredit-scheme',
       ft = { 'scheme' },
       pin = true,
@@ -48,8 +70,6 @@ return {
       ft  = { 'scheme' },
       pin = true,
 
-      -- 2024-03-02; Just testing this out.
-      indent_enabled = true,
       config = function ()
          local paredit = require('nvim-paredit')
 
@@ -84,11 +104,10 @@ return {
             keys = {
                ['su'] = { paredit.unwrap.unwrap_form_under_cursor, 'Splice sexp' },
 
-               ['))'] = { paredit.api.slurp_forwards , 'Slurp forwards' },
-               ['()'] = { paredit.api.barf_backwards , 'Barf backwards' },
-
-               ['(('] = { paredit.api.slurp_backwards , 'Slurp backwards' },
-               [')('] = { paredit.api.barf_forwards   , 'Barf forwards'   },
+               ['))'] = { paredit.api.slurp_forwards  , 'Slurp forwards'  , mode = {'n'} },
+               ['()'] = { paredit.api.barf_backwards  , 'Barf backwards'  , mode = {'n'} },
+               ['(('] = { paredit.api.slurp_backwards , 'Slurp backwards' , mode = {'n'} },
+               [')('] = { paredit.api.barf_forwards   , 'Barf forwards'   , mode = {'n'} },
 
                ['sh']  = { paredit.api.drag_element_backwards , 'Drag element left'  },
                ['sfh'] = { paredit.api.drag_form_backwards    , 'Drag form left'     },
@@ -98,6 +117,11 @@ return {
                ['sr']  = { paredit.api.raise_element , 'Raise element' },
                ['sfr'] = { paredit.api.raise_form    , 'Raise form'    },
 
+               --[[ TODO;
+               maybe `s(` wrap and insert head, `s)` insert tail.
+               but probably use 9 instead of (, and 0 instead of ),
+               just to save the extra <shift>.
+               --]]
                ['s(']  = { wrap_element('(', ')') , 'Wrap element insert tail' },
                ['sf('] = { wrap_form('(', ')')    , 'Wrap form insert tail'    },
 
