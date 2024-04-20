@@ -38,7 +38,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-      vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+      --vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+      --^ This conflicts with tab movement.
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
@@ -49,13 +50,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- https://codepoints.net/block_elements
 local border = {
       {"▛", "FloatBorder"},      -- top left
-      {"▔", "FloatBorder"},      -- top
+      {"▀", "FloatBorder"},      -- top
       {"▜", "FloatBorder"},      -- top right
-      {"▕", "FloatBorder"},      -- right
+      {"▐", "FloatBorder"},      -- right
       {"▟", "FloatBorder"},      -- bottom right
-      {"▁", "FloatBorder"},      -- bottom
+      {"▄", "FloatBorder"},      -- bottom
       {"▙", "FloatBorder"},      -- bottom left
-      {"▏", "FloatBorder"},      -- left
+      {"▌", "FloatBorder"},      -- left
 }
 
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
@@ -79,13 +80,21 @@ vim.diagnostic.config({
    },
 })
 
+
 for server, opts in pairs({
    lua_ls = {},
    bashls = {},
    elixirls = {
       cmd = { '/home/aurelius/.local/share/nvim/mason/bin/elixir-ls' }
-   }
+   },
+   racket_langserver = {
+      filetypes = { "racket" },
+      root_dir = lspconfig.util.find_mercurial_ancestor
+   },
+   --erlangls = {},
 }) do
-   --lspconfig[server].setup(vim.tbl_deep_extend("keep", opts, { }))
+   --lspconfig[server].setup(vim.tbl_deep_extend("keep", opts, {
+   --   capabilities = capabilities
+   --}))
    lspconfig[server].setup(opts)
 end

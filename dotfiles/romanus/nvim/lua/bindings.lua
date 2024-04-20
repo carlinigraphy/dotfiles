@@ -64,3 +64,13 @@ set('n', '<leader>n', ':bnext<CR>')
 
 set('n', '[d', vim.diagnostic.goto_prev)
 set('n', ']d', vim.diagnostic.goto_next)
+
+
+--[[ NOT YET SUPPORTED.
+-- Supposedly this was merged into nvim:master, but apparently hasn't hit arch
+-- repos yet. Will allow for setting command/insert abbreviations w/ `ca' and
+-- `ci', and have a rhs function. Drastically better than vimscript, which I do
+-- not believe supports functions in abbreviations.
+--
+set('ca', 'vres', 'vert res')
+--]]

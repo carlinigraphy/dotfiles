@@ -1,6 +1,24 @@
 -- vim: tw=80
 -- payne's gray(scale)
---
+
+--[[ TODO;
+
+Still not 100% on background grayscale shades. Too much difference between them
+for large UI windows, popups, etc.. It's necessary when trying to differentiate
+two small boxes next to each other--but I don't know if I've run into that
+situation.
+
+Most common use cases have been
+   - Mason, Lazy, etc., large UI windows,
+   - documentation popups, and
+   - the complete menu.
+
+All of which are minimum 2x15. Should use that as a more accurate baseline for
+future visibility tests.
+
+--]]
+
+
 --[[
 
 Refinement of my old colorscheme(s).
@@ -96,7 +114,7 @@ for _, tbl in ipairs({
    mono.fg, color.fg,
 }) do
    setmetatable(tbl, {
-      __index = function (tbl, key)
+      __index = function (_, key)
          -- Second parameter is the hierarchy. `2' means one level up from this
          -- function. ref. https://www.lua.org/pil/8.5.html
          error("Invalid index: " .. key, 2)
@@ -109,19 +127,19 @@ local fg = mono.fg.norm
 local bg = mono.bg[0]
 
 --------------------------------------------------------------------------------
-local nvim_set_hl = vim.api.nvim_set_hl 
+local nvim_set_hl = vim.api.nvim_set_hl
 
 for name, highlight in pairs({
    Normal = { fg = fg },
 
    --- Literals ----------------------------------------------------------------
-   Boolean    = { fg = mono.fg.emph     },
-   String     = { fg = color.fg.dim     },
-   Constant   = { link = 'Normal'       },
-   Float      = { link = 'Normal'       },
-   Number     = { link = 'Normal'       },
-   Character  = { link = 'String'       },
-   SpecialKey = { link = 'Special'      }, -- Lit. repr of ^V, ^C, etc.
+   Boolean    = { fg = color.fg.norm, bold = true },
+   String     = { fg = color.fg.dim   },
+   Constant   = { link = 'Normal'     },
+   Float      = { link = 'Normal'     },
+   Number     = { link = 'Normal'     },
+   Character  = { link = 'String'     },
+   SpecialKey = { link = 'Special'    }, -- Lit. repr of ^V, ^C, etc.
 
    --- Language features, built-ins, etc. --------------------------------------
    Statement   = { link = 'Normal'      },
@@ -164,8 +182,8 @@ for name, highlight in pairs({
    PmenuSbar    = { bg = mono.bg[1] },
    Folded       = { fg = mono.fg.comment, bg = mono.bg[1] },
    FoldColumn   = { fg = color.bg[2], bg = bg },
-   Directory    = { fg = blue.bg[1] },
-   Title        = { fg = blue.bg[1] },
+   Directory    = { fg = color.fg.norm, bold = true },
+   Title        = { fg = mono.fg.emph, bold = true, underline = true },
    Question     = { link = 'Normal' },
    MoreMsg      = { link = 'Normal' },
    Error        = { link = 'SpellBad' },
@@ -223,6 +241,7 @@ for name, highlight in pairs({
    ['@keyword.operator']    = { link = 'Operator'    },
    ['@keyword.repeat']      = { link = 'Repeat'      },
    ['@keyword.conditional'] = { link = 'Conditional' },
+   ['@keyword.return']      = { fg = mono.fg.emph, italic = true },
 
    --- Language-specific  ------------------------------------------------------
    -- bash.
@@ -234,6 +253,20 @@ for name, highlight in pairs({
    ['@module.elixir']    = { link = 'Type'       },
    ['@keyword.elixir']   = { link = 'Operator'   },
    ['@function.elixir']  = { link = 'Identifier' },
+
+   -- scheme.
+   ['@variable.scheme']  = { link = 'Identifier' },
+   ['@keyword.scheme']   = { italic = true },
+   ['@function.builtin.scheme'] = { italic = true },
+
+   -- Asciidoc
+   ['asciidocURL']            = { link = '@text.uri' },
+   ['asciidocLineBreak']      = { fg = color.fg.norm },
+   ['asciidocAttributeEntry'] = { fg = color.fg.norm },
+   ['asciidocAttributeList']  = { fg = mono.fg.dim   },
+   ['asciidocMacro']          = { fg = color.fg.dim  },
+   ['asciidocListingBlock']   = { fg = mono.fg.dim   },
+   ['asciidocBlockTitle']     = { fg = mono.fg.emph, italic = true },
 
    --- Plugins -----------------------------------------------------------------
    --- lazy.nvim ---------------------------------------------------------------
