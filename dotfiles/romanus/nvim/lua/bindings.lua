@@ -52,9 +52,17 @@ set('n', '<leader>z', '1z=')
 
 set('v', '<leader>col', '! column -L -t -s= -o=<CR>')
 
-set('n', '-', '5<C-w><')
-set('n', '+', '5<C-w>>')
-set('n', '=', '<C-w>=')
+set('n', '=',       '<C-w>=')
+set('n', '<C-S-h>', '<C-w>5<')
+set('n', '<C-S-l>', '<C-w>5>')
+--set('n', '<C-S-j>', '<C-w>5-')
+--set('n', '<C-S-k>', '<C-w>5+')
+--- These two mappings aren't working. The horizontal ones do. Huh.
+
+-- Wanted to move the above keymaps out of the way (previously `-', `+'), to
+-- make room for `-' to open Oil (or if I decide not to use it, Vinegar's keymap
+-- for netrw.
+set("n", "-", "<CMD>Oil<CR>")
 
 set('n', '<C-e>', '3<C-e>')
 set('n', '<C-y>', '3<C-y>')

@@ -24,9 +24,13 @@ return {
          mode                = 'topline',  -- Line used to calculate context. Choices: 'cursor', 'topline'
       }
    },
-   { 'nvim-treesitter/nvim-treesitter-refactor' },
    { 'nvim-treesitter/nvim-treesitter',
       build  = ':TSUpdate',
+      dependencies = {
+         { 'nvim-treesitter/nvim-treesitter-refactor',
+            keys = { 'gnd', 'gO' } ,
+         },
+      },
       config = function(_, opts)
          require('nvim-treesitter.configs').setup(opts)
       end,
