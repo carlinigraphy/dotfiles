@@ -1,5 +1,6 @@
 return {
    {  "carlinigraphy/elixir-repl.nvim",
+      enabled = true,
       ft = "elixir",
       config = function()
          require("elixir-repl").setup()
@@ -7,6 +8,7 @@ return {
    },
 
    {  "sindrets/diffview.nvim",
+      enabled = false,
       opts = {
          hg_cmd = { "chg" },
          use_icons = false,
@@ -18,7 +20,9 @@ return {
    },
 
    {  "stevearc/oil.nvim",
+      enabled = true,
       opts = {
+         silence_scp_warning = true,
          keymaps = {
             -- It may actually be useful to maintain default `q', especially to
             -- bulk rename files/dirs.
@@ -39,5 +43,8 @@ return {
             max_height = 20,
          },
       },
+      config = function(_, opts)
+         require("oil").setup(opts)
+      end
    },
 }

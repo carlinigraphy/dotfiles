@@ -122,8 +122,8 @@ return {
                but probably use 9 instead of (, and 0 instead of ),
                just to save the extra <shift>.
                --]]
-               ['s(']  = { wrap_element('(', ')') , 'Wrap element insert tail' },
-               ['sf('] = { wrap_form('(', ')')    , 'Wrap form insert tail'    },
+               ['s9']  = { wrap_element('(', ')') , 'Wrap element insert tail' },
+               ['sf9'] = { wrap_form('(', ')')    , 'Wrap form insert tail'    },
 
                ['s[']  = { wrap_element('[', ']') , 'Wrap element insert tail' },
                ['sf['] = { wrap_form('[', ']')    , 'Wrap form insert tail'    },

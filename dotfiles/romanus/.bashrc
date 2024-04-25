@@ -28,6 +28,10 @@ export ELIXIR_EDITOR="alacritty \
 
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}"/ssh-agent.socket
 
+# Putting a directory at the top level in a user's home dir is genuinely the
+# worst. Who thought this was a good idea.
+export GOPATH=~/.local/share/go
+
 # usability, builtins, etc.
 #-------------------------------------------------------------------------------
 alias ..='cd ..'
@@ -42,12 +46,7 @@ alias mv='mv -vi'
 alias mkdir='mkdir -pv'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-
-function kb {
-   setxkbmap -option caps:escape
-   xinput set-prop "DLL082A:01 06CB:76AF Touchpad" "libinput Tapping Enabled" 1
-   xset r rate 200 40
-}
+alias ping1='ping -c1 -W1 1.1.1.1 && echo OK'
 
 alias di='dirs -v'
 function pu {
@@ -65,6 +64,39 @@ function po {
       popd         >/dev/null || return
    fi
    dirs -v
+}
+
+function kb {
+   setxkbmap -option caps:escape
+   xinput set-prop "DLL082A:01 06CB:76AF Touchpad" "libinput Tapping Enabled" 1
+   xset r rate 200 40
+}
+
+complete -W 'laptop desktop' mon
+function mon {
+   # TODO;
+   # May want to just do this with udev rules. I'll never be connecting to
+   # external monitors aside from the ones at my own desk. Fairly consistent
+   # setup.
+
+   case "$1" in
+      laptop)
+         xrandr \
+            --output e-DP1 --off \
+            --output DP1 --auto --primary \
+            --output DP2 --auto --right-of DP1
+         ;;
+
+      desktop)
+         xrandr \
+            --output e-DP1 --auto \
+            --output DP1 --off    \
+            --output DP2 --off
+         ;;
+
+      *) printf 'Expecting: ["laptop", "desktop"].\n'
+         return 1
+   esac
 }
 
 # administration.
@@ -92,7 +124,7 @@ alias sc='sc-im'
 alias f='fzf'
 alias hg='chg'
 alias scm='chez'
-alias sdb='chez --script --debug-on-exception'
+alias sdb='chez --debug-on-exception --script'
 
 export MINIKUBE_IN_STYLE=false # fuck off with emojis in the terminal.
 alias mk='minikube'
