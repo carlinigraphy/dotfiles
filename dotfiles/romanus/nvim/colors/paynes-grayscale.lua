@@ -259,7 +259,7 @@ for name, highlight in pairs({
    ['@keyword.scheme']   = { italic = true },
    ['@function.builtin.scheme'] = { italic = true },
 
-   -- Asciidoc
+   -- Asciidoc.
    ['asciidocURL']            = { link = '@text.uri' },
    ['asciidocLineBreak']      = { fg = color.fg.norm },
    ['asciidocAttributeEntry'] = { fg = color.fg.norm },
@@ -267,6 +267,17 @@ for name, highlight in pairs({
    ['asciidocMacro']          = { fg = color.fg.dim  },
    ['asciidocListingBlock']   = { fg = mono.fg.dim   },
    ['asciidocBlockTitle']     = { fg = mono.fg.emph, italic = true },
+
+   -- markdown.
+   ['@markup.heading']      = { fg = mono.fg.emph, bold = true },
+   ['@markup.heading.1']    = { fg = mono.fg.emph, bold = true, underline = true },
+   ['@markup.heading.2']    = { link = '@markup.heading.1' },
+   ['@markup.strong']       = { bold = true        },
+   ['@markup.italic']       = { italic = true      },
+   ['@label.markdown']      = { link = 'Type'      },
+   ['@markup.raw']          = { link = 'Type'      },
+   ['@markup.link.label']   = { link = '@text.uri' },
+   ['@markup.link.url']     = { link = 'Comment'   },
 
    --- Plugins -----------------------------------------------------------------
    --- lazy.nvim ---------------------------------------------------------------
