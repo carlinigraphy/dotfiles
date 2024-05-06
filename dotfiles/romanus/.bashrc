@@ -46,7 +46,6 @@ alias mv='mv -vi'
 alias mkdir='mkdir -pv'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias ping1='ping -c1 -W1 1.1.1.1 && echo OK'
 
 alias di='dirs -v'
 function pu {
