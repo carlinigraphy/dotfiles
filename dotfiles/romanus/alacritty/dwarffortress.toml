@@ -2,24 +2,24 @@
 draw_bold_text_with_bright_colors = true
 
 [colors.bright]
-black = "#323232"
-blue = "#3c5c7c"
-cyan = "#578a95"
-green = "#5f877b"
+black   = "#323232"
+blue    = "#3c5c7c"
+cyan    = "#578a95"
+green   = "#5f877b"
 magenta = "#d086aa"
-red = "#a7485a"
-white = "#c5c5c8"
-yellow = "#eb9753"
+red     = "#a7485a"
+white   = "#c5c5c8"
+yellow  = "#eb9753"
 
 [colors.normal]
-black = "#121212"
-blue = "#2d4157"
-cyan = "#3d737f"
-green = "#284c44"
+black   = "#121212"
+blue    = "#2d4157"
+cyan    = "#3d737f"
+green   = "#284c44"
 magenta = "#a2577b"
-red = "#572d41"
-white = "#505050"
-yellow = "#5C4033"
+red     = "#572d41"
+white   = "#505050"
+yellow  = "#5C4033"
 
 [colors.primary]
 background = "#121212"
@@ -36,6 +36,7 @@ x = 0
 y = 0
 
 [font.normal]
+#family = "Aurelius Round"
 family = "DF Bisasam 16x16"
 style = "Regular"
 

@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 
+declare -i timeout
+declare -x HWMON_PATH
+
 killall -q polybar
-while pgrep --euid $UID --exact polybar >/dev/null ; do
-   sleep 0.25
+
+while
+   (( --timeout > 0 )) &&
+   pgrep --euid $UID --exact polybar >/dev/null
+do
+   sleep 1
 done
 
-polybar main &
-disown
+declare -a inputs=(
+   /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input
+)
+
+HWMON_PATH="${inputs[0]}" polybar main & disown

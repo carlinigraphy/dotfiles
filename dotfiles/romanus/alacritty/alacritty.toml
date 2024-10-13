@@ -2,32 +2,32 @@
 # False is the default, this is mostly for documentation purposes.
 draw_bold_text_with_bright_colors = false
 
+[colors.primary]
+background = "#121212"
+foreground = "#cfcfcf"
+
 [colors.cursor]
 cursor = "#c8ced5"
 
 [colors.normal]
-black   = "#0d0d0d"
+black   = "#282828"
 red     = "#783953"
 green   = "#5f8787"
-yellow  = "#536878"  # Payne's gray
-blue    = "#708090"  # Slate gray
-magenta = "#707070"
-cyan    = "#b0b0b0"
-white   = "#f0f0f0"
+yellow  = "#536878"  # Payne's gray  
+blue    = "#708090"  # Slate gray    
+magenta = "#404040"
+cyan    = "#707070"
+white   = "#cfcfcf"
 
 [colors.bright]
-black   = "#1b1b1b"
-red     = "#9b4a6b"
-green   = "#4d9981"
+black   = "#282828"
+red     = "#783953"
+green   = "#5f8787"
 yellow  = "#536878"
 blue    = "#708090"
-magenta = "#707070"
-cyan    = "#b0b0b0"
-white   = "#f0f0f0"
-
-[colors.primary]
-background = "#121212"
-foreground = "#cfcfcf"
+magenta = "#404040"
+cyan    = "#707070"
+white   = "#ffffff"
 
 
 [font]

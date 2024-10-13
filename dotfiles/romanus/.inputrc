@@ -1,18 +1,54 @@
 # ref.
 # https://man.archlinux.org/man/readline.3
 
-## Would like to have this enabled, but it's blocking. Can't do anything else
-## until the animation finishes.
-#set blink-matching-paren on
+## IDDQD
+set editing-mode vi
+set show-mode-in-prompt on
 
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+## I want to like changing the cursor itself, but it just causes too many
+## problems. Carry-through into unrelated processes, failing to change to/from
+## the correct cursor. More trouble than it's worth.
+set vi-ins-mode-string "\1\e[30m\2--- \1\e[0m\2"
+set vi-cmd-mode-string "\1\e[31m\2cmd \1\e[0m\2"
 
-## Difficult to see the `colored-completion-prefix` if this is on.
-#set colored-stats               on
+#                                   settings
+#-------------------------------------------------------------------------------
+set colored-stats                off
+   ## Difficult to see the `colored-completion-prefix` if this is on.
+
+#set completion-prefix-display-length 5
+   ## With a dark grey highlight on the common text, this becomes a little more
+   ## unnecessary.
 
 set colored-completion-prefix    on
 set show-all-if-ambiguous        on
 set show-all-if-unmodified       on
 set enable-bracketed-paste       on
 set mark-symlinked-directories   on
+set keyseq-timeout               250
+set blink-matching-paren         on
+
+#                                   bindings
+#-------------------------------------------------------------------------------
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+
+# Command mode only bindings.
+set keymap vi-command
+"gg": beginning-of-history
+"G": end-of-history
+
+
+# Insert mode only bindings.
+set keymap vi-insert
+
+
+# Emacs only bindings.
+set keymap emacs
+"\e-r": 
+
+$if Gdb
+   set editing-mode emacs
+   "\C-o": "\C-xo"
+$endif

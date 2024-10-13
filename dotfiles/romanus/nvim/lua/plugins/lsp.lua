@@ -1,12 +1,9 @@
 return {
-   { 'williamboman/mason-lspconfig.nvim',
-      lazy = true,
-   },
    { 'williamboman/mason.nvim',
       cmd  = 'Mason',
       opts = {
          ui = {
-            border = "single",
+            border = "shadow",
             height = 0.8,
             width  = 0.5,
          },
