@@ -104,7 +104,7 @@ client.placeholder      #000000   #000000   #000000   #000000   #000000
 #--- init ----------------------------------------------------------------------
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec i3-msg "workspace $ws9; exec /usr/bin/firefox"
-exec i3-msg "workspace $ws1; exec /usr/bin/alacritty; exec /usr/bin/alacritty"
+exec i3-msg "workspace $ws1; exec /usr/bin/alacritty"
 
 #--- bindings ---------------------------------------------------------------{{{
 # i3.
@@ -132,51 +132,43 @@ bindsym Mod1+s        exec ~/bin/screenshot
 bindsym Mod1+less     exec ~/bin/fmt-reply
 bindsym Mod1+greater  exec ~/bin/fmt-reply --prefix='>'
 bindsym Mod1+b        exec ~/bin/bt_rofi
+bindsym Mod1+w        exec ~/bin/rofi_wifi_picker.sh
 #}}}
 #--- for_window -------------------------------------------------------------{{{
 for_window [ class=".*" ] border pixel 1
-## 2024-04-01
-##    Wondering if this works to just apply everywhere. Don't know why the
-##    global `default_border` setting seems not to.
-## 
-## 2024-04-04
-##    Seems to work, going to try to disable all the below `border pixel 1`-only
-##    configs.
-#for_window [ instance="ssh-askpass"        ] border pixel 1
-#for_window [ class="Alacritty"             ] border pixel 1
-#for_window [ class="qutebrowser"           ] border pixel 1
-#for_window [ class="GNS3"                  ] border pixel 1
-#for_window [ title="calibre - Preferences" ] border pixel 1
 
 # `alacritty --class float`
 for_window [ class="float"      ] floating enable
 for_window [ class="scratchpad" ] floating enable
 
 for_window [ instance="df"              ] floating enable, resize set 3000 1600, move position center
-for_window [ instance="pinentry-gtk-2"  ] floating enable, border pixel 1
+for_window [ instance="pinentry-gtk-2"  ] floating enable
 for_window [ instance="Msgcompose"      ] floating enable
 for_window [ instance="pavucontrol"     ] floating enable
 for_window [ instance="syncthingtray"   ] floating enable
 for_window [ instance="blueman-manager" ] floating enable
 
-# Forces `picture-in-picture` windows to not have title bars
-for_window [ class="firefox"                   ] border pixel 1
 for_window [ class="firefox" instance="Places" ] floating enable
 for_window [ class="firefox" instance="Alert"  ] floating enable
 
-for_window [ class="feh"                  ] floating enable
-for_window [ class="Thunar"               ] floating enable
-for_window [ class="fontforge"            ] floating enable
-for_window [ class="brogue"               ] floating enable, border pixel 1
-for_window [ class="Dwarf_Fortress"       ] floating enable, border pixel 1
-for_window [ class="Anki"                 ] floating enable, border pixel 1
-for_window [ class="calibre"              ] floating enable, border pixel 1
-for_window [ class="Nm-connection-editor" ] floating enable, border pixel 1
+for_window [ class="Thunar"                ] floating enable
+for_window [ class="fontforge"             ] floating enable
+for_window [ class="brogue"                ] floating enable
+for_window [ class="Dwarf_Fortress"        ] floating enable
+for_window [ class="Anki"                  ] floating enable
+for_window [ class="calibre"               ] floating enable
+for_window [ class="Nm-connection-editor"  ] floating enable
 
 for_window [ title="Blanket"               ] floating enable
 for_window [ title="Wireshark · .*"        ] floating enable, border pixel 1, move position center
-for_window [ title="Plover.*"              ] floating enable, border pixel 1
 for_window [ title="^neomutt$"             ] resize set 1800 1600, move position center
 for_window [ title="^pulsemixer$"          ] resize set 1200 500
+
+for_window [ class="Plover"                         ] floating disable
+for_window [ title="^Plover: Lookup"                ] floating enable
+for_window [ title="^Plover: Plugins Manager"       ] floating enable
+for_window [ class="Plover" title="Install*"        ] floating enable
+for_window [ class="Plover" title="Dialog"          ] floating enable
+for_window [ class="Plover" title="Save Paper Tape" ] floating enable
 #}}}
 #}}}

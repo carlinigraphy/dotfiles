@@ -1,21 +1,7 @@
---[[  notes.
+--[[  THINKIES:
 
-Refs:
- `vim.o`  behaves like `:set`
- `vim.go` behaves like `:setglobal`
- `vim.bo` behaves like `:setlocal` for buffer-local options
- `vim.wo` behaves like `:setlocal` for window-local options
-
-`vim.api.nvim_set_keymap`  can be used for more fine grained control over
-setting keymaps.
-`vim.keymap.set`  makes things easier, by allowing a function in the `rhs`,
-and always setting `noremap`. It is equivalent to:
- vim.api.nvim_set_keymap(mode, lhs, rhs, {noremap=true})
-ref. https://neovim.io/news/2022/04
-ref. :h vim.keymap.set
-
-THINKIES: couple keys aren't used for very much, and are good candidates for
-buffer-local bindings.
+Couple keys aren't used for very much, and are good candidates for buffer-local
+bindings.
    _ :: equiv. to `^'
    | :: equiv to `0'
    \ :: noop
@@ -30,55 +16,90 @@ sh, sj, sk, sl.
 Maybe can be for toggling a terminal.
 
 `_' also good candidate for a toggle-able something semi-frequent.
+
 --]]
-vim.g.mapleader = ' '
 
 local set = vim.keymap.set
 
+vim.g.mapleader = ' '
+
+-- Terminal.
 set('n', '<leader>t',  ':sp | :term<CR>a')
 set('t', '<C-w>',      '<C-\\><C-n><C-w>')
 
-set('n', 'U', '<C-r>')
-set('n', 'Y', 'y$')
-set('i',  '<C-l>', '<C-x><C-l>')
-
-set('n', '<leader>xa', ':wa | qa!<CR>')
-
-set('n', '<leader>y', '"+y')
-set('v', '<leader>y', '"+y')
-
-set('n', '<leader>sp', ':set spell!<CR>')
+-- Spelling.
+set('n', '<leader>sp', ':set spell! | set spell?<CR>')
 set('n', '<leader>z', '1z=')
 
+set('n', '<leader>xa', ':wa | qa!<CR>')
+set('n', 'U', '<C-r>')
+set({'n', 'v', 'x'}, '<leader>y', '"+y')
 set('v', '<leader>col', '! column -L -t -s= -o=<CR>')
-
-set('n', '=',       '<C-w>=')
-set('n', '<C-S-h>', '<C-w>5<')
-set('n', '<C-S-l>', '<C-w>5>')
---set('n', '<C-S-j>', '<C-w>5-')
---set('n', '<C-S-k>', '<C-w>5+')
---- These two mappings aren't working. The horizontal ones do. Huh.
-
--- Wanted to move the above keymaps out of the way (previously `-', `+'), to
--- make room for `-' to open Oil (or if I decide not to use it, Vinegar's keymap
--- for netrw.
-set("n", "-", "<CMD>Oil<CR>")
+--^ TODO; this should probably just be a function.
 
 set('n', '<C-e>', '3<C-e>')
 set('n', '<C-y>', '3<C-y>')
 
-set('n', '<leader>b', ':ls<CR>:b<Space>')
 set('n', '<leader>n', ':bnext<CR>')
+set('n', '<leader>b', ':ls<CR>:b<SPACE>')
 
-set('n', '[d', vim.diagnostic.goto_prev)
-set('n', ']d', vim.diagnostic.goto_next)
+-- Removes large blocks of whitespace. Should probably generalize in a
+-- function, such that it works on ranges.
+set('n', '<leader>rs', [[m'Elciw <Esc>`']])
+set('n', '<leader>ri', [[ciw <Esc>]])
+
+-- Would love to have bindings to open in a split, but `:vs <cfile>` doesn't
+-- take the line number into account.
+set('n', 'gf', 'gF')
+
+-- Some LSP diagnostic nonsense.
+set('n', '<C-k>', vim.diagnostic.open_float)
+set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- The only option that's allowed here, because it's pretty much a binding.
+set('c', '<C-b>', '<Left>')  -- OVERWRITES: cursor to beginning of line
+set('c', '<C-f>', '<Right>') -- OVERWRITES: `cedit` key (below)
+vim.o.cedit = '<C-o>'
 
 
---[[ NOT YET SUPPORTED.
--- Supposedly this was merged into nvim:master, but apparently hasn't hit arch
--- repos yet. Will allow for setting command/insert abbreviations w/ `ca' and
--- `ci', and have a rhs function. Drastically better than vimscript, which I do
--- not believe supports functions in abbreviations.
---
+--                               abbreviations
+--------------------------------------------------------------------------------
 set('ca', 'vres', 'vert res')
---]]
+set('ca', 'lin', 'lua print(vim.inspect())<left><left>')
+--^ mnemonic  [l]ua [in]spect
+
+
+--                                 trial run
+--------------------------------------------------------------------------------
+-- Potential candidates to be remoed if unused, or don't fit into workflow.
+
+-- 2024-06-30
+-- Fuzzy matching messes up some workflows. E.g., can't type `:In<TAB>` to get
+-- `:Inspect` immediately, matches `:intro` first. Fuzzy does help for
+-- discovery though. E.g., `:html<TAB>` -> `:TOhtml`.
+set("n", "<leader>wi", function()   -- mnemonic  [wi]ldoptions
+   local is_set
+   for _,k in ipairs(vim.opt.wildoptions:get()) do
+      if k == "fuzzy" then
+         is_set = true
+      end
+   end
+
+   if is_set then
+      vim.opt.wildoptions:remove("fuzzy")
+   else
+      vim.opt.wildoptions:append("fuzzy")
+   end
+
+   vim.cmd("set wildoptions") -- print curent opts
+end)
+
+-- 2024-06-30
+-- Move visual lines up/down.
+set('v', 'J', [[:move '>+1'<CR>gv=gv]]) -- OVERWRITES: join visual lines
+set('v', 'K', [[:move '<-2'<CR>gv=gv]])
+
+-- 2024-06-30
+set("n", "<leader>v", ":vert res 87")
+
+--------------------------------------------------------------------------------

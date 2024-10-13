@@ -7,8 +7,6 @@
     pretty good for LSP popups (the added space given by edge-borders, rather
     than boxes, makes lighter than background floating windows possible).
 
-[ ] Better navigation, editing
-
 --]]
 
 
@@ -16,11 +14,6 @@
 local lspconfig = require('lspconfig')
 
 -- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<C-k>', vim.diagnostic.open_float)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 --^ don't love this binding here
 
 -- Use LspAttach autocommand to map the following keys only after the language
@@ -38,10 +31,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-      --vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
-      --^ This conflicts with tab movement.
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
       vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
   end,
@@ -49,14 +39,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- https://codepoints.net/block_elements
 local border = {
-      {"▛", "FloatBorder"},      -- top left
-      {"▀", "FloatBorder"},      -- top
-      {"▜", "FloatBorder"},      -- top right
-      {"▐", "FloatBorder"},      -- right
-      {"▟", "FloatBorder"},      -- bottom right
-      {"▄", "FloatBorder"},      -- bottom
-      {"▙", "FloatBorder"},      -- bottom left
-      {"▌", "FloatBorder"},      -- left
+   --[=[ Thick borders.
+   -- Definitely too chunky, but was getting around a problem of inconsistency
+   -- with floating windows. Likely will remove in a future version. The below
+   -- glyphs are the only half/quarter-width glyphs that I can find, which
+   -- actually align. The ones suggested by nvim-lspconfig don't line up.
+   {"▛", "FloatBorder"},
+   {"▀", "FloatBorder"},
+   {"▜", "FloatBorder"},
+   {"▐", "FloatBorder"},
+   {"▟", "FloatBorder"},
+   {"▄", "FloatBorder"},
+   {"▙", "FloatBorder"},
+   {"▌", "FloatBorder"},
+   --]=]
+
+   -- Just adds a bit of padding to the left/right sides.
+   {" ", "FloatBorder"}, -- top left
+   { "", "FloatBorder"}, -- top
+   {" ", "FloatBorder"}, -- top right
+   {" ", "FloatBorder"}, -- right
+   {" ", "FloatBorder"}, -- bottom right
+   { "", "FloatBorder"}, -- bottom
+   {" ", "FloatBorder"}, -- bottom left
+   {" ", "FloatBorder"}, -- left
 }
 
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
@@ -70,16 +76,19 @@ end
 vim.diagnostic.config({
    underline     = false,
    severity_sort = false,
+   signs         = false,
    virtual_text  = {
-      format = function(_)
-         return ''
-      end,
+      format = function() return "" end,
    },
    float = {
-      border = 'single',
+      header = false,
+      suffix = "",
+      prefix = function(diag, _, _)
+         return diag.code.."/", "Todo"
+      end,
+      border = border,
    },
 })
-
 
 for server, opts in pairs({
    lua_ls = {},
@@ -87,14 +96,19 @@ for server, opts in pairs({
    elixirls = {
       cmd = { '/home/aurelius/.local/share/nvim/mason/bin/elixir-ls' }
    },
-   racket_langserver = {
-      filetypes = { "racket" },
-      root_dir = lspconfig.util.find_mercurial_ancestor
+   ccls = {
+      init_options = {
+         cache = {
+            directory = ".ccls-cache";
+         };
+      }
    },
-   --erlangls = {},
 }) do
-   --lspconfig[server].setup(vim.tbl_deep_extend("keep", opts, {
-   --   capabilities = capabilities
-   --}))
    lspconfig[server].setup(opts)
+
+   --[=[ Unneeded right now, but keeping around in case for later.
+   lspconfig[server].setup(vim.tbl_deep_extend("keep", opts, {
+      capabilities = capabilities
+   }))
+   --]=]
 end

@@ -1,0 +1,1 @@
+/home/aurelius/hg/nvim_plugins/tree-sitter-thoughts/src/highlights.scm
