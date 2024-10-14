@@ -232,17 +232,24 @@ function cmd_from {
       exit 1
    fi
 
-   local -i dst_num=1
-   local dst_base="${abs_dst}"
-   local destination
+   if [[ -e $abs_dst ]] ; then
+      local -i dst_num=1
+      local dst_base="${abs_dst}"
+      local backup_dst
 
-   while
-      destination="${dst_base}.bak$(( dst_num++ ))" &&
-      [[ -f "$destination" ]]
-   do :; done
+      while
+         backup_dst="${dst_base}.bak$(( dst_num++ ))" &&
+         [[ -f "$backup_dst" ]]
+      do :; done
 
-   mkdir -p "${destination%%/*}"
-   cp -va "$abs_src" "$destination"
+      mv -v "$abs_dst" "$backup_dst"
+   fi
+
+   mkdir -p "${abs_dst%/*}"
+   cp -va "$abs_src" "$abs_dst"
+
+   printf 'deployed \e[37;1m%s\e[0m -> \e[37;1m%s\e[0m\n' \
+      "$src" "${abs_dst/$HOME/\~}"
 }
 
 
