@@ -1,5 +1,6 @@
 populus/.bashrc		.bashrc
 romanus/.bashrc		.bashrc
+populus/alacritty		.config/alacritty
 romanus/alacritty		.config/alacritty
 romanus/dunst/dunstrc		.config/dunst/dunstrc
 global/fonts		.config/fonts
