@@ -1,0 +1,38 @@
+Xft.dpi: 150
+
+! special
+*.foreground:   #cfcfcf
+*.background:   #121212
+*.cursorColor:  #cfcfcf
+
+! black
+*.color0:       #282828
+*.color8:       #282828
+
+! red
+*.color1:       #783953
+*.color9:       #783953
+
+! green
+*.color2:       #5f8787
+*.color10:      #5f8787
+
+! yellow
+*.color3:       #536878
+*.color11:      #536878
+
+! blue
+*.color4:       #708090
+*.color12:      #708090
+
+! magenta
+*.color5:       #404040
+*.color13:      #404040
+
+! cyan
+*.color6:       #707070
+*.color14:      #707070
+
+! white
+*.color7:       #cfcfcf
+*.color15:      #ffffff
