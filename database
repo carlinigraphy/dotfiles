@@ -6,3 +6,4 @@ romanus/i3/config		.config/i3/config
 romanus/nvim		.config/nvim
 romanus/polybar		.config/polybar
 romanus/.inputrc		.inputrc
+global/.Xresources		.Xresources
