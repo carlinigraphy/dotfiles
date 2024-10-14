@@ -265,19 +265,26 @@ function cmd_from {
 
 
 function cmd_diff {
-   local target="$1"
-   local -a files=()
+   local f1="$1"
+   local f2="$2"
 
-   local src dst
-   while IFS=$'\t' read -r src dst ; do
-      if [[ $dst == "$target" ]] ; then
-         files+=( "$src" )
-      fi
-   done < "$DATABASE"
+   load_data
 
-   if (( ${#files[@]} > 1 )) ; then
-      exec nvim -d "${files[@]}" 
+   if [[ ! "${DATA[$f1]}" ]] ; then
+      printf 'left-hand side file not found in database\n'
+      printf '  %s\n' "$f1"
+      exit 1
    fi
+
+   if [[ ! "${DATA[$f2]}" ]] ; then
+      printf 'right-hand side file not found in database\n'
+      printf '  %s\n' "$f1"
+      exit 1
+   fi
+
+   exec nvim -d \
+      "${PROGDIR}/dotfiles/${f1}" \
+      "${PROGDIR}/dotfiles/${f2}"
 }
 
 
@@ -299,7 +306,8 @@ case "$1" in
       ;;
 
    diff)
-      cmd_diff "$2"
+      shift
+      cmd_diff "$@"
       ;;
 
    hg)

@@ -2,8 +2,7 @@
 # shellcheck disable=SC2207
 
 function __dot_from {
-   local base
-   base=$(realpath "$(which dot)")
+   local base; base=$(realpath "$(which dot)")
    local database="${base%/*}/database"
    local curr="${COMP_WORDS[$COMP_CWORD]}"
 
@@ -35,7 +34,7 @@ function __dot {
       add)
          compopt -o default ;;
 
-      from)
+      from | diff)
          __dot_from ;;
    esac
 
