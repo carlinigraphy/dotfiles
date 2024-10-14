@@ -123,7 +123,7 @@ function cmd_add {
    fi
 
    # Setup --------------------------------------------------------------------
-   printf '\e[37;1m%s\e[0m\n'  'creating logfile'
+   printf '\e[37;1m%s\e[0m\n'  'creating logfile...'
 
    local logfile
    local log_base="${PROGDIR}/logs/log"
@@ -134,11 +134,22 @@ function cmd_add {
       [[ -f "$logfile" ]]
    do :; done
 
+   set -x
    touch "$logfile"
+   set +x
 
    # Local backup -------------------------------------------------------------
    printf '\n\e[37;1m%s\e[0m\n'  'make local backup...'
-   cp -van "$abs_dst" "${abs_dst}.bak" \
+
+   local backup
+   local -i backup_num=1
+
+   while
+      backup="${abs_dst}.bak$(( backup_num++ ))" &&
+      [[ -f "$backup" ]]
+   do :; done
+
+   cp -van "$abs_dst" "$backup" \
       2>&1 | tee -a "$logfile"
 
    # Assume ownership ---------------------------------------------------------
@@ -164,7 +175,7 @@ function cmd_add {
       (( ++errors ))
    fi
 
-   if diff "${abs_dst}"{,.bak} >/dev/null ; then    # (2) .bak matches
+   if diff "$abs_dst" "$backup"  >/dev/null ; then    # (2) .bak matches
       printf '\e[32;1m.\e[0m'
    else
       printf '\e[31;1mX\e[0m'
@@ -189,13 +200,13 @@ function cmd_add {
    printf '\n\e[37;1madd & commit...\e[0m\n'
 
    set -x
-   hg --cwd ${PROGDIR} add "$abs_src"
-   hg --cwd ${PROGDIR} commit "$abs_src" "$DATABASE" \
+   hg --cwd "$PROGDIR" add "$abs_src"
+   hg --cwd "$PROGDIR" commit "$abs_src" "$DATABASE" \
       -m "add: ${rel_dst} as ${src}"
    set +x
 
    printf '\n\e[37;1m%s\e[0m\n'  'safe to remove'
-   printf '\e[37m%s\e[0m\n'      "${abs_src}.bak"
+   printf '\e[37m%s\e[0m\n'      "$backup"
 
    printf '\n\e[32;1m%s\e[0m\n'  'done.'
 }
