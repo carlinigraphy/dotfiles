@@ -1,0 +1,139 @@
+[colors]
+# False is the default, this is mostly for documentation purposes.
+draw_bold_text_with_bright_colors = false
+
+[colors.primary]
+background = "#121212"
+foreground = "#cfcfcf"
+
+[colors.cursor]
+cursor = "#c8ced5"
+
+[colors.normal]
+black   = "#282828"
+red     = "#783953"
+green   = "#5f8787"
+yellow  = "#536878"  # Payne's gray  
+blue    = "#708090"  # Slate gray    
+magenta = "#404040"
+cyan    = "#707070"
+white   = "#cfcfcf"
+
+[colors.bright]
+black   = "#282828"
+red     = "#783953"
+green   = "#5f8787"
+yellow  = "#536878"
+blue    = "#708090"
+magenta = "#404040"
+cyan    = "#707070"
+white   = "#ffffff"
+
+
+[font]
+size = 9
+
+[font.normal]
+family = "Aurelius Round"
+style  = "regular"
+
+[font.italic]
+family = "Aurelius Round"
+style  = "italic"
+
+[font.bold]
+family = "Aurelius Round"
+style  = "bold"
+
+[font.offset]
+x = 0
+y = 2
+
+[font.glyph_offset]
+x = 0
+y = 1
+
+
+[env]
+TERM = "xterm-256color"
+
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+[[hints.enabled]]
+command = "xdg-open"
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key  = "U"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+mods = "None"
+enabled = true
+
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+mods   = "Control"
+key    = "Back"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+mods   = "Control"
+key    = "Plus"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+mods   = "Control"
+key    = "Minus"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+mods   = "Shift|Control"
+key    = "K"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+mods   = "Shift|Control"
+key    = "J"
+
+[[keyboard.bindings]]
+mode   = "~Search"
+action = "ToggleViMode"
+mods   = "Shift|Control"
+key    = "Space"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+mode   = "Vi|~Search"
+key    = "Escape"
+
+[[keyboard.bindings]]
+mode   = "Vi|~Search"
+action = "Copy"
+key    = "Y"
+
+[[keyboard.bindings]]
+action = "Open"
+key = "Return"
+mode = "Vi|~Search"
+
+
+[scrolling]
+#auto_scroll = true
+history = 10000
+
+[window.dimensions]
+columns = 200
+lines = 30
+
+[window.padding]
+x = 2
+y = 2
+
+[window.position]
+x = 1000
+y = 300
