@@ -18,9 +18,9 @@ done
 
 complete -cf sudo
 
-# Aesthetic nonsense:
 export PS1='\[\e[34m\]\W\[\e[0m\] \$ '
-export LS_COLORS=':di=1;34:ex=1;37:ln=36:so=1;30'
+export LS_COLORS=':di=1;34:ex=1;37:ln=36:so=1;35'
+# `so` also accounts for the common prefix color in tab-completion.
 
 if [[ ! $PATH == *~/bin* ]] ; then
    # shellcheck disable=2088
