@@ -289,7 +289,7 @@ case "$1" in
       ;;
 
    cd)
-      if ! cd "${PROGDIR}/dotfiles/" 2>/dev/null; then
+      if ! cd "${PROGDIR}/dotfiles/${HOSTNAME}" 2>/dev/null; then
          printf "cannot \`cd\`\n" >&2
          exit 1
       fi
