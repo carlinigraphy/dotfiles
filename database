@@ -1,9 +1,12 @@
+populus/.bashrc		.bashrc
 romanus/.bashrc		.bashrc
+populus/alacritty		.config/alacritty
 romanus/alacritty		.config/alacritty
 romanus/dunst/dunstrc		.config/dunst/dunstrc
 global/fonts		.config/fonts
 romanus/i3/config		.config/i3/config
-romanus/nvim		.config/nvim
+global/nvim		.config/nvim
 romanus/polybar		.config/polybar
+populus/.inputrc		.inputrc
 romanus/.inputrc		.inputrc
 global/.Xresources		.Xresources

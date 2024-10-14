@@ -1,0 +1,3 @@
+{
+  "conjure": { "branch": "master", "commit": "f50d4db821489f66ff93afe58155eef42c273a5d" },
+  "elixir-repl.nvim": { "branch": "main", "commit": "1c6d5a203b97f4679143d7f9530c0b7c94603bee" },
