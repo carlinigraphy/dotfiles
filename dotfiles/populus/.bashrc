@@ -20,7 +20,7 @@ complete -cf sudo
 
 # Aesthetic nonsense:
 export PS1='\[\e[34m\]\W\[\e[0m\] \$ '
-export LS_COLORS=':di=1;34:ex=1;37:ln=36:so=1;30'
+export LS_COLORS=':di=1;34:ex=1;37:ln=36:so=1;35'
 
 if [[ ! $PATH == *~/bin* ]] ; then
    # shellcheck disable=2088
@@ -55,42 +55,7 @@ alias la='\ls -vlhA --color=auto --group-directories-first'
 alias mkdir='mkdir -pv'
 alias mv='mv -vi'
 alias rm='rm -vi'
-
-function kb {
-   setxkbmap -option caps:escape
-   xinput set-prop "DLL082A:01 06CB:76AF Touchpad" "libinput Tapping Enabled" 1
-   xset r rate 200 40
-}
-
-## TODO; need to figure out scaling issues between hidpi laptop monitor, and
-## 1080p desktop monitors before I can actually make use of the below.
-#
-#complete -W 'laptop desktop' mon
-#function mon {
-#   # TODO;
-#   # May want to just do this with udev rules. I'll never be connecting to
-#   # external monitors aside from the ones at my own desk. Fairly consistent
-#   # setup.
-#
-#   case "$1" in
-#      laptop)
-#         xrandr \
-#            --output e-DP1 --off \
-#            --output DP1 --auto --primary \
-#            --output DP2 --auto --right-of DP1
-#         ;;
-#
-#      desktop)
-#         xrandr \
-#            --output e-DP1 --auto \
-#            --output DP1 --off    \
-#            --output DP2 --off
-#         ;;
-#
-#      *) printf 'Expecting: ["laptop", "desktop"].\n'
-#         return 1
-#   esac
-#}
+alias kb='xset r rate 200 40'
 
 # administration.
 #-------------------------------------------------------------------------------
@@ -151,4 +116,3 @@ declare -a _nnn_fcolors=(
 ifs="$IFS"
 IFS='' ; NNN_FCOLORS="${_nnn_fcolors[*]}"
 IFS="$ifs"
-
