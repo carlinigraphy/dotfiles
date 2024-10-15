@@ -1,0 +1,150 @@
+/* vim: ft=css
+ */
+
+* {
+   bg:      #0e0e0e;
+   fg:      #a4aaaa;
+
+   black:   #202121;
+   red:     #5c2f33;
+   yellow:  #eec391;
+
+   /* Low value is light, high value is dark.
+	 */
+   white:   #ffffff;
+   value1:  #414444;
+   value2:  #676b6b;
+
+   background-color: #00000000;
+   /* Negates background, allows transparency.
+    */
+
+   border-color: @black;
+   border: 0;
+   spacing: 2;
+   anchor: north;
+   location: center;
+}
+
+/* Main 'window', seems to be the entire container.
+ */
+window {
+   transparency: "screenshot";
+   x-offset: 0;
+   y-offset: -25%;
+   width: 40%;
+   height: 30%;
+}
+
+mainbox {
+   padding: 0;
+   spacing: 0.75em;
+}
+
+/* Container: top (-p, input)>
+ */
+inputbar {
+   border-radius: 15px;
+   background-color: @bg;
+   spacing: 0;
+   border: 1px;
+   padding: 0.5em 1em;
+   index: 0;
+}
+
+inputbar {
+   children: [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+prompt,entry {
+   text-color: @fg;
+}
+
+textbox-prompt-colon {
+   expand:     false;
+   str:        ":";
+   margin:     0px 0.3em 0em 0.3em ;
+   text-color: @fg;
+}
+
+/* Container: middle (-mesg).
+ */
+message {
+   border-radius: 8px;
+   background-color: @bg;
+   border: 1px;
+   padding: 1em;
+}
+
+/* Seems to be the text in the -mesg box>
+ */
+textbox normal {
+   text-color: @value1;
+   padding: 0;
+}
+
+/* No idea what this section is.
+ */
+inputbar normal {
+    foreground-color: @yellow;
+    background-color: @yellow;
+}
+
+/* Lowest 'main' content box.
+ */
+listview {
+   background-color: @bg;
+   fixed-height: 1;
+   border: 1px;
+   padding: 1em;
+   reverse: false;
+   columns: 1;
+   scrollbar: true;
+}
+
+scrollbar {
+   handle-color: @black;
+   handle-width: 2px;
+   padding: 0;
+}
+
+/* From https://github.com/davatorium/rofi/issues/1397.
+ * Fixes theming issue.
+ */
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element {
+   text-color: @value2;
+   padding: 2px;
+}
+
+element normal            { text-color: @value2; }
+/* element normal.active   { text-color: @value2; }
+ * element normal.normal   { text-color: @value2; }
+ * element normal.urgent   { text-color: @value2; }
+ */
+
+element selected          { text-color: @fg;     }
+/* element selected.normal { text-color: @value2; }
+ * element selected.active { text-color: @red;    }
+ * element selected.urgent { text-color: @red;    }
+ */
+
+mode-switcher {
+   border: 2px;
+   padding: 0.5em 1em;
+   index: 10;
+}
+
+button selected {
+   text-color: @red;
+}
+
+error-message {
+    border: 1px;
+    padding: 1em;
+    text-color: @yellow;
+}
