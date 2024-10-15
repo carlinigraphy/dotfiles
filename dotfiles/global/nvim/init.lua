@@ -11,6 +11,8 @@ require('lazy').setup('plugins', {
    change_detection = {
       notify  = false,
    },
-   ui = { border = 'shadow' },
+   ui = {
+      backdrop = 100,
+   },
    diff = { cmd = 'git' },
 })

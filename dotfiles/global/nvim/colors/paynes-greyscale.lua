@@ -214,10 +214,16 @@ for name, highlight in pairs({
          - control flow
          - todo/error messaging
    ---------------------------------------------------------------------------]]
-   Conditional  = { fg = mono.fg.emph, bold = true },
-   Repeat       = { fg = mono.fg.emph, bold = true },
-   Todo         = { fg = yellow },
-   WarningMsg   = { fg = yellow },
+   Conditional = { fg = mono.fg.emph, bold = true },
+   Repeat      = { fg = mono.fg.emph, bold = true },
+
+   Todo                 = { fg = yellow, bold = true },
+   WarningMsg           = { link = 'Todo' },
+   ['@comment.todo']    = { link = 'Todo' },
+   ['@comment.warning'] = { link = 'Todo' },
+   ['@comment.error']   = { link = 'Todo' },
+   ['@comment.note']    = { link = 'Todo' },
+
 
    DiffAdd      = { fg = fg, bg = green.bg },
    DiffChange   = { fg = fg, bg = blue.bg[0] },
