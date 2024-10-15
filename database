@@ -7,5 +7,6 @@ global/fonts		.config/fonts
 romanus/i3/config		.config/i3/config
 global/nvim		.config/nvim
 romanus/polybar		.config/polybar
+romanus/rofi		.config/rofi
 global/.inputrc		.inputrc
 global/.Xresources		.Xresources
