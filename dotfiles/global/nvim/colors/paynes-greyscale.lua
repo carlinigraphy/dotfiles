@@ -113,8 +113,8 @@ local bg = mono.bg[0]
 for name, highlight in pairs({
    -- Root groups.
    Normal        = { fg = fg, bg = bg  },
-   Paynes_Dim    = { fg = mono.fg.dim  },
-   Paynes_Emph   = { fg = mono.fg.emph },
+   PaynesDim     = { fg = mono.fg.dim  },
+   PaynesEmph    = { fg = mono.fg.emph },
 
 
    --[[  -2  Background  ----------------------------------------------------{{{
@@ -151,14 +151,14 @@ for name, highlight in pairs({
          - operators
          - delimiters: parens, brackets
    ---------------------------------------------------------------------------]]
-   Define           = { link = 'Paynes_Dim' },
-   Keyword          = { link = 'Paynes_Dim' },
-   Operator         = { link = 'Paynes_Dim' },
-   PreProc          = { link = 'Paynes_Dim' },
-   Delimiter        = { link = 'Paynes_Dim' },
-   ['@bracket']     = { link = 'Paynes_Dim' },
-   ['@punctuation'] = { link = 'Paynes_Dim' },
-   ['@constructor'] = { link = 'Paynes_Dim' },
+   Define           = { link = 'PaynesDim' },
+   Keyword          = { link = 'PaynesDim' },
+   Operator         = { link = 'PaynesDim' },
+   PreProc          = { link = 'PaynesDim' },
+   Delimiter        = { link = 'PaynesDim' },
+   ['@bracket']     = { link = 'PaynesDim' },
+   ['@punctuation'] = { link = 'PaynesDim' },
+   ['@constructor'] = { link = 'PaynesDim' },
    ---}}}
 
 
@@ -195,8 +195,8 @@ for name, highlight in pairs({
          - strings
    ---------------------------------------------------------------------------]]
    Boolean        = { fg = color.fg.norm, bold = true },
-   Exception      = { link = 'Paynes_Emph' },
-   Identifier     = { link = 'Paynes_Emph' },
+   Exception      = { link = 'PaynesEmph' },
+   Identifier     = { link = 'PaynesEmph' },
    ['@variable']  = { link = 'Identifier' },
    ['@constant']  = { link = 'Identifier' },
 
@@ -335,23 +335,23 @@ for name, highlight in pairs({
    LazyButton       = { fg = mono.fg.norm, bg = mono.bg[2] },
    LazyCommit       = { link = 'Comment' },
    LazyCommitType   = { link = 'Comment' },
-   LazyH1           = { link = 'Paynes_Emph' },
-   LazyProp         = { link = 'Paynes_Dim' },
+   LazyH1           = { link = 'PaynesEmph' },
+   LazyProp         = { link = 'PaynesDim' },
    LazyReasonCmd    = { link = 'Comment' },
    LazyReasonFt     = { link = 'Comment' },
    LazyReasonPlugin = { fg = fg },
    LazyReasonStart  = { link = 'Normal' },
-   LazySpecial      = { link = 'Paynes_Emph' },
+   LazySpecial      = { link = 'PaynesEmph' },
 
    -- nvim-treesitter-context
    TreesitterContext = { bg = mono.bg[1] },
 
    -- lsp
    DiagnosticError            = { fg = mono.fg.dim  },
-   DiagnosticFloatingError    = { link = 'Paynes_Emph' },
-   DiagnosticFloatingHint     = { link = 'Paynes_Emph' },
-   DiagnosticFloatingInfo     = { link = 'Paynes_Emph' },
-   DiagnosticFloatingWarn     = { link = 'Paynes_Emph' },
+   DiagnosticFloatingError    = { link = 'PaynesEmph' },
+   DiagnosticFloatingHint     = { link = 'PaynesEmph' },
+   DiagnosticFloatingInfo     = { link = 'PaynesEmph' },
+   DiagnosticFloatingWarn     = { link = 'PaynesEmph' },
    DiagnosticHint             = { link = 'Comment' },
    DiagnosticInfo             = { link = 'Comment' },
    DiagnosticVirtualTextError = { fg = red.fg },

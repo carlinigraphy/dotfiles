@@ -1,7 +1,8 @@
 return {
    {  "carlinigraphy/dictd.nvim",
+      dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
       config = function()
-         require("dictd")
+         require("dictd").setup('<leader>df')
       end,
    },
 
