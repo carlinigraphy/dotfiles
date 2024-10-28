@@ -29,7 +29,7 @@ set('t', '<C-w>',      '<C-\\><C-n><C-w>')
 
 -- Spelling.
 set('n', '<leader>sp', ':set spell! | set spell?<CR>')
-set('n', '<leader>z', '1z=')
+set('n', '<leader>sf', '1z=') -- mnemonic: [s]pell [f]ix
 
 set('n', '<leader>xa', ':wa | qa!<CR>')
 set('n', 'U', '<C-r>')
@@ -77,7 +77,7 @@ set('ca', 'lin', 'lua print(vim.inspect())<left><left>')
 -- Fuzzy matching messes up some workflows. E.g., can't type `:In<TAB>` to get
 -- `:Inspect` immediately, matches `:intro` first. Fuzzy does help for
 -- discovery though. E.g., `:html<TAB>` -> `:TOhtml`.
-set("n", "<leader>wi", function()   -- mnemonic  [wi]ldoptions
+set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
    local is_set
    for _,k in ipairs(vim.opt.wildoptions:get()) do
       if k == "fuzzy" then
