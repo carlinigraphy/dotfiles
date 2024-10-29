@@ -123,10 +123,13 @@ export MINIKUBE_IN_STYLE=false # fuck off with emojis in the terminal.
 alias mk='minikube'
 alias mkctl='minikube kubectl --'
 
-function sp {
-   echo "$@" | hunspell
+function sp { hunspell <<< "$@" ;}
+function def {
+   dict "$@" | nvim -R +'set ft=dictd' -
 }
 
+# For DrRacket scaling. Otherwise impossible to read on hi-dpi.
+export PLT_DISPLAY_BACKING_SCALE=2
 
 alias n='nnn'
 declare -x NNN_OPTS=AeEd
@@ -151,4 +154,3 @@ declare -a _nnn_fcolors=(
 ifs="$IFS"
 IFS='' ; NNN_FCOLORS="${_nnn_fcolors[*]}"
 IFS="$ifs"
-

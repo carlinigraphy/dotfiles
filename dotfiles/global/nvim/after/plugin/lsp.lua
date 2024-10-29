@@ -84,24 +84,27 @@ vim.diagnostic.config({
       header = false,
       suffix = "",
       prefix = function(diag, _, _)
-         return diag.code.."/", "Todo"
+         return (diag.code or "").."/", "Todo"
       end,
       border = border,
    },
 })
 
 for server, opts in pairs({
-   lua_ls = {},
    bashls = {},
-   elixirls = {
-      cmd = { '/home/aurelius/.local/share/nvim/mason/bin/elixir-ls' }
-   },
    ccls = {
       init_options = {
          cache = {
             directory = ".ccls-cache";
          };
       }
+   },
+   lua_ls = {},
+   elixirls = {
+      cmd = { '/home/aurelius/.local/share/nvim/mason/bin/elixir-ls' }
+   },
+   racket_langserver = {
+      filetypes = { 'racket' },
    },
 }) do
    lspconfig[server].setup(opts)
