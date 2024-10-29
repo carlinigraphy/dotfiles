@@ -1,8 +1,20 @@
 return {
    {  "carlinigraphy/dictd.nvim",
-      dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
+      --dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
       config = function()
-         require("dictd").setup('<leader>df')
+         require("dictd").setup({
+            key = '<leader>df',
+            keywordprg_filetypes = {
+               'text', 'steno_translation'
+            }
+         })
+      end,
+   },
+
+   {  "carlinigraphy/steno.nvim",
+      --dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
+      config = function()
+         require("steno").setup()
       end,
    },
 

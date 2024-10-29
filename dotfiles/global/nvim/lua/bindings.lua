@@ -52,6 +52,8 @@ set('n', '<leader>ri', [[ciw <Esc>]])
 -- take the line number into account.
 set('n', 'gf', 'gF')
 
+set("n", "<leader>v", ":vert res 87")
+
 -- Some LSP diagnostic nonsense.
 set('n', '<C-k>', vim.diagnostic.open_float)
 set('n', '<space>q', vim.diagnostic.setloclist)
@@ -71,7 +73,7 @@ set('ca', 'lin', 'lua print(vim.inspect())<left><left>')
 
 --                                 trial run
 --------------------------------------------------------------------------------
--- Potential candidates to be remoed if unused, or don't fit into workflow.
+-- Potential candidates to be demoed if unused, or don't fit into workflow.
 
 -- 2024-06-30
 -- Fuzzy matching messes up some workflows. E.g., can't type `:In<TAB>` to get
@@ -91,15 +93,14 @@ set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
       vim.opt.wildoptions:append("fuzzy")
    end
 
-   vim.cmd("set wildoptions") -- print curent opts
+   vim.cmd("set wildoptions") -- print current opts
 end)
 
 -- 2024-06-30
--- Move visual lines up/down.
-set('v', 'J', [[:move '>+1'<CR>gv=gv]]) -- OVERWRITES: join visual lines
-set('v', 'K', [[:move '<-2'<CR>gv=gv]])
-
--- 2024-06-30
-set("n", "<leader>v", ":vert res 87")
+--    Created.
+-- 2024-10-29
+--    Changed from J/K to <C-n>, <C-p>. Didn't like that it overwrote [J]oin.
+set('v', '<C-n>', [[:move '>+1'<CR>gv=gv]])
+set('v', '<C-p>', [[:move '<-2'<CR>gv=gv]])
 
 --------------------------------------------------------------------------------
