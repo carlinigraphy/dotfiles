@@ -135,10 +135,10 @@ for name, highlight in pairs({
    NonText        = { link = 'Comment' },
    WinSeparator   = { link = 'Comment' },
 
-   Folded         = { fg = mono.fg.comment, bg = mono.bg[1] },
-   CursorColumn   = { link = 'Folded' },
-   CursorLine     = { link = 'Folded' },
-   CursorLineNr   = { link = 'Normal' },
+   Folded         = { fg = mono.fg.dim, bg = mono.bg[1] },
+   CursorColumn   = { bg = mono.bg[1] },
+   CursorLine     = { bg = mono.bg[1] },
+   CursorLineNr   = { bg = mono.bg[1] },
 
    FoldColumn     = { fg = color.bg[2], bg = bg },
    CursorLineFold = { link = 'FoldColumn' },
@@ -283,12 +283,12 @@ for name, highlight in pairs({
    StatusLine   = { fg = fg, bg = mono.bg[1] },
 
    -- Floating windows.
-   FloatBorder        = { fg = mono.bg[-2] , bg = mono.bg[1] },
+   FloatBorder        = { fg = color.fg.norm },
    FloatFooter        = { link = 'Title' },
    FloatShadow        = { bg = mono.bg[-1] },
    FloatShadowThrough = { link = 'Normal' },
    FloatTitle         = { link = 'Title' },
-   NormalFloat        = { bg = mono.bg[2] },
+   NormalFloat        = { bg = mono.bg[0] },
 
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
@@ -298,7 +298,9 @@ for name, highlight in pairs({
 
    -- scheme.
    ['@keyword.scheme']          = { italic = true },
+   ['@keyword.racket']          = { italic = true },
    ['@function.builtin.scheme'] = { italic = true },
+   ['@function.builtin.racket'] = { italic = true },
 
    -- Asciidoc.
    ['asciidocAttributeEntry'] = { fg = color.fg.norm },
@@ -327,11 +329,14 @@ for name, highlight in pairs({
    ['@label.markdown'] = { link = 'Type' },
    ['@markup.heading.1.markdown'] = { fg = mono.fg.emph, bold = true, underline = true },
 
+   -- Beancount.
+   ['@markup.italic.beancount'] = { fg = mono.fg.emph, italic = true },
+
    --- Plugins -----------------------------------------------------------------
    -----------------------------------------------------------------------------
 
    -- lazy.nvim
-   LazyNormal       = { bg = mono.bg[1] },
+   LazyNormal       = { bg = mono.bg[0] },
    LazyButton       = { fg = mono.fg.norm, bg = mono.bg[2] },
    LazyCommit       = { link = 'Comment' },
    LazyCommitType   = { link = 'Comment' },

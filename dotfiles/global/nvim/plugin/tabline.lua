@@ -16,7 +16,7 @@ for group, hl in pairs({
    vim.api.nvim_set_hl(0, group, hl)
 end
 
-function Tabline ()
+function Tabline()
    local tl = ''
 
    for _,tab in ipairs(vim.fn.gettabinfo()) do

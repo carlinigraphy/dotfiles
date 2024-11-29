@@ -1,18 +1,20 @@
 return {
+   {  "carlinigraphy/beancount.nvim",
+      dir = "/home/aurelius/hg/nvim_plugins/beancount.nvim/",
+   },
+
    {  "carlinigraphy/dictd.nvim",
-      --dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
+      dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
       config = function()
-         require("dictd").setup({
-            key = '<leader>df',
-            keywordprg_filetypes = {
-               'text', 'steno_translation'
-            }
+         require("dictd").configure({
+            keymap = '<leader>df',
+            filetypes = { 'text', 'steno_translation', 'markdown' }
          })
       end,
    },
 
    {  "carlinigraphy/steno.nvim",
-      --dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
+      dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
       config = function()
          require("steno").setup()
       end,
@@ -24,18 +26,6 @@ return {
       config = function()
          require("elixir-repl").setup()
       end
-   },
-
-   {  "sindrets/diffview.nvim",
-      enabled = false,
-      opts = {
-         hg_cmd = { "chg" },
-         use_icons = false,
-      },
-      cmd = {
-         'DiffviewOpen',
-         'DiffviewFileHistory',
-      },
    },
 
    {  "stevearc/oil.nvim",

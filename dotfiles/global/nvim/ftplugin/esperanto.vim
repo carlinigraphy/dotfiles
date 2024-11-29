@@ -1,6 +1,9 @@
 setl spelllang=eo
 setl spell
 
-nnoremap <Leader>e  :Eo<CR>
-packadd vim-esperanto
-EoOn
+inoremap ch  ĉ
+inoremap gh  ĝ
+inoremap hh  ĥ
+inoremap jh  ĵ
+inoremap sh  ŝ
+inoremap uh  ŭ

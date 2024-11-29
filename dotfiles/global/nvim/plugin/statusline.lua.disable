@@ -23,7 +23,7 @@ local mode_map = {
 	[''] = '%#Statusline_Mode_Visual# VISUAL ',
 }
 
-function Statusline_Current_Mode () 
+function Statusline_Current_Mode()
 	local mode = string.lower(vim.api.nvim_get_mode().mode)
 	return mode_map[mode] or ''
 end
@@ -31,6 +31,15 @@ end
 local group_id = vim.api.nvim_create_augroup('Statusline', {
    clear = true -- this is required, but defaults to `true`
 })
+
+function Lsp_Clients_Connected()
+   local clients = vim.lsp.get_clients({ bufnr = 0 })
+   local names = {}
+   for _, client in ipairs(clients) do
+      table.insert(names, client.name)
+   end
+   return "lsp:" .. table.concat(names, ",")
+end
 
 vim.api.nvim_create_autocmd({'WinEnter', 'BufEnter'}, {
    group    = group_id,
@@ -51,15 +60,9 @@ vim.api.nvim_create_autocmd({'WinEnter', 'BufEnter'}, {
          -- showcmdloc, filetype, file%
          '%=%( %S %) ',
          '%#Statusline_Filetype# ',
-         '%{&filetype} %3.p%%',
+         '%{&filetype} ',
+         '%{%v:lua.Lsp_Clients_Connected()%} ',
+         '%3.p%%',
       })
-   end
-})
-
-vim.api.nvim_create_autocmd({'WinLeave', 'BufLeave'}, {
-   group    = group_id,
-   pattern  = '*',
-   callback = function()
-      vim.wo.statusline = ' %F%( [%R%H]%)%( %M%)'
    end
 })
