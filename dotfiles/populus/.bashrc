@@ -82,7 +82,8 @@ alias sc='sc-im'
 alias scm='chez'
 alias sdb='chez --debug-on-exception --script'
 alias vd='vdirsyncer sync'
-alias xp='xclip -i -sel c'
+alias xp='xclip -i -selection clipboard'
+alias xo='xclip -o -selection clipboard'
 
 export MINIKUBE_IN_STYLE=false # fuck off with emojis in the terminal.
 alias mk='minikube'
