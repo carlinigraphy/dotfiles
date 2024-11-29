@@ -67,9 +67,8 @@ vim.o.cedit = '<C-o>'
 --                               abbreviations
 --------------------------------------------------------------------------------
 set('ca', 'vres', 'vert res')
-set('ca', 'lin', 'lua print(vim.inspect())<left><left>')
---^ mnemonic  [l]ua [in]spect
-
+set('ca', 'vins', 'vim.inspect()<Left>')
+set('ca', 'pvins', 'lua print(vim.inspect())<Left><Left>')
 
 --                                 trial run
 --------------------------------------------------------------------------------

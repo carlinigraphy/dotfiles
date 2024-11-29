@@ -14,6 +14,7 @@ return {
    { 'nvim-treesitter/playground',
       cmd = 'TSPlaygroundToggle',
    },
+
    { 'nvim-treesitter/nvim-treesitter-context',
       opts = {
          enable              = true,
@@ -25,13 +26,9 @@ return {
          mode                = 'topline',  -- Line used to calculate context. Choices: 'cursor', 'topline'
       }
    },
+
    { 'nvim-treesitter/nvim-treesitter',
       build  = ':TSUpdate',
-      --dependencies = {
-      --   { 'nvim-treesitter/nvim-treesitter-refactor',
-      --      keys = { 'gnd', 'gO' } ,
-      --   },
-      --},
       config = function(_, opts)
          require('nvim-treesitter.configs').setup(opts)
 
@@ -48,26 +45,15 @@ return {
       end,
       opts = {
          ensure_installed = {
-            "scheme",
             "bash",
-            "lua",
-            "erlang",
             "elixir",
-            "python",
+            "lua",
+            "scheme",
             "toml",
          },
          highlight = {
             enable = true,
          },
-         --refactor = {
-         --   navigation = {
-         --      enable  = true,
-         --      keymaps = {
-         --         goto_definition      = 'gnd',
-         --         list_definitions_toc = 'gO',
-         --      },
-         --   },
-         --},
       },
    },
 }

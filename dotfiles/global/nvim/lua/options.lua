@@ -16,9 +16,23 @@ opt.backspace      = { "indent", "eol", "start" }
 opt.breakindent    = true
 opt.breakindent    = true
 opt.breakindentopt = "sbr"
-opt.completeopt    = { "menu", "preview", "noselect" } -- "longest" causes flickering
-opt.cursorline     = true
+opt.completeopt    = {
+   "menu",
+   "menuone",
+   "popup",
+   "noselect"
+}
+opt.cursorline     = false
 opt.cursorlineopt  = "number"
+opt.diffopt        = {
+   "internal",
+   "filler",
+   "closeoff",
+   "iwhite",
+   "icase",
+   "linematch:60",
+   "algorithm:minimal"
+}
 opt.expandtab      = true
 opt.expandtab      = true
 opt.fillchars      = { fold = " ", vert = "│", diff = "╲" }
@@ -28,14 +42,21 @@ opt.ignorecase     = true
 opt.inccommand     = "split"
 opt.joinspaces     = false
 opt.joinspaces     = false
+opt.list           = false
+opt.listchars      = {
+   tab = "▏ ",
+   trail = "·",
+   extends = "»",
+   precedes = "«",
+}
 opt.mouse          = ""
 opt.number         = true
-opt.pumheight      = 30
+opt.pumheight      = 20
 opt.relativenumber = true
 opt.scrolloff      = 3
 opt.shiftround     = true
 opt.shiftwidth     = 3
-opt.shortmess:append("c") -- remove messages for insertion completion
+--opt.shortmess:append("c") -- remove messages for insertion completion
 opt.signcolumn     = "auto"
 opt.smartcase      = true
 opt.softtabstop    = 3

@@ -1,18 +1,21 @@
 return {
    {  'carlinigraphy/scm-edit.nvim',
       --dir = '/home/aurelius/hg/nvim_plugins/scm-edit.nvim/',
-      ft = 'scheme',
+      ft = { 'scheme', 'racket' },
       config = true,
    },
 
    { 'Olical/conjure',
-      ft = { 'scheme', 'racket' },
+      ft = { 'scheme', 'racket', 'fennel', 'lua' },
       config = function ()
          vim.g['conjure#log#hud#enabled'] = false
+         vim.g['conjure#completion#omnifunc'] = false
 
          vim.g['conjure#client#scheme#stdio#command']              = 'chez'
          vim.g['conjure#client#scheme#stdio#prompt_pattern']       = '> $?'
          vim.g['conjure#client#scheme#stdio#value_prefix_pattern'] = false
+
+         vim.g['conjure#filetype#fennel'] = 'conjure.client.fennel.stdio'
 
          -- Be more like slimv. I find the default options more verbose.
          vim.g['conjure#mapping#prefix']           = ','
@@ -32,30 +35,12 @@ return {
       end,
    },
 
-   --[[ 2024-03-27
-   Very good plugin, but kinda annoying needing to re-build w/ cargo on
-   updates and whatnot.
-   --]]
-   { 'eraserhd/parinfer-rust',
-      enabled = false,
-      ft = { 'scheme' },
-      build = {
-         'cargo build --release',
-      },
-   },
-
-   --[[ 2024-03-27
-   Has a touch of stuttering in some situations. E.g., adding an invalid closing
-   paren. Seems to insert it, then delete it. Causes a flicker. Not that big of
-   a deal. Does set `SpellBad` if there's an unclosed quote, rather than
-   silently failing like parinfer-rust does. Also, no exeternal depdencies.
-   --]]
    { 'gpanders/nvim-parinfer',
-      ft = { 'scheme' },
+      ft = { 'scheme', 'racket', 'fennel' },
    },
 
    { 'ekaitz-zarraga/nvim-paredit-scheme',
-      ft = { 'scheme' },
+      ft = { 'scheme', 'racket' },
       pin = true,
       dependencies = {
          'julienvincent/nvim-paredit'
@@ -66,8 +51,9 @@ return {
          paredit_scheme.setup(paredit)
       end,
    },
+
    { 'julienvincent/nvim-paredit',
-      ft  = { 'scheme' },
+      ft  = { 'scheme', 'racket' },
       pin = true,
 
       config = function ()

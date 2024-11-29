@@ -56,6 +56,10 @@ alias mkdir='mkdir -pv'
 alias mv='mv -vi'
 alias rm='rm -vi'
 
+alias k='fc'
+# Fixing the number of times I attempt to rerun the prior command, but instead
+# send `k<CR>`.
+
 function kb {
    setxkbmap -option caps:escape
    xinput set-prop "DLL082A:01 06CB:76AF Touchpad" "libinput Tapping Enabled" 1
@@ -106,8 +110,6 @@ alias doc='asciidoctor'
 alias f='fzf'
 alias hg='chg'
 alias ik='vdirsyncer sync && ikhal; clear'
-alias k='khal'
-alias ka='khard'
 alias m='neomutt'
 alias o='xdg-open'
 alias pw='pass'
@@ -125,7 +127,7 @@ alias mkctl='minikube kubectl --'
 
 function sp { hunspell <<< "$@" ;}
 function def {
-   dict "$@" | nvim -R +'set ft=dictd' -
+   dict "$@" 2>&1 | nvim -R +'set ft=dictd' -
 }
 
 # For DrRacket scaling. Otherwise impossible to read on hi-dpi.
