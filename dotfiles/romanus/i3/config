@@ -133,6 +133,7 @@ bindsym Mod1+less     exec ~/bin/fmt-reply
 bindsym Mod1+greater  exec ~/bin/fmt-reply --prefix='>'
 bindsym Mod1+b        exec ~/bin/bt_rofi
 bindsym Mod1+w        exec ~/bin/rofi_wifi_picker.sh
+bindsym Mod1+u        exec ~/bin/wf
 #}}}
 #--- for_window -------------------------------------------------------------{{{
 for_window [ class=".*" ] border pixel 1

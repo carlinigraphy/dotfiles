@@ -1,19 +1,19 @@
 #!/bin/bash
 
-read -r ACTIVE < <(
-   systemctl show -P ActiveState wg-quick@wg0
+state=$(
+   nmcli --fields GENERAL.STATE connection show wg0 | awk '{print $2}'
 )
 
 case "$1" in
    toggle)
-      if [[ $ACTIVE == 'active' ]] ; then
-         sudo systemctl stop  wg-quick@wg0.service
+      if [[ $state == 'activated' ]] ; then
+         nmcli connection down wg0
       else
-         sudo systemctl start wg-quick@wg0.service
+         nmcli connection up wg0
       fi
       ;;
 
-   *) if [[ $ACTIVE == 'active' ]] ; then
+   *) if [[ $state == 'activated' ]] ; then
          echo "%{F#707070}WG:%{F#f0f0f0}wg0"
       else
          echo "%{F#707070}WG"
