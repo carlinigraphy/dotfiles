@@ -1,6 +1,6 @@
 return {
    { 'mbbill/undotree',
-      config = function (_, opts)
+      config = function ()
          vim.keymap.set('n', '<leader>u', '<cmd>UndotreeToggle | UndotreeFocus<CR>')
 
          vim.cmd [[

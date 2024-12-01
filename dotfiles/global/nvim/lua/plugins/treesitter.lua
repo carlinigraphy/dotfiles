@@ -1,15 +1,5 @@
 -- vim: nowrap
 
---[[ TODO
-
-Couple things that are still bothering me here. The `list_definitions_toc`
-seems to not work. I know it used to. Worth digging into why at some point.
-
-https://github.com/nvim-treesitter/nvim-treesitter-refactor/blob/master/lua/nvim-treesitter-refactor/navigation.lua#L96
-
---]]
-
-
 return {
    { 'nvim-treesitter/playground',
       cmd = 'TSPlaygroundToggle',

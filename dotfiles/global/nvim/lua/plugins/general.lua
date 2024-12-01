@@ -13,19 +13,16 @@ return {
       end,
    },
 
-   {  "carlinigraphy/steno.nvim",
-      dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
-      config = function()
-         require("steno").setup()
-      end,
-   },
-
    {  "carlinigraphy/elixir-repl.nvim",
       enabled = true,
       ft = "elixir",
       config = function()
          require("elixir-repl").setup()
       end
+   },
+
+   {  "carlinigraphy/steno.nvim",
+      dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
    },
 
    {  "stevearc/oil.nvim",
@@ -59,38 +56,4 @@ return {
    },
 
    { "tpope/vim-fugitive" },
-
-   --[[ NOTES;
-   -- Too heavy. Features much too specific to telekasten itself. Not enough
-   -- general vim feel to it. Been looking a lot more recently for plugins that
-   -- don't feel like learning that plugin itself, but it's just a natural
-   -- extension of my normal vim editing experience. Good stuff to potentially
-   -- take from here as a reference though.
-   --
-   {  "nvim-telekasten/telekasten.nvim",
-      enabled = true,
-      dependencies = {
-         "nvim-lua/plenary.nvim",
-         "nvim-telescope/telescope.nvim"
-      },
-      opts = {
-         home = vim.fn.expand("~/wiki/telekasten/")
-      }
-   },
-   --]]
-
-   --[[ NOTES;
-   -- I like the **idea** and **approach** of this plugin more than I like the
-   -- plugin itself. Definitely a lot of great ideas to try and steal.
-   --    - Utilizing native vim functionality through taglists, completion, etc.
-   --    - Simple, minimal approach, not a lot of unique commands
-   --    - Preview window
-   --
-   {  "Furkanzmc/zettelkasten.nvim",
-      enabled = true,
-      opts = {
-         notes_path = vim.fn.expand("~/wiki/zettelkasten.nvim/")
-      },
-   },
-   --]]
 }

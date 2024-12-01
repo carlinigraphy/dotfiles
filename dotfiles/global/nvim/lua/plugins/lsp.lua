@@ -43,29 +43,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
--- 2024-11-27
---    Moving away from this style for a little while. It just never felt
---    "right", and was constantly running into visibility concerns.
---[[
-local border = {
-  {" ", "FloatBorder"}, -- top left
-  { "", "FloatBorder"}, -- top
-  {" ", "FloatBorder"}, -- top right
-  {" ", "FloatBorder"}, -- right
-  {" ", "FloatBorder"}, -- bottom right
-  { "", "FloatBorder"}, -- bottom
-  {" ", "FloatBorder"}, -- bottom left
-  {" ", "FloatBorder"}, -- left
-}
-local orig_preview_fn = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(_1, _2, opts, ...)
- opts = opts or {}
- opts.border = opts.border or border
- return orig_preview_fn(_1, _2, opts, ...)
-end
---]]
-
-
 vim.diagnostic.config({
    underline     = false,
    severity_sort = false,
@@ -118,13 +95,6 @@ local servers = {
          offsetEncoding = { "utf-8", "utf-16" },
       },
    },
-
-   -- {  name = "elixer",
-   --    filetypes = { "elixir", "eelixir", "heex", "surface" },
-   --    cmd = { bin .. "elixir-ls" },
-   --    _root_dir = { "mix.esx", ".git", ".hg" },
-   --    single_file_support = true,
-   -- }
 }
 
 vim.iter(servers):map(function(config)
