@@ -55,9 +55,8 @@ local mono = {
 
 local color = {
    bg = {
-     [ 0] = '#161a1d',
-     [ 1] = '#22262b',
-     [ 2] = '#2d333a',
+     [ 0] = '#1b2227',
+     [ 1] = '#2b363e'
    },
    fg = {
       dim  = '#536878',
@@ -70,8 +69,7 @@ local color = {
 local yellow = '#eb9753'
 
 local green  = {
-   bg = '#1c3536',
-   fg = '#5f8787',
+   bg = '#222f30',
 }
 
 local blue = {
@@ -140,7 +138,7 @@ for name, highlight in pairs({
    CursorLine     = { bg = mono.bg[1] },
    CursorLineNr   = { bg = mono.bg[1] },
 
-   FoldColumn     = { fg = color.bg[2], bg = bg },
+   FoldColumn     = { fg = mono.fg.comment, bg = bg },
    CursorLineFold = { link = 'FoldColumn' },
    --}}}
 
@@ -224,11 +222,10 @@ for name, highlight in pairs({
    ['@comment.error']   = { link = 'Todo' },
    ['@comment.note']    = { link = 'Todo' },
 
-
-   DiffAdd      = { fg = fg, bg = green.bg },
-   DiffChange   = { fg = fg, bg = blue.bg[0] },
-   DiffDelete   = { fg = mono.bg[1], bg = bg },
-   DiffText     = { fg = mono.fg.emph, bg = blue.bg[1], bold = true },
+   DiffAdd      = { fg = mono.fg.emph, bg = green.bg },
+   DiffChange   = { fg = fg, bg = color.bg[0] },
+   DiffDelete   = { fg = mono.bg[2], bg = bg },
+   DiffText     = { fg = mono.fg.emph, bg = color.bg[1], bold = true },
    Directory    = { fg = color.fg.norm, bold = true },
    ErrorMsg     = { fg = red.fg },
    MatchParen   = { fg = mono.fg.emph, bg = blue.bg[1], bold = true },
@@ -267,8 +264,8 @@ for name, highlight in pairs({
    --- UI elements -------------------------------------------------------------
    Pmenu        = { fg = mono.fg.dim, bg = mono.bg[1] },
    PmenuSbar    = { bg = color.bg[0] },
-   PmenuSel     = { fg = fg, bg = mono.bg[2], bold = true },
-   PmenuThumb   = { bg = color.bg[2] },
+   PmenuSel     = { fg = fg, bg = mono.bg[1], bold = true },
+   PmenuThumb   = { bg = color.bg[1] },
 
    -- My statusline groups.
    Statusline_Filetype     = { fg = fg, bg = bg },
