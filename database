@@ -10,5 +10,7 @@ global/nvim		.config/nvim
 romanus/polybar		.config/polybar
 populus/rofi		.config/rofi
 romanus/rofi		.config/rofi
+forum/sway		.config/sway
+forum/waybar		.config/waybar
 global/.inputrc		.inputrc
 global/.Xresources		.Xresources
