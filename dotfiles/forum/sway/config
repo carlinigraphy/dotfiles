@@ -1,0 +1,191 @@
+# vim: ft=swayconfig foldmethod=marker nowrap
+
+set $mod Mod1
+
+output * {
+   bg ${HOME}/Pictures/background.jpg fill
+   scale 1.5
+}
+
+input type:touchpad {
+    tap enabled
+}
+
+input type:keyboard {
+   repeat_rate 40
+   repeat_delay 200
+   xkb_options caps:escape
+}
+
+bar {
+    swaybar_command waybar
+}
+
+gaps inner 5
+gaps outer 0
+
+default_border          pixel 1
+default_floating_border pixel 1
+floating_maximum_size   1880 x 1140
+floating_modifier       $mod normal
+smart_borders           on
+
+font pango:Jetbrains Mono 9
+
+# Columns:
+#  (1) border around title bar
+#  (2) background
+#  (3) text
+#  (4) indicator
+#  (5) child border
+# 
+#    <class>                <1>      <2>      <3>      <4>      <5>
+client.focused            #303030  #181818  #ffffff  #ffffff  #a0a0a0
+client.focused_inactive   #202020  #181818  #e0e0e0  #a0a0a0  #707070
+client.focused_tab_title  #202020  #181818  #e0e0e0  #ffffff  #202020
+client.unfocused          #121212  #121212  #909090  #121212  #121212
+
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+r reload
+
+# Focus windows.
+bindsym {
+   $mod+h focus left
+   $mod+j focus down
+   $mod+k focus up
+   $mod+l focus right
+}
+
+# Move windows.
+bindsym {
+   $mod+Shift+h move left
+   $mod+Shift+j move down
+   $mod+Shift+k move up
+   $mod+Shift+l move right
+}
+
+workspace_auto_back_and_forth yes
+bindsym $mod+Tab workspace back_and_forth
+
+# Switch workspace..
+bindsym {
+   $mod+1 workspace number 1
+   $mod+2 workspace number 2
+   $mod+3 workspace number 3
+   $mod+4 workspace number 4
+   $mod+5 workspace number 5
+   $mod+6 workspace number 6
+   $mod+7 workspace number 7
+   $mod+8 workspace number 8
+   $mod+9 workspace number 9
+}
+
+# Move container -> workspace.
+bindsym {
+   $mod+Shift+1 move container to workspace number 1
+   $mod+Shift+2 move container to workspace number 2
+   $mod+Shift+3 move container to workspace number 3
+   $mod+Shift+4 move container to workspace number 4
+   $mod+Shift+5 move container to workspace number 5
+   $mod+Shift+6 move container to workspace number 6
+   $mod+Shift+7 move container to workspace number 7
+   $mod+Shift+8 move container to workspace number 8
+   $mod+Shift+9 move container to workspace number 9
+}
+
+bindsym $mod+c splitv
+bindsym $mod+v splith
+
+bindsym $mod+f           fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
+bindsym $mod+t           layout toggle split stacking
+
+bindsym $mod+minus       scratchpad show
+bindsym $mod+Shift+minus  \
+   floating enable        \
+   , resize set 945 550   \
+   , move position center \
+   , move up 250          \
+   , move scratchpad
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+   bindsym h  resize shrink width  10px
+   bindsym j  resize shrink height 10px
+   bindsym k  resize grow   height 10px
+   bindsym l  resize grow   width  10px
+
+   bindsym $mod+r mode "default"
+   bindsym Escape mode "default"
+   bindsym Return mode "default"
+}
+
+set $system_do (e)xit, (s)uspend, (h)ibernate
+bindsym $mod+0 mode "$system_do"
+mode "$system_do" {
+   bindsym e  exit, clear
+   bindsym s  exec systemctl suspend
+   bindsym h  exec systemctl hibernate
+
+   bindsym Escape mode "default"
+   bindsym Return mode "default"
+}
+
+#                                  utilities
+#-------------------------------------------------------------------------------
+#{{{
+# --locked allows keybinding even when session is locked
+bindsym --locked XF86AudioMute           exec pactl set-sink-mute   \@DEFAULT_SINK@   toggle
+bindsym --locked XF86AudioLowerVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   -5%
+bindsym --locked XF86AudioRaiseVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   +5%
+bindsym --locked XF86AudioMicMute        exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+bindsym --locked XF86AudioPlay           exec playerctl play
+bindsym --locked XF86AudioPause          exec playerctl pause
+bindsym --locked XF86AudioNext           exec playerctl next
+bindsym --locked XF86AudioPrev           exec playerctl previous
+
+bindsym --locked XF86MonBrightnessDown   exec brightnessctl --min-value=5 set 5%-
+bindsym --locked XF86MonBrightnessUp     exec brightnessctl --min-value=5 set 5%+
+
+bindsym XF86SelectiveScreenshot          exec ${HOME}/bin/screenshot_region
+bindsym Print                            exec ${HOME}/bin/screenshot_window
+
+bindsym Control+Shift+Comma              exec dunstctl close
+bindsym Control+Shift+Period             exec dunstctl action
+#}}}
+
+#                                 applications
+#-------------------------------------------------------------------------------
+#{{{
+bindsym $mod+Return  exec wezterm
+bindsym $mod+e       exec thunar
+bindsym $mod+d exec fuzzel
+#}}}
+
+for_window [app_id="org.pulseaudio.pavucontrol"] \
+   floating enable
+
+for_window [app_id="thunar"] \
+   floating enable           \
+   , resize set 1150 700     \
+   , move center
+
+for_window [app_id="firefox" title="Picture-in-Picture"] \
+   floating enable \
+   , resize set 624 353 \
+   , move position 10 px 38 px
+
+## TODO, huh, so this _kinda_ works. But it does not resize until after
+## moving my mouse onto, and then out of, the window border. Would rather just
+## leave disabled until I can figure it out.
+#for_window [title="Extension:\ \(Bitwarden\ Password\ Manager\).*"] \
+#   floating enable
+
+#                                   startup
+#-------------------------------------------------------------------------------
+include /etc/sway/config.d/*
+exec {
+   brightnessctl set 30%
+   dunst
+}
