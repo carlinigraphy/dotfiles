@@ -15,13 +15,8 @@ if ! command -v realpath >/dev/null ; then
    exit 1
 fi
 
-if [[ ! -d "${PROGDIR}/.hg" ]] ; then
-   printf 'must be an hg repo.\n'
-   exit 1
-fi
-
 touch "${DATABASE}" -a
-mkdir -p "${PROGDIR}/dotfiles"
+mkdir -p "${PROGDIR}/files"
 mkdir -p "${PROGDIR}/logs"
 
 
@@ -36,7 +31,7 @@ commands:
    from NAME         copy \$NAME to use locally
    ls                print owned files
    diff PATH         vimdiff's multiple NAMEs for \$PATH
-   hg ARGS           \`hg\` relative to this repo
+   git ARGS          \`git\` relative to this repo
    cd                \`cd\` to this repo in subshell
 
 EOF
@@ -63,7 +58,7 @@ function store_data {
 
 function validate_add {
    local dst="$1"  # where the file will go: the destination
-   local src="$2"  # where it comes from: ./dotfiles/
+   local src="$2"  # where it comes from: ./files/
 
    if [[ ! $dst ]] ; then
       printf 'missing dst.\n'
@@ -107,7 +102,7 @@ function cmd_add {
    load_data
 
    local abs_src  abs_dst  rel_dst
-   abs_src="${PROGDIR}/dotfiles/${src}"
+   abs_src="${PROGDIR}/files/${src}"
    abs_dst=$( realpath "$dst" )
    rel_dst="${abs_dst#$HOME/}"
 
@@ -201,9 +196,8 @@ function cmd_add {
    printf '\n\e[37;1madd & commit...\e[0m\n'
 
    set -x
-   hg --cwd "$PROGDIR" add "$abs_src"
-   hg --cwd "$PROGDIR" commit "$abs_src" "$DATABASE" \
-      -m "add: ${rel_dst} as ${src}"
+   git -C "$PROGDIR" add "$abs_src" "$DATABASE" 
+   git -C "$PROGDIR" commit -m "add: ${rel_dst} as ${src}"
    set +x
 
    printf '\n\e[37;1m%s\e[0m\n'  'safe to remove'
@@ -229,7 +223,7 @@ function cmd_from {
       exit 1
    fi
 
-   local abs_src="${PROGDIR}/dotfiles/${src}"
+   local abs_src="${PROGDIR}/files/${src}"
    local abs_dst="${HOME}/${dst}"
 
    if [[ ! -e $abs_src ]] ; then
@@ -284,8 +278,8 @@ function cmd_diff {
    fi
 
    exec nvim -d \
-      "${PROGDIR}/dotfiles/${f1}" \
-      "${PROGDIR}/dotfiles/${f2}"
+      "${PROGDIR}/files/${f1}" \
+      "${PROGDIR}/files/${f2}"
 }
 
 
@@ -316,7 +310,7 @@ case "$1" in
       ;;
 
    cd)
-      if ! cd "${PROGDIR}/dotfiles/${HOSTNAME}" 2>/dev/null; then
+      if ! cd "${PROGDIR}/files/${HOSTNAME}" 2>/dev/null; then
          printf "cannot \`cd\`\n" >&2
          exit 1
       fi
