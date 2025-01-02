@@ -12,5 +12,6 @@ populus/rofi		.config/rofi
 romanus/rofi		.config/rofi
 forum/sway		.config/sway
 forum/waybar		.config/waybar
+wezterm		.config/wezterm
 global/.inputrc		.inputrc
 global/.Xresources		.Xresources
