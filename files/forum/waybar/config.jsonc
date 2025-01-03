@@ -31,7 +31,7 @@
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "<span color='#707070'>BR:</span> {percent}%",
+        "format": "<span color='#707070'>BR:</span>{percent}%",
         "tooltip": false,
         "on-scroll-up": "",
         "on-scroll-down": ""
@@ -43,11 +43,11 @@
             "warning": 25,
             "critical": 10
         },
-        "format"         : "<span color='#707070'>BAT:</span> {capacity}%",
-        "format-critical": "<span color='#c0c0c0'>BAT:</span> {capacity}%",
-        "format-full"    : "<span color='#707070'>BAT:</span> full",
-        "format-charging": "<span color='#707070'>BAT:</span> {capacity}% ",
-        "format-plugged" : "<span color='#707070'>BAT:</span> {capacity}% ",
+        "format"         : "<span color='#707070'>BAT:</span>{capacity}%",
+        "format-critical": "<span color='#c0c0c0'>BAT:</span>{capacity}%",
+        "format-full"    : "<span color='#707070'>BAT:</span>full",
+        "format-charging": "<span color='#707070'>BAT:</span>{capacity}% ",
+        "format-plugged" : "<span color='#707070'>BAT:</span>{capacity}% ",
         "format-alt"     : "{time} {icon}",
         "format-icons"   : ["", "", "", "", ""]
     },
@@ -70,7 +70,7 @@
     },
 
     "cpu": {
-        "format": "<span color='#707070'>CPU:</span> {usage}%",
+        "format": "<span color='#707070'>CPU:</span>{usage}%",
         "tooltip": false
     },
 
@@ -134,11 +134,11 @@
     },
 
     "pulseaudio": {
-        "format"                : "<span color='#707070'>VOL:</span> {volume}% {icon} {format_source}",
-        "format-bluetooth"      : "<span color='#707070'>VOL:</span> {volume}% {icon} {format_source}",
+        "format"                : "<span color='#707070'>VOL:</span>{volume}% {icon} {format_source}",
+        "format-bluetooth"      : "<span color='#707070'>VOL:</span>{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted"          : " {format_source}",
-        "format-source"         : "<span color='#707070'>VOL:</span> {volume}% ",
+        "format-source"         : "<span color='#707070'>VOL:</span>{volume}% ",
         "format-source-muted"   : "",
         "format-icons": {
             "headphone" : "",
@@ -172,8 +172,8 @@
     "temperature": {
         "tooltip": false,
         "critical-threshold": 75,
-        "format": "<span color='#707070'>TEMP:</span> {temperatureC}°C",
-        "format-critical": "<span color='#c0c0c0'>TEMP:</span> {temperatureC}°C"
+        "format": "<span color='#707070'>TEMP:</span>{temperatureC}°C",
+        "format-critical": "<span color='#c0c0c0'>TEMP:</span>{temperatureC}°C"
         //"format": "{temperatureC}°C {icon}",
         //"format-icons": ["", "", ""]
     },
