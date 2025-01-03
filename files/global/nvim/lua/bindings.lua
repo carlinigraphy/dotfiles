@@ -26,6 +26,9 @@ vim.g.mapleader = ' '
 -- Terminal.
 set('n', '<leader>t',  ':sp | :term<CR>a')
 set('t', '<C-w>',      '<C-\\><C-n><C-w>')
+set('t', '<S-Space>',  '<Space>')
+   -- I've only had this issue on `wezterm`, and only in the neovim terminal,
+   -- but it seems to be sending <C-u>? I don't care for it.
 
 -- Spelling.
 set('n', '<leader>sp', ':set spell! | set spell?<CR>')

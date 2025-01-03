@@ -4,7 +4,7 @@
 -- Maintainer: sr.ht/~carlinigraphy, github.com/carlinigraphy
 -- License:    Unlicense
 
---[[
+--[[----------------------------------------------------------------------------
 
 Refinement of my previous colorschemes. Guiding principals:
 
@@ -35,84 +35,55 @@ end
 
 vim.g.colors_name = 'paynes-greyscale'
 
-
---- Regular colors -------------------------------------------------------------
-local mono = {
-   bg = {
-      [-2] = '#0e0e0e',
-      [-1] = '#101010',
+local bg = {
+   -- Values obtained by setting my laptop to ~3% brightness, drawing windows,
+   -- boxes, and buttons, and determining the minimum step required for
+   -- legibility. On my laptop, to my eye.
+   mono = {
+      [-2] = '#000000',
+      [-1] = '#0d0d0d',
       [ 0] = '#121212',
-      [ 1] = '#141414',
-      [ 2] = '#161616',
+      [ 1] = '#151515',
+      [ 2] = '#181818',
+      [ 3] = '#202020',
    },
-   fg = {
+   red = '#572d41'
+}
+
+local fg = {
+   mono = {
+     black   = '#000000',
      comment = '#404040',
      dim     = '#707070',
      norm    = '#b5b5b5',
      emph    = '#ffffff',
    },
-}
-
-local color = {
-   bg = {
-     [ 0] = '#1b2227',
-     [ 1] = '#2b363e'
+   accent = {
+      paynes = '#536878',
+      slate  = '#708090',
    },
-   fg = {
-      dim  = '#536878',
-      norm = '#708090',
-   },
-}
-
-
---- Special/accent colors ------------------------------------------------------
-local yellow = '#eb9753'
-
-local green  = {
-   bg = '#222f30',
-}
-
-local blue = {
-   bg = {
-      [ 0] = '#1c2836',
-      [ 1] = '#2d4157',
-   },
-}
-
-local red = {
-   bg = {
-      [ 0] = '#361C29',
-      [ 1] = '#572d41',
-   },
-   fg = '#9b4a6b',
+   red = '#9b4a6b',
+   yellow = '#f0a96e',
 }
 
 
 --------------------------------------------------------------------------------
 for _, tbl in ipairs({
-   mono.bg, color.bg,
-   mono.fg, color.fg,
+   bg.mono, fg.mono, fg.accent,
 }) do
    setmetatable(tbl, {
       __index = function (_, key)
-         -- Second parameter is the hierarchy. `2' means one level up from this
-         -- function. ref. https://www.lua.org/pil/8.5.html
-         error("Invalid index: " .. key, 2)
+         error(("Invalid index '%s'"):format(key), 2)
       end
    })
 end
 
 --------------------------------------------------------------------------------
-local nvim_set_hl = vim.api.nvim_set_hl
-
-local fg = mono.fg.norm
-local bg = mono.bg[0]
-
 for name, highlight in pairs({
    -- Root groups.
-   Normal        = { fg = fg, bg = bg  },
-   PaynesDim     = { fg = mono.fg.dim  },
-   PaynesEmph    = { fg = mono.fg.emph },
+   Normal        = { fg = fg.mono.norm },
+   PaynesDim     = { fg = fg.mono.dim  },
+   PaynesEmph    = { fg = fg.mono.emph },
 
 
    --[[  -2  Background  ----------------------------------------------------{{{
@@ -123,8 +94,8 @@ for name, highlight in pairs({
          - folded text
          - line numbers
    ---------------------------------------------------------------------------]]
-   SignColumn     = { bg = bg },
-   Comment        = { fg = mono.fg.comment },
+   SignColumn     = { bg = bg.mono[0] },
+   Comment        = { fg = fg.mono.comment },
    Conceal        = { link = 'Comment' },
    EndOfBuffer    = { link = 'Comment' },
    LineNr         = { link = 'Comment' },
@@ -133,12 +104,13 @@ for name, highlight in pairs({
    NonText        = { link = 'Comment' },
    WinSeparator   = { link = 'Comment' },
 
-   Folded         = { fg = mono.fg.dim, bg = mono.bg[1] },
-   CursorColumn   = { bg = mono.bg[1] },
-   CursorLine     = { bg = mono.bg[1] },
-   CursorLineNr   = { bg = mono.bg[1] },
+   Folded         = { fg = fg.mono.dim, bg = bg.mono[1] },
+   CursorLine     = { bg = bg.mono[1] },
+   CursorColumn   = { link = 'CursorLine' },
+   CursorLineNr   = { link = 'CursorLine' },
+   ColorColumn    = { link = 'CursorLine' },
 
-   FoldColumn     = { fg = mono.fg.comment, bg = bg },
+   FoldColumn     = { fg = fg.mono.comment, bg = bg.mono[0] },
    CursorLineFold = { link = 'FoldColumn' },
    --}}}
 
@@ -192,17 +164,18 @@ for name, highlight in pairs({
          - types
          - strings
    ---------------------------------------------------------------------------]]
-   Boolean        = { fg = color.fg.norm, bold = true },
+   Boolean        = { fg = fg.accent.slate, bold = true },
    Exception      = { link = 'PaynesEmph' },
    Identifier     = { link = 'PaynesEmph' },
    ['@variable']  = { link = 'Identifier' },
    ['@constant']  = { link = 'Identifier' },
 
-   Type           = { fg = color.fg.norm },
+   Type           = { fg = fg.accent.slate },
    TypeDef        = { link = 'Type' },
+   Label          = { link = 'Type' },
    ['@module']    = { link = 'Type' },
 
-   String         = { fg = color.fg.dim },
+   String         = { fg = fg.accent.paynes },
    Character      = { link = 'String' },
    --}}}
 
@@ -212,45 +185,46 @@ for name, highlight in pairs({
          - control flow
          - todo/error messaging
    ---------------------------------------------------------------------------]]
-   Conditional = { fg = mono.fg.emph, bold = true },
-   Repeat      = { fg = mono.fg.emph, bold = true },
+   Conditional = { fg = fg.mono.emph, bold = true },
+   Repeat      = { fg = fg.mono.emph, bold = true },
 
-   Todo                 = { fg = yellow, bold = true },
+   Todo                 = { fg = fg.yellow, bold = true },
    WarningMsg           = { link = 'Todo' },
    ['@comment.todo']    = { link = 'Todo' },
    ['@comment.warning'] = { link = 'Todo' },
    ['@comment.error']   = { link = 'Todo' },
    ['@comment.note']    = { link = 'Todo' },
 
-   DiffAdd      = { fg = mono.fg.emph, bg = green.bg },
-   DiffChange   = { fg = fg, bg = color.bg[0] },
-   DiffDelete   = { fg = mono.bg[2], bg = bg },
-   DiffText     = { fg = mono.fg.emph, bg = color.bg[1], bold = true },
-   Directory    = { fg = color.fg.norm, bold = true },
-   ErrorMsg     = { fg = red.fg },
-   MatchParen   = { fg = mono.fg.emph, bg = blue.bg[1], bold = true },
-   Title        = { fg = mono.fg.emph, bold = true, underline = true },
+   DiffAdd      = { bg = bg.mono[3] },
+   DiffChange   = { fg = fg.mono.dim, bg = bg.mono[3] },
+   DiffText     = { fg = fg.mono.emph, bg = bg.mono[3], bold = true },
+   DiffDelete   = { fg = bg.mono[3], bg = bg.mono[0] },
+   Directory    = { fg = fg.accent.slate, bold = true },
+   ErrorMsg     = { fg = fg.red },
+   MatchParen   = { fg = fg.mono.emph, bg = fg.accent.paynes, bold = true },
+   Title        = { fg = fg.mono.emph, bold = true, underline = true },
 
-   Error        = { fg = mono.fg.emph, bg = red.bg[0] },
+   Error        = { fg = fg.mono.emph, bg = bg.red },
    ['@error']   = { link = 'Error' },
-   SpellBad     = { link = 'Error' },
-   SpellCap     = {},
+
+   SpellBad     = { fg = fg.red, sp = fg.mono.dim, italic = true, underdashed = true, },
    SpellLocal   = {},
+   SpellCap     = {},
    SpellRare    = {},
 
-   Visual       = { fg = mono.bg[-2], bg = mono.fg.norm, bold = true },
+   Visual       = { fg = fg.mono.black, bg = fg.mono.norm, bold = true },
    CurSearch    = { link = 'Visual' },
    Substitute   = { link = 'Visual' },
    Search       = { link = 'Visual' },
    QuickFixLine = { link = 'Visual' },
    IncSearch    = { link = 'Visual' },
 
-   Special      = { fg = color.fg.norm, italic = true },
+   Special      = { fg = fg.accent.slate, italic = true },
    SpecialKey   = { link = 'Special' },
    SpecialChar  = { link = 'Special' },
 
-   ['@string.special.url']  = { fg = color.fg.norm, underline = true },
-   ['@keyword.return']      = { fg = mono.fg.emph, italic = true },
+   ['@string.special.url']  = { fg = fg.accent.slate, underline = true },
+   ['@keyword.return']      = { fg = fg.mono.emph, italic = true },
    ['@keyword.operator']    = { link = 'Operator'    },
    ['@keyword.repeat']      = { link = 'Repeat'      },
    ['@keyword.conditional'] = { link = 'Conditional' },
@@ -262,30 +236,47 @@ for name, highlight in pairs({
    ---------------------------------------------------------------------------]]
 
    --- UI elements -------------------------------------------------------------
-   Pmenu        = { fg = mono.fg.dim, bg = mono.bg[1] },
-   PmenuSbar    = { bg = color.bg[0] },
-   PmenuSel     = { fg = fg, bg = mono.bg[1], bold = true },
-   PmenuThumb   = { bg = color.bg[1] },
+   Pmenu        = { fg = fg.mono.dim, bg = bg.mono[1] },
+   PmenuSbar    = { bg = bg.mono[3] },
+   PmenuSel     = { fg = fg.mono.emph, bg = bg.mono[3], bold = true },
+   PmenuThumb   = { bg = fg.accent.paynes },
 
    -- My statusline groups.
-   Statusline_Filetype     = { fg = fg, bg = bg },
-   Statusline_Cursor       = { fg = mono.fg.emph, bg = mono.bg[1]  , bold = true },
-   Statusline_Mode_Normal  = { fg = mono.fg.emph, bg = blue.bg[0]  , bold = true },
-   Statusline_Mode_Insert  = { fg = mono.fg.emph, bg = green.bg    , bold = true },
-   Statusline_Mode_Visual  = { fg = mono.fg.emph, bg = color.bg[0] , bold = true },
-   Statusline_Mode_Replace = { fg = mono.fg.emph, bg = red.bg[0]   , bold = true },
+   Statusline_Filetype     = { fg = fg.mono.norm  , bg = bg.mono[2] },
+   Statusline_Cursor       = { fg = fg.mono.emph  , bg = bg.mono[2], bold = true },
+   Statusline_Mode_Normal  = { fg = fg.mono.norm  , bg = bg.mono[2], bold = true },
+   Statusline_Mode_Insert  = { fg = fg.mono.emph  , bg = bg.mono[2], bold = true },
+   Statusline_Mode_Visual  = { fg = fg.mono.norm  , bg = bg.mono[2], bold = true },
+   Statusline_Mode_Replace = { fg = fg.red        , bg = bg.mono[2], bold = true },
 
    -- Built-in statusline groups.
-   StatusLineNC = { fg = mono.fg.dim, bg = mono.bg[1] },
-   StatusLine   = { fg = fg, bg = mono.bg[1] },
+   StatusLineNC = { fg = fg.mono.dim , bg = bg.mono[2] },
+   StatusLine   = { fg = fg.mono.norm, bg = bg.mono[2] },
 
    -- Floating windows.
-   FloatBorder        = { fg = color.fg.norm },
+   FloatBorder        = { fg = fg.accent.slate },
    FloatFooter        = { link = 'Title' },
-   FloatShadow        = { bg = mono.bg[-1] },
+   FloatShadow        = { bg = bg.mono[-1] },
    FloatShadowThrough = { link = 'Normal' },
    FloatTitle         = { link = 'Title' },
-   NormalFloat        = { bg = mono.bg[0] },
+   NormalFloat        = { bg = bg.mono[0] },
+
+   -- lsp
+   DiagnosticError            = { fg = fg.mono.dim  },
+   DiagnosticFloatingError    = { link = 'PaynesEmph' },
+   DiagnosticFloatingHint     = { link = 'PaynesEmph' },
+   DiagnosticFloatingInfo     = { link = 'PaynesEmph' },
+   DiagnosticFloatingWarn     = { link = 'PaynesEmph' },
+   DiagnosticHint             = { link = 'Comment' },
+   DiagnosticInfo             = { link = 'Comment' },
+   DiagnosticVirtualTextError = { fg = fg.red },
+   DiagnosticVirtualTextHint  = { link = 'Comment' },
+   DiagnosticVirtualTextInfo  = { link = 'Comment' },
+   DiagnosticVirtualTextWarn  = { link = 'Comment' },
+   DiagnosticWarn             = { fg = fg.mono.norm },
+   DiagnosticUnnecessary      = {},
+   --^ Color for unused variables. Disable, as the LSP warnings also cover the
+   --  same thing
 
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
@@ -294,79 +285,67 @@ for name, highlight in pairs({
    ['@punctuation.special.bash'] = { link = 'Identifier' },
 
    -- scheme.
-   ['@keyword.scheme']          = { italic = true },
-   ['@keyword.racket']          = { italic = true },
-   ['@function.builtin.scheme'] = { italic = true },
    ['@function.builtin.racket'] = { italic = true },
+   ['@function.builtin.scheme'] = { italic = true },
+   ['@keyword.racket']          = { italic = true },
+   ['@keyword.scheme']          = { italic = true },
 
    -- Asciidoc.
-   ['asciidocAttributeEntry'] = { fg = color.fg.norm },
-   ['asciidocAttributeList']  = { fg = mono.fg.dim },
-   ['asciidocBlockTitle']     = { fg = mono.fg.emph, italic = true },
-   ['asciidocLineBreak']      = { fg = color.fg.norm },
-   ['asciidocListingBlock']   = { fg = mono.fg.dim },
-   ['asciidocMacro']          = { fg = color.fg.dim },
+   ['asciidocAttributeEntry'] = { fg = fg.accent.slate },
+   ['asciidocAttributeList']  = { fg = fg.mono.dim },
+   ['asciidocBlockTitle']     = { fg = fg.mono.emph, italic = true },
+   ['asciidocLineBreak']      = { fg = fg.accent.slate },
+   ['asciidocListingBlock']   = { fg = fg.mono.dim },
+   ['asciidocMacro']          = { fg = fg.accent.paynes },
    ['asciidocURL']            = { link = '@string.special.url' },
 
    -- C
-   ['@type.builtin.c'] = { fg = mono.fg.dim },
+   ['@type.builtin.c'] = { fg = fg.mono.dim },
 
    -- markup (misc.)
-   ['@markup.heading']    = { fg = mono.fg.emph  },
-   ['@markup.heading.1']  = { fg = mono.fg.emph, bold = true },
-   ['@markup.heading.2']  = { fg = mono.fg.emph, bold = true },
-   ['@markup.strong']     = { bold = true },
    ['@markup.bold']       = { bold = true },
+   ['@markup.heading']    = { fg = fg.mono.emph  },
+   ['@markup.heading.1']  = { fg = fg.mono.emph, bold = true },
+   ['@markup.heading.2']  = { fg = fg.mono.emph, bold = true },
    ['@markup.italic']     = { italic = true },
+   ['@markup.link.label'] = { link = '@string.special.url' },
+   ['@markup.link.url']   = { link = '@string.special.url' },
+   ['@markup.list']       = { link = 'Delimiter' },
    ['@markup.raw']        = { link = 'String' },
-   ['@markup.link.label'] = { link = 'Comment' },
-   ['@markup.link.url']   = { link = 'Comment' },
+   ['@markup.strong']     = { bold = true },
 
    -- Markdown specific
-   ['@label.markdown'] = { link = 'Type' },
-   ['@markup.heading.1.markdown'] = { fg = mono.fg.emph, bold = true, underline = true },
+   -- Stops things like `vimdoc` from also having underlined top-level headings.
+   ['@markup.heading.1.markdown'] = { fg = fg.mono.emph, bold = true, underline = true },
 
    -- Beancount.
-   ['@markup.italic.beancount'] = { fg = mono.fg.emph, italic = true },
+   ['@markup.italic.beancount'] = { fg = fg.mono.emph, italic = true },
 
    --- Plugins -----------------------------------------------------------------
    -----------------------------------------------------------------------------
 
+   -- nvim-treesitter-context
+   TreesitterContext = { bg = bg.mono[1] },
+
    -- lazy.nvim
-   LazyNormal       = { bg = mono.bg[0] },
-   LazyButton       = { fg = mono.fg.norm, bg = mono.bg[2] },
+   LazyNormal       = { bg = bg.mono[0] },
+   LazyButton       = { fg = fg.mono.norm, bg = bg.mono[2] },
    LazyCommit       = { link = 'Comment' },
    LazyCommitType   = { link = 'Comment' },
    LazyH1           = { link = 'PaynesEmph' },
    LazyProp         = { link = 'PaynesDim' },
    LazyReasonCmd    = { link = 'Comment' },
    LazyReasonFt     = { link = 'Comment' },
-   LazyReasonPlugin = { fg = fg },
+   LazyReasonPlugin = { fg = fg.mono.norm },
    LazyReasonStart  = { link = 'Normal' },
    LazySpecial      = { link = 'PaynesEmph' },
 
-   -- nvim-treesitter-context
-   TreesitterContext = { bg = mono.bg[1] },
-
-   -- lsp
-   DiagnosticError            = { fg = mono.fg.dim  },
-   DiagnosticFloatingError    = { link = 'PaynesEmph' },
-   DiagnosticFloatingHint     = { link = 'PaynesEmph' },
-   DiagnosticFloatingInfo     = { link = 'PaynesEmph' },
-   DiagnosticFloatingWarn     = { link = 'PaynesEmph' },
-   DiagnosticHint             = { link = 'Comment' },
-   DiagnosticInfo             = { link = 'Comment' },
-   DiagnosticVirtualTextError = { fg = red.fg },
-   DiagnosticVirtualTextHint  = { link = 'Comment' },
-   DiagnosticVirtualTextInfo  = { link = 'Comment' },
-   DiagnosticVirtualTextWarn  = { link = 'Comment' },
-   DiagnosticWarn             = { fg = fg },
-   DiagnosticUnnecessary      = {},
-   --^ Color for unused variables. Disable, as the LSP warnings also cover the
-   --  same thing
+   MasonHighlight          = { fg = fg.accent.paynes },
+   MasonHighlightSecondary = { fg = fg.accent.slate },
+   MasonMutedBlock         = { fg = fg.mono.norm, bg = bg.mono[2] },
+   MasonHighlightBlockBold = { link = 'Visual' },
    --}}}
 
-
 }) do
-   nvim_set_hl(0, name, highlight)
+   vim.api.nvim_set_hl(0, name, highlight)
 end

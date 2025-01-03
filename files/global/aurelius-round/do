@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# ref.
+# https://github.com/be5invis/Iosevka/blob/main/doc/custom-build.md
+
 PROGDIR=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd )
 CURRENT="${PROGDIR}/Iosevka/private-build-plans.toml"
 SELECTED="${1?Requires file}"

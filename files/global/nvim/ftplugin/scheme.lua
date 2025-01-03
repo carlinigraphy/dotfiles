@@ -16,3 +16,10 @@ vim.keymap.set('n', '<leader>m', function ()
    api.nvim_command('')
    api.nvim_input('a')
 end)
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+   pattern = "*.scm",
+   callback = function()
+      vim.cmd [[:silent! !ctags *.scm]]
+   end,
+})

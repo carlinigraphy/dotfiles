@@ -1,10 +1,6 @@
 -- vim: nowrap
 
 return {
-   { 'nvim-treesitter/playground',
-      cmd = 'TSPlaygroundToggle',
-   },
-
    { 'nvim-treesitter/nvim-treesitter-context',
       opts = {
          enable              = true,
@@ -36,10 +32,12 @@ return {
       opts = {
          ensure_installed = {
             "bash",
+            "beancount",
             "elixir",
             "lua",
             "scheme",
             "toml",
+            "yaml",
          },
          highlight = {
             enable = true,

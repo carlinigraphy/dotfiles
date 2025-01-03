@@ -20,7 +20,6 @@ opt.completeopt    = {
    "menu",
    "menuone",
    "popup",
-   "noselect"
 }
 opt.cursorline     = false
 opt.cursorlineopt  = "number"

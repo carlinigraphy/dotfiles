@@ -1,43 +1,58 @@
-vim.api.nvim_create_autocmd('LspAttach', {
-   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+vim.api.nvim_create_autocmd("LspAttach", {
+   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
    callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-      if client.supports_method('textDocument/definition') then
-         -- This one specifically overwrites the built in `gd` mapping, as it's
-         -- strictly a drop-in replacement, but better.
-         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+         vim.lsp.handlers.hover, { border = "single" }
+      )
+
+      if client.supports_method("textDocument/signatureHelp") then
+         vim.keymap.set("i", "<C-l>", vim.lsp.buf.signature_help, {
             buffer = args.buf,
-            desc = "LSP::definition()"
+            desc = "LSP::signature_help()"
          })
+         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+            vim.lsp.handlers.signature_help, { border = "single" }
+         )
       end
 
-      if client.supports_method('textDocument/codeAction') then
-         vim.keymap.set('n', 'grc', vim.lsp.buf.code_action, {
-            buffer = args.buf,
-            desc = "LSP::codeAction()"
-         })
-      end
-
-      if client.supports_method('textDocument/rename') then
-         vim.keymap.set('n', 'grn', vim.lsp.buf.rename, {
-            buffer = args.buf,
-            desc = "LSP::rename()"
-         })
-      end
-
-      if client.supports_method('textDocument/implementation') then
-         vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, {
-            buffer = args.buf,
-            desc = "LSP::implementation()"
-         })
-      end
-
-      if client.supports_method('textDocument/references') then
-         vim.keymap.set('n', 'grr', vim.lsp.buf.references, {
-            buffer = args.buf,
-            desc = "LSP::references()"
-         })
+      -- Find available methods via:
+      -- :h lsp-method
+      for binding, method in pairs({
+         ["<leader>ca"] = {
+            name = "textDocument/codeAction",
+            fn   = vim.lsp.buf.code_action
+         },
+         ["gO"]  = {
+            name = "textDocument/documentSymbol",
+            fn   = function()
+               vim.lsp.buf.document_symbol({ loclist = true })
+            end,
+         },
+         ["gd"]  = {
+            name = "textDocument/definition",
+            fn   = vim.lsp.buf.definition
+         },
+         ["gri"] = {
+            name = "textDocument/implementation",
+            fn   = vim.lsp.buf.implementation,
+         },
+         ["grn"] = {
+            name = "textDocument/rename",
+            fn   = vim.lsp.buf.rename
+         },
+         ["grr"] = {
+            name = "textDocument/references",
+            fn   = vim.lsp.buf.references,
+         },
+      }) do
+         if client.supports_method(method.name) then
+            vim.keymap.set("n", binding, method.fn, {
+               buffer = args.buf,
+               desc = method[1],
+            })
+         end
       end
   end,
 })
@@ -54,14 +69,21 @@ vim.diagnostic.config({
       header = false,
       suffix = "",
       prefix = function(diag, _, _)
-         return (diag.code or "").."/", "Todo"
+         --local hl_map = {
+         --   [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+         --   [vim.diagnostic.severity.WARN ] = "WarningMsg",
+         --   [vim.diagnostic.severity.INFO ] = "PaynesDim",
+         --   [vim.diagnostic.severity.HINT ] = "Comment",
+         --}
+         --local highlight = hl_map[diag.severity] or "Normal"
+         return (diag.code or "").."/", "PaynesDim"
       end,
       border = "single",
    },
 })
 
 local bin =
-   vim.fn.stdpath('data') .. '/mason/bin/'
+   vim.fn.stdpath("data") .. "/mason/bin/"
 
 -- Grab from here:
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/configs
@@ -98,6 +120,7 @@ local servers = {
 }
 
 vim.iter(servers):map(function(config)
+   ---@diagnostic disable-next-line: unused-local
    config.on_attach = function(client, _bufnr)
       client.server_capabilities.semanticTokensProvider = nil
    end
@@ -114,8 +137,8 @@ for _, config in ipairs(servers) do
 end
 
 return {
-   { 'williamboman/mason.nvim',
-      cmd  = 'Mason',
+   { "williamboman/mason.nvim",
+      cmd  = "Mason",
       opts = {
          ui = {
             border = "single",

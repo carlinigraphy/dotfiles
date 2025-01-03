@@ -1,28 +1,13 @@
 return {
-   {  "carlinigraphy/beancount.nvim",
-      dir = "/home/aurelius/hg/nvim_plugins/beancount.nvim/",
-   },
-
-   {  "carlinigraphy/dictd.nvim",
-      dir = "/home/aurelius/hg/nvim_plugins/dictd.nvim",
+   {  "https://git.sr.ht/~carlinigraphy/beancount.nvim" },
+   {  "https://git.sr.ht/~carlinigraphy/steno.nvim",    },
+   {  "https://git.sr.ht/~carlinigraphy/dictd.nvim",
       config = function()
          require("dictd").configure({
             keymap = '<leader>df',
             filetypes = { 'text', 'steno_translation', 'markdown' }
          })
       end,
-   },
-
-   {  "carlinigraphy/elixir-repl.nvim",
-      enabled = true,
-      ft = "elixir",
-      config = function()
-         require("elixir-repl").setup()
-      end
-   },
-
-   {  "carlinigraphy/steno.nvim",
-      dir = "/home/aurelius/hg/nvim_plugins/steno.nvim",
    },
 
    {  "stevearc/oil.nvim",

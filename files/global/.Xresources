@@ -1,4 +1,4 @@
-Xft.dpi: 150
+Xft.dpi: 144
 
 ! special
 *.foreground:   #cfcfcf
@@ -6,33 +6,33 @@ Xft.dpi: 150
 *.cursorColor:  #cfcfcf
 
 ! black
-*.color0:       #282828
-*.color8:       #282828
+*.color0:       #404040
+*.color8:       #404040
 
 ! red
-*.color1:       #783953
-*.color9:       #783953
+*.color1:       #9b4a6b
+*.color9:       #9b4a6b
 
 ! green
-*.color2:       #5f8787
-*.color10:      #5f8787
+*.color2:       #536878
+*.color10:      #536878
 
 ! yellow
-*.color3:       #536878
-*.color11:      #536878
+*.color3:       #f0a96e
+*.color11:      #f0a96e
 
 ! blue
 *.color4:       #708090
 *.color12:      #708090
 
 ! magenta
-*.color5:       #404040
-*.color13:      #404040
+*.color5:       #707070
+*.color13:      #707070
 
 ! cyan
-*.color6:       #707070
-*.color14:      #707070
+*.color6:       #b5b5b5
+*.color14:      #b5b5b5
 
 ! white
-*.color7:       #cfcfcf
+*.color7:       #ffffff
 *.color15:      #ffffff
