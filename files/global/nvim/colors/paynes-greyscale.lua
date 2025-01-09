@@ -54,8 +54,8 @@ local fg = {
    mono = {
      black   = '#000000',
      comment = '#404040',
-     dim     = '#707070',
-     norm    = '#b5b5b5',
+     dim     = '#808080',
+     norm    = '#b0b0b0',
      emph    = '#ffffff',
    },
    accent = {
@@ -280,6 +280,11 @@ for name, highlight in pairs({
 
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
+   -- man.
+   ['manBold']       = { fg = fg.mono.emph, bold = true },
+   ['manUnderline']  = { italic = true },
+   ['manReference']  = { link = "@string.special.url" },
+   ['manOptionDesc'] = { fg = fg.mono.emph },
 
    -- bash.
    ['@punctuation.special.bash'] = { link = 'Identifier' },

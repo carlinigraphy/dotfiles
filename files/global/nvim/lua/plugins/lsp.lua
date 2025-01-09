@@ -1,3 +1,8 @@
+-- Don't load LSP in diff mode. Diff markers mess it up.
+if vim.opt.diff:get() then
+   return {}
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
    callback = function(args)
@@ -117,6 +122,12 @@ local servers = {
          offsetEncoding = { "utf-8", "utf-16" },
       },
    },
+
+   {  name = "terraform",
+      filetypes = { "terraform", "terraform-vars" },
+      cmd = { bin .. "terraform-ls", "serve" },
+      _root_dir = { ".terraform", ".git "},
+   }
 }
 
 vim.iter(servers):map(function(config)

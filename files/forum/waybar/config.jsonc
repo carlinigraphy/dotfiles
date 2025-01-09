@@ -24,7 +24,6 @@
         "pulseaudio",
         "backlight",
         "network",
-        "cpu",
         "temperature",
         "battery"
     ],
@@ -67,11 +66,6 @@
         //        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
         //    }
         //}
-    },
-
-    "cpu": {
-        "format": "<span color='#707070'>CPU:</span>{usage}%",
-        "tooltip": false
     },
 
     "mpd": {
@@ -218,3 +212,9 @@
 //    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
 //    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
 //},
+
+//"cpu": {
+//    "format": "<span color='#707070'>CPU:</span>{usage}%",
+//    "tooltip": false
+//},
+

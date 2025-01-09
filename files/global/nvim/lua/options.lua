@@ -29,8 +29,8 @@ opt.diffopt        = {
    "closeoff",
    "iwhite",
    "icase",
-   "linematch:60",
-   "algorithm:minimal"
+   "algorithm:minimal",
+   --"linematch:60",
 }
 opt.expandtab      = true
 opt.expandtab      = true

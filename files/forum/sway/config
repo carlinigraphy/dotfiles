@@ -4,8 +4,12 @@ set $mod Mod1
 
 output * {
    bg ${HOME}/Pictures/background.jpg fill
-   scale 1.5
 }
+
+# Laptop, ext. mid, ext. right
+output eDP-1 pos  640  1440  scale 1.5
+output DP-1  pos    0     0  scale 1
+output DP-2  pos 2560     0  scale 1
 
 input type:touchpad {
     tap enabled
@@ -163,8 +167,8 @@ bindsym $mod+e       exec thunar
 bindsym $mod+d exec fuzzel
 #}}}
 
-for_window [app_id="org.pulseaudio.pavucontrol"] \
-   floating enable
+for_window [app_id="galculator"                ] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 
 for_window [app_id="thunar"] \
    floating enable           \
@@ -175,12 +179,6 @@ for_window [app_id="firefox" title="Picture-in-Picture"] \
    floating enable \
    , resize set 624 353 \
    , move position 10 px 38 px
-
-## TODO, huh, so this _kinda_ works. But it does not resize until after
-## moving my mouse onto, and then out of, the window border. Would rather just
-## leave disabled until I can figure it out.
-#for_window [title="Extension:\ \(Bitwarden\ Password\ Manager\).*"] \
-#   floating enable
 
 #                                   startup
 #-------------------------------------------------------------------------------

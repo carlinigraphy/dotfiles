@@ -40,24 +40,24 @@ config.colors = {
    cursor_border = "#f0a96e",
 
    ansi = {
-      "#404040",  -- black    ::  dark grey
+      "#404040",  -- black
       "#9b4a6b",  -- red
-      "#536878",  -- green    ::  paynes grey
-      "#f0a96e",  -- yellow
+      "#709090",  -- green
+      "#c29e80",  -- yellow
       "#708090",  -- blue     ::  slate
-      "#707070",  -- magenta  ::  mid-grey
-      "#b5b5b5",  -- cyan     ::  light-grey
+      "#808080",  -- magenta  ::  mid-grey
+      "#b0b0b0",  -- cyan     ::  light-grey
       "#ffffff",  -- white
    },
 
    brights = {
       "#404040",  -- black
       "#9b4a6b",  -- red
-      "#536878",  -- green
-      "#f0a96e",  -- yellow
+      "#709090",  -- green
+      "#c29e80",  -- yellow
       "#708090",  -- blue
-      "#707070",  -- magenta
-      "#b5b5b5",  -- cyan
+      "#808080",  -- magenta
+      "#b0b0b0",  -- cyan
       "#ffffff",  -- white
    },
 
