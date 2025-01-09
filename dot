@@ -305,8 +305,8 @@ case "$1" in
       cmd_diff "$@"
       ;;
 
-   hg)
-      chg --cwd "${PROGDIR}" "${@:2}"
+   git)
+      git --C "${PROGDIR}" "${@:2}"
       ;;
 
    cd)
