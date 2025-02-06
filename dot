@@ -306,7 +306,7 @@ case "$1" in
       ;;
 
    git)
-      git --C "${PROGDIR}" "${@:2}"
+      git -C "${PROGDIR}" "${@:2}"
       ;;
 
    cd)

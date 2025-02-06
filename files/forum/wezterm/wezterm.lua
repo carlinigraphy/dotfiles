@@ -43,7 +43,7 @@ config.colors = {
       "#404040",  -- black
       "#9b4a6b",  -- red
       "#709090",  -- green
-      "#c29e80",  -- yellow
+      "#cf9b70",  -- yellow
       "#708090",  -- blue     ::  slate
       "#808080",  -- magenta  ::  mid-grey
       "#b0b0b0",  -- cyan     ::  light-grey

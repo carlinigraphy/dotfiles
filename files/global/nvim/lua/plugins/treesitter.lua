@@ -14,20 +14,10 @@ return {
    },
 
    { 'nvim-treesitter/nvim-treesitter',
+      --dependencies = { 'nvim-treesitter/nvim-treesitter-refactor' },
       build  = ':TSUpdate',
       config = function(_, opts)
          require('nvim-treesitter.configs').setup(opts)
-
-         local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-         parser_config.thoughts = {
-            install_info = {
-               url = vim.fn.expand("~/hg/nvim_plugins/tree-sitter-thoughts/"),
-               files = { "src/parser.c" },
-               generate_reqires_npm = false,
-               requires_generate_from_grammar = false,
-            },
-            filetype = "thoughts",
-         }
       end,
       opts = {
          ensure_installed = {
@@ -42,6 +32,18 @@ return {
          highlight = {
             enable = true,
          },
+         --[[
+         -- This is interesting, but I just didn't end up using it. To make
+         -- more usable, should also set the hl group TSDefinitionUsage, and
+         -- 'updatetime=0'. Though the updatetime would impact anything else
+         -- subscribing to the CursorHold event.
+         refactor = {
+            highlight_definitions = {
+               enable = true,
+               clear_on_cursor_move = true,
+            },
+         }
+         --]]
       },
    },
 }

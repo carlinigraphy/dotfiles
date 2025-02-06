@@ -1,8 +1,2 @@
 **.luarc.json
-
-logs/
-
-nvim/spell
-
-# Don't need their whole repo + node_modules. Oof.
-Iosevka/
+./logs/

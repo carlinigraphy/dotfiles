@@ -6,10 +6,13 @@ output * {
    bg ${HOME}/Pictures/background.jpg fill
 }
 
-# Laptop, ext. mid, ext. right
-output eDP-1 pos  640  1440  scale 1.5
-output DP-1  pos    0     0  scale 1
-output DP-2  pos 2560     0  scale 1
+set $mon_laptop  "Samsung Display Corp. 0x419F Unknown" 
+set $mon_middle  "Dell Inc. DELL P2423D 9CX2W14"
+set $mon_right   "Dell Inc. DELL P2423D 9SB3W14" 
+
+output $mon_laptop  pos  640  1440  scale 1.5
+output $mon_middle  pos    0     0  scale 1
+output $mon_right   pos 2560     0  scale 1
 
 input type:touchpad {
     tap enabled
@@ -177,7 +180,7 @@ for_window [app_id="thunar"] \
 
 for_window [app_id="firefox" title="Picture-in-Picture"] \
    floating enable \
-   , resize set 624 353 \
+   , resize set 621 349 \
    , move position 10 px 38 px
 
 #                                   startup

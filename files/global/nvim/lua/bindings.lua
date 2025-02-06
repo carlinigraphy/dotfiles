@@ -66,21 +66,6 @@ set('c', '<C-b>', '<Left>')  -- OVERWRITES: cursor to beginning of line
 set('c', '<C-f>', '<Right>') -- OVERWRITES: `cedit` key (below)
 vim.o.cedit = '<C-o>'
 
-
---                               abbreviations
---------------------------------------------------------------------------------
-set('ca', 'vres', 'vert res')
-set('ca', 'vins', 'vim.inspect()<Left>')
-set('ca', 'pvins', 'lua print(vim.inspect())<Left><Left>')
-
---                                 trial run
---------------------------------------------------------------------------------
--- Potential candidates to be demoed if unused, or don't fit into workflow.
-
--- 2024-06-30
--- Fuzzy matching messes up some workflows. E.g., can't type `:In<TAB>` to get
--- `:Inspect` immediately, matches `:intro` first. Fuzzy does help for
--- discovery though. E.g., `:html<TAB>` -> `:TOhtml`.
 set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
    local is_set
    for _,k in ipairs(vim.opt.wildoptions:get()) do
@@ -98,11 +83,18 @@ set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
    vim.cmd("set wildoptions") -- print current opts
 end)
 
+
+--                               abbreviations
+--------------------------------------------------------------------------------
+set('ca', 'vres', 'vert res')
+
+--                                 trial run
+--------------------------------------------------------------------------------
+-- Potential candidates to be demoed if unused, or don't fit into workflow.
+
 -- 2024-06-30
 --    Created.
 -- 2024-10-29
 --    Changed from J/K to <C-n>, <C-p>. Didn't like that it overwrote [J]oin.
 set('v', '<C-n>', [[:move '>+1'<CR>gv=gv]])
 set('v', '<C-p>', [[:move '<-2'<CR>gv=gv]])
-
---------------------------------------------------------------------------------
