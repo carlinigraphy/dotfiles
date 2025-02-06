@@ -1,0 +1,223 @@
+[user]
+name  = "Marcus Carlini"
+email = "marcus@carlini.com"
+
+
+[aliases]
+dc   = ["describe"]
+loga = ["log", "all()"]
+sk   = ["squash"]
+
+
+[ui]
+editor = "nvim"
+default-command = [ "log"
+   , "--template" , "builtin_log_comfortable"
+   , "--revisions", "@--::"
+   ]
+
+# 2025-01-29
+#     Until I can figure out how to use `nvim -d` for diffs, going with
+#     `difft`. Gives good enough diffs to be useful.
+#
+#     Looks like the diff is firing up a pager, and expecting the diff command
+#     to output something? Not sure how to change/configure this, but seems to
+#     be why running with nvim isn't displaying anything.
+#
+diff.tool = ["difft"
+   , "--syntax-highlight", "off"
+   , "--color", "always"
+   , "$left"
+   , "$right"
+   ]
+
+
+[git]
+push-bookmark-prefix = "carlinigraphy/push-"
+
+
+[templates]
+log = "builtin_log_comfortable"
+op_log = "builtin_op_log_comfortable"
+
+
+[merge-tools.nvim]
+program = "nvim"
+conflict-marker-style = "snapshot"
+merge-tool-edits-conflict-markers = true
+
+# I don't remember what `edit-args` is for.
+#edit-args = ["-d", "$left", "$right"]
+
+diff-invocation-mode = "file-by-file"
+diff-args = ["-d", "$left", "$right"]
+
+merge-args = [
+   "-d", "$left", "$base", "$right",
+   "-c", "tabedit $output | tabfirst"
+   ]
+
+
+[colors]
+"description"  = "white"
+"rest"         = "black"
+"root"         = "yellow"
+"working_copy" = { bold = false }
+
+"             timestamp" = "magenta"
+"working_copy timestamp" = "magenta"
+
+# 'author'
+"              author" = "magenta"
+"working_copy  author" = "magenta"
+
+# 'committer'
+"              committer" = "magenta"
+"working_copy  committer" = "magenta"
+
+# 'empty'
+"              empty"  = "magenta"
+"working_copy  empty"  = "magenta"
+
+# 'placeholder'
+"                                  placeholder" = "black"
+"                     description  placeholder" = "black"
+"working_copy         description  placeholder" = "black"
+"working_copy  empty  description  placeholder" = "black"
+"              empty  description  placeholder" = "black"
+
+# 'prefix'
+"          prefix" = { bold = false }
+"change_id prefix" = "white"
+"commit_id prefix" = "black"
+
+# 'change_id'
+"              change_id" = "white"
+"working_copy  change_id" = "white"
+
+# 'commit_id'
+"              commit_id" = "magenta"
+"working_copy  commit_id" = "magenta"
+
+# 'bookmark(s)'
+"             bookmarks"        = { fg = "blue", bold = true }
+"working_copy bookmarks"        = { fg = "blue", bold = true }
+
+"             bookmark"         = { fg = "blue", bold = true }
+"working_copy bookmark"         = { fg = "blue", bold = true }
+
+"             local_bookmarks"  = { fg = "blue", bold = true }
+"working_copy local_bookmarks"  = { fg = "blue", bold = true }
+
+"             remote_bookmarks" = { fg = "blue", bold = true }
+"working_copy remote_bookmarks" = { fg = "blue", bold = true }
+
+# 'git_refs'
+"             git_head"         = { fg = "blue", bold = true }
+"             git_refs"         = { fg = "blue", bold = true }
+"working_copy git_refs"         = { fg = "blue", bold = true }
+
+# `jj op log`
+"operation current_operation"   = { bold = true }
+
+"operation                   id" = "white"
+"operation current_operation id" = "white"
+
+"operation                   user" = "magenta"
+"operation current_operation user" = "magenta"
+
+"operation                   time" = "cyan"
+"operation current_operation time" = "cyan"
+
+## https://github.com/jj-vcs/jj/blob/main/cli/src/config/colors.toml
+##
+## "error" = { fg = "default", bold = true }
+## "error_source" = { fg = "default" }
+## "warning" = { fg = "default", bold = true }
+## "hint" = { fg = "default" }
+## "error heading" = { fg = "red", bold = true }
+## "error_source heading" = { bold = true }
+## "warning heading" = { fg = "yellow", bold = true }
+## "hint heading" = { fg = "cyan", bold = true }
+## 
+## "conflict_description" = "yellow"
+## "conflict_description difficult" = "red"
+## 
+## "commit_id" = "blue"
+## "change_id" = "magenta"
+## 
+## # Unique prefixes and the rest for change & commit ids
+## "rest" = "bright black"
+## "divergent rest" = "red"
+## "divergent prefix" = { fg = "red", underline = true }
+## "hidden prefix" = "default"
+## 
+## "author" = "yellow"
+## "committer" = "yellow"
+## "working_copies" = "green"
+## #  TODO: Remove *branch* in jj 0.28+
+## "branch"   = { fg = "white", italic = true }
+## "branches" = { fg = "white", italic = true }
+## "local_branches" = "magenta"
+## "remote_branches" = "magenta"
+## "tag" = "magenta"
+## "tags" = "magenta"
+## "divergent" = "red"
+## "divergent change_id" = "red"
+## "conflict" = "red"
+## "empty" = "green"
+## "placeholder" = "red"
+## "description placeholder" = "yellow"
+## "empty description placeholder" = "green"
+## "separator" = "bright black"
+## "elided" = "bright black"
+## 
+## "working_copy" = { bold = true }
+## "working_copy commit_id" = "bright blue"
+## "working_copy change_id" = "bright magenta"
+## # We do not use bright yellow because of how it looks on xterm's default theme.
+## # https://github.com/jj-vcs/jj/issues/528
+## "working_copy author" = "yellow"
+## "working_copy committer" = "yellow"
+## "working_copy working_copies" = "bright green"
+## #  TODO: Remove *branch* in jj 0.28+
+## "working_copy branch" = "bright magenta"
+## "working_copy branches" = "bright magenta"
+## "working_copy local_branches" = "bright magenta"
+## "working_copy remote_branches" = "bright magenta"
+## "working_copy tag" = "bright magenta"
+## "working_copy tags" = "bright magenta"
+## "working_copy divergent" = "bright red"
+## "working_copy divergent change_id" = "bright red"
+## "working_copy conflict" = "bright red"
+## "working_copy empty" = "bright green"
+## "working_copy placeholder" = "bright red"
+## "working_copy description placeholder" = "yellow"
+## "working_copy empty description placeholder" = "bright green"
+## 
+## "config_list name" = "green"
+## "config_list value" = "yellow"
+## "config_list overridden" = "bright black"
+## "config_list overridden name" = "bright black"
+## "config_list overridden value" = "bright black"
+## 
+"diff header" = "magenta"     # e.g., "Added regular file ___"
+"diff empty" = "black"
+
+## "diff binary" = "cyan"
+## "diff file_header" = { bold = true }
+## "diff hunk_header" = "cyan"
+## "diff removed" = { fg = "red" }
+## "diff added" = { fg = "green" }
+## "diff token" = { underline = true }
+## "diff modified" = "cyan"
+## "diff renamed" = "cyan"
+## "diff copied" = "green"
+## "diff access-denied" = { bg = "red" }
+## 
+## 
+"node working_copy"      = { fg = "yellow", bold = true }   # '@'
+"node current_operation" = { fg = "yellow", bold = true }
+## "node elided" = { fg = "bright black" }
+## "node immutable" = { fg = "bright cyan", bold = true }
+## "node conflict" = { fg = "red", bold = true }

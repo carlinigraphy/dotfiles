@@ -2,10 +2,11 @@ populus/.bashrc		.bashrc
 romanus/.bashrc		.bashrc
 populus/alacritty		.config/alacritty
 romanus/alacritty		.config/alacritty
+global/aurelius-round		.config/aurelius-round
 populous/dunst		.config/dunst
 romanus/dunst/dunstrc		.config/dunst/dunstrc
-global/aurelius-round		.config/aurelius-round
 romanus/i3/config		.config/i3/config
+global/jj		.config/jj
 global/nvim		.config/nvim
 romanus/polybar		.config/polybar
 populus/rofi		.config/rofi
