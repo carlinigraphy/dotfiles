@@ -35,18 +35,18 @@ config.colors = {
    background = "#121212",
    foreground = "#d0d0d0",
 
-   cursor_bg     = "#c8ced5",
+   cursor_bg     = "d0d0d0",
    cursor_fg     = "black",
    cursor_border = "#f0a96e",
 
    ansi = {
       "#404040",  -- black
-      "#9b4a6b",  -- red
+      "#ae6878",  -- red
       "#709090",  -- green
-      "#cf9b70",  -- yellow
+      "#cba381",  -- yellow
       "#708090",  -- blue     ::  slate
-      "#808080",  -- magenta  ::  mid-grey
-      "#b0b0b0",  -- cyan     ::  light-grey
+      "#909090",  -- magenta  ::  mid-grey
+      "#d0d0d0",  -- cyan     ::  light-grey
       "#ffffff",  -- white
    },
 
@@ -54,10 +54,10 @@ config.colors = {
       "#404040",  -- black
       "#9b4a6b",  -- red
       "#709090",  -- green
-      "#c29e80",  -- yellow
+      "#cba381",  -- yellow
       "#708090",  -- blue
-      "#808080",  -- magenta
-      "#b0b0b0",  -- cyan
+      "#909090",  -- magenta
+      "#d0d0d0",  -- cyan
       "#ffffff",  -- white
    },
 
