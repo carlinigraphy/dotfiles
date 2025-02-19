@@ -51,17 +51,18 @@ local bg = {
 
 local fg = {
    -- Monochrome.
-   comment = '#404040',
-   dim     = '#808080',
-   norm    = '#b0b0b0',
-   emph    = '#ffffff',
+   [0] = '#404040',
+   [1] = '#707070',
+   [2] = '#b0b0b0',
+   [3] = '#d0d0d0',
+   [4] = '#ffffff',
 
    -- Accent.
    paynes  = '#536878',
    slate   = '#708090',
 
    -- Color.
-   red     = '#9b4a6b',
+   red     = '#ae6878',
    yellow  = '#cf9b70',
 }
 
@@ -78,12 +79,14 @@ end
 --------------------------------------------------------------------------------
 for name, highlight in pairs({
    -- Root groups.
-   Normal        = { fg = fg.norm },
-   PaynesDim     = { fg = fg.dim  },
-   PaynesEmph    = { fg = fg.emph },
+   Paynes0 = { fg = fg[0] },
+   Paynes1 = { fg = fg[1] },
+   Paynes2 = { fg = fg[2] },
+   Paynes3 = { fg = fg[3] },
+   Paynes4 = { fg = fg[4] },
+   Normal  = { link = "Paynes3" },
 
-
-   --[[  -2  Background  ----------------------------------------------------{{{
+   --[[  Background  --------------------------------------------------------{{{
    Must have capacity for legibility, but can easily slip into the
    background.
          - comments
@@ -92,7 +95,7 @@ for name, highlight in pairs({
          - line numbers
    ---------------------------------------------------------------------------]]
    SignColumn     = { bg = bg[0] },
-   Comment        = { fg = fg.comment },
+   Comment        = { fg = fg[0] },
    Conceal        = { link = 'Comment' },
    EndOfBuffer    = { link = 'Comment' },
    LineNr         = { link = 'Comment' },
@@ -101,60 +104,62 @@ for name, highlight in pairs({
    NonText        = { link = 'Comment' },
    WinSeparator   = { link = 'Comment' },
 
-   Folded         = { fg = fg.dim, bg = bg[1] },
+   Folded         = { fg = fg[1], bg = bg[1] },
    CursorLine     = { bg = bg[1] },
    CursorColumn   = { link = 'CursorLine' },
    CursorLineNr   = { link = 'CursorLine' },
    ColorColumn    = { link = 'CursorLine' },
 
-   FoldColumn     = { fg = fg.comment, bg = bg[0] },
+   FoldColumn     = { fg = fg[0], bg = bg[0] },
    CursorLineFold = { link = 'FoldColumn' },
    --}}}
 
 
-   --[[  -1  Dim  -----------------------------------------------------------{{{
+   --[[  Dim  ---------------------------------------------------------------{{{
    Legible, but "noisy".
          - common language keywords: def, let, const
          - operators
          - delimiters: parens, brackets
-   ---------------------------------------------------------------------------]]
-   Define           = { link = 'PaynesDim' },
-   Keyword          = { link = 'PaynesDim' },
-   Operator         = { link = 'PaynesDim' },
-   PreProc          = { link = 'PaynesDim' },
-   Delimiter        = { link = 'PaynesDim' },
-   ['@bracket']     = { link = 'PaynesDim' },
-   ['@punctuation'] = { link = 'PaynesDim' },
-   ['@constructor'] = { link = 'PaynesDim' },
-   ---}}}
-
-
-   --[[   0  Normal  ---------------------------------------------------------{{{
-   Regular text. Should be easily legible, but not overly bright and
-   emphasized.
-         - statements
          - numbers (unnecessary to color, it's a visually distinct symbol)
    ---------------------------------------------------------------------------]]
-   Constant      = { link = 'Normal' },
-   Float         = { link = 'Normal' },
-   Function      = { link = 'Normal' },
-   Macro         = { link = 'Normal' },
-   MoreMsg       = { link = 'Normal' },
-   Number        = { link = 'Normal' },
-   Question      = { link = 'Normal' },
-   Statement     = { link = 'Normal' },
-   ['@field']    = { link = 'Normal' },
-   ['@function.builtin'] = { link = 'Function' },
-   ['@string.regex']     = { link = 'Function' },
+   Define           = { link = "Paynes1" },
+   Operator         = { link = "Paynes1" },
+   PreProc          = { link = "Paynes1" },
+   Delimiter        = { link = "Paynes1" },
+   ["@bracket"]     = { link = "Delimiter" },
+   ["@punctuation"] = { link = "Delimiter" },
+   ["@constructor"] = { link = "Delimiter" },
+
+   Keyword      = { link = "Paynes1" },
+   ["@keyword"] = { link = "Keyword" },
+
+   Float   = { link = "Paynes2" },
+   Number  = { link = "Paynes2" },
 
    -- REVIEW: for lua, this table keys, which should not be emphasized. Does
    -- that apply to other languages? Maybe they make sense to be highlighted
    -- elsewhere.
-   ['@property'] = { link = 'Normal' },
+   ["@property"] = { link = "Paynes2" },
+   ---}}}
+
+
+   --[[  Normal  ------------------------------------------------------------{{{
+   Regular text. Should be easily legible, but not overly bright and
+   emphasized.
+   ---------------------------------------------------------------------------]]
+   Constant      = { link = "Normal" },
+   Function      = { link = "Normal" },
+   Macro         = { link = "Normal" },
+   MoreMsg       = { link = "Normal" },
+   Question      = { link = "Normal" },
+   Statement     = { link = "Normal" },
+   ["@field"]    = { link = "Normal" },
+   ["@function"] = { link = "Function" },
+   ["@function.builtin"] = { link = "Function" },
    --}}}
 
 
-   --[[  +1  Emphasis  ------------------------------------------------------{{{
+   --[[  Emphasis  ----------------------------------------------------------{{{
    Content requiring additional attention. Should be clearly visible, and likely
    the important content of a line.
          - identifiers
@@ -162,8 +167,8 @@ for name, highlight in pairs({
          - strings
    ---------------------------------------------------------------------------]]
    Boolean        = { fg = fg.slate, bold = true },
-   Exception      = { link = 'PaynesEmph' },
-   Identifier     = { link = 'PaynesEmph' },
+   Exception      = { link = 'Paynes4' },
+   Identifier     = { link = 'Paynes4' },
    ['@variable']  = { link = 'Identifier' },
    ['@constant']  = { link = 'Identifier' },
 
@@ -177,54 +182,56 @@ for name, highlight in pairs({
    --}}}
 
 
-   --[[  +2  Important  -----------------------------------------------------{{{
+   --[[  Important  ---------------------------------------------------------{{{
    Fundamentally changes the content of the text, or execution of a program.
          - control flow
          - todo/error messaging
    ---------------------------------------------------------------------------]]
-   Conditional = { fg = fg.emph, bold = true },
-   Repeat      = { fg = fg.emph, bold = true },
+   Conditional = { fg = fg[4], bold = true },
+   Repeat      = { fg = fg[4], bold = true },
 
    Todo                 = { fg = fg.yellow, bold = true },
-   WarningMsg           = { link = 'Todo' },
-   ['@comment.todo']    = { link = 'Todo' },
-   ['@comment.warning'] = { link = 'Todo' },
-   ['@comment.error']   = { link = 'Todo' },
-   ['@comment.note']    = { link = 'Todo' },
+   WarningMsg           = { link = "Todo" },
+   ["@comment.todo"]    = { link = "Todo" },
+   ["@comment.warning"] = { link = "Todo" },
+   ["@comment.error"]   = { link = "Todo" },
+   ["@comment.note"]    = { link = "Todo" },
 
    DiffAdd      = { bg = bg[3] },
-   DiffChange   = { fg = fg.dim, bg = bg[3] },
-   DiffText     = { fg = fg.emph, bg = bg[3], bold = true },
+   DiffChange   = { fg = fg[2], bg = bg[3] },
+   DiffText     = { fg = fg[4], bg = bg[3], bold = true },
    DiffDelete   = { fg = bg[3], bg = bg[0] },
    Directory    = { fg = fg.slate, bold = true },
    ErrorMsg     = { fg = fg.red },
-   MatchParen   = { fg = fg.emph, bg = fg.paynes, bold = true },
-   Title        = { fg = fg.emph, bold = true, underline = true },
+   MatchParen   = { fg = fg[4], bg = fg.paynes, bold = true },
+   Title        = { fg = fg[4], bold = true, underline = true },
 
-   Error        = { fg = fg.emph, bg = bg.red },
-   ['@error']   = { link = 'Error' },
+   Error        = { fg = fg[4], bg = bg.red },
+   ["@error"]   = { link = "Error" },
 
-   SpellBad     = { fg = fg.red, sp = fg.dim, italic = true, underdashed = true, },
+   SpellBad     = { fg = fg.red, sp = fg[2], italic = true },
    SpellLocal   = {},
    SpellCap     = {},
    SpellRare    = {},
 
-   Visual       = { fg = bg[-2], bg = fg.norm, bold = true },
-   CurSearch    = { link = 'Visual' },
-   Substitute   = { link = 'Visual' },
-   Search       = { link = 'Visual' },
-   QuickFixLine = { link = 'Visual' },
-   IncSearch    = { link = 'Visual' },
+   Visual       = { fg = bg[-2], bg = fg[3], bold = true },
+   CurSearch    = { link = "Visual" },
+   Substitute   = { link = "Visual" },
+   Search       = { link = "Visual" },
+   QuickFixLine = { link = "Visual" },
+   IncSearch    = { link = "Visual" },
 
-   Special      = { fg = fg.slate    },
-   SpecialKey   = { link = 'Special' },
-   SpecialChar  = { link = 'Special' },
+   Special           = { fg = fg.slate    },
+   SpecialKey        = { link = "Special" },
+   SpecialChar       = { link = "Special" },
+   ["@string.regex"] = { link = "Special" },
 
-   ['@string.special.url']  = { fg = fg.slate, bold = true, underline = true },
-   ['@keyword.return']      = { fg = fg.emph, italic = true },
-   ['@keyword.operator']    = { link = 'Operator'    },
-   ['@keyword.repeat']      = { link = 'Repeat'      },
-   ['@keyword.conditional'] = { link = 'Conditional' },
+   ["@string.special.url"]  = { fg = fg.slate, bold = true, underline = true },
+
+   ["@keyword.return"]      = { fg = fg[4], italic = true },
+   ["@keyword.operator"]    = { link = "Operator"    },
+   ["@keyword.repeat"]      = { link = "Repeat"      },
+   ["@keyword.conditional"] = { link = "Conditional" },
    --}}}
 
 
@@ -233,22 +240,22 @@ for name, highlight in pairs({
    ---------------------------------------------------------------------------]]
 
    --- UI elements -------------------------------------------------------------
-   Pmenu        = { fg = fg.dim, bg = bg[1] },
+   Pmenu        = { fg = fg[2], bg = bg[1] },
    PmenuSbar    = { bg = bg[3] },
-   PmenuSel     = { fg = fg.emph, bg = bg[3], bold = true },
+   PmenuSel     = { fg = fg[4], bg = bg[3], bold = true },
    PmenuThumb   = { bg = fg.paynes },
 
    -- My statusline groups.
-   Statusline_Filetype     = { fg = fg.norm  , bg = bg[2] },
-   Statusline_Cursor       = { fg = fg.emph  , bg = bg[2], bold = true },
-   Statusline_Mode_Normal  = { fg = fg.norm  , bg = bg[2], bold = true },
-   Statusline_Mode_Insert  = { fg = fg.emph  , bg = bg[2], bold = true },
-   Statusline_Mode_Visual  = { fg = fg.norm  , bg = bg[2], bold = true },
+   Statusline_Filetype     = { fg = fg[3]  , bg = bg[2] },
+   Statusline_Cursor       = { fg = fg[4]  , bg = bg[2], bold = true },
+   Statusline_Mode_Normal  = { fg = fg[3]  , bg = bg[2], bold = true },
+   Statusline_Mode_Insert  = { fg = fg[4]  , bg = bg[2], bold = true },
+   Statusline_Mode_Visual  = { fg = fg[3]  , bg = bg[2], bold = true },
    Statusline_Mode_Replace = { fg = fg.red        , bg = bg[2], bold = true },
 
    -- Built-in statusline groups.
-   StatusLineNC = { fg = fg.dim , bg = bg[2] },
-   StatusLine   = { fg = fg.norm, bg = bg[2] },
+   StatusLineNC = { fg = fg[2] , bg = bg[2] },
+   StatusLine   = { fg = fg[3], bg = bg[2] },
 
    -- Floating windows.
    FloatBorder        = { fg = fg.slate },
@@ -259,18 +266,18 @@ for name, highlight in pairs({
    NormalFloat        = { bg = bg[0] },
 
    -- lsp
-   DiagnosticError            = { fg = fg.dim  },
-   DiagnosticFloatingError    = { link = 'PaynesEmph' },
-   DiagnosticFloatingHint     = { link = 'PaynesEmph' },
-   DiagnosticFloatingInfo     = { link = 'PaynesEmph' },
-   DiagnosticFloatingWarn     = { link = 'PaynesEmph' },
+   DiagnosticError            = { fg = fg[2]  },
+   DiagnosticFloatingError    = { link = 'Paynes4' },
+   DiagnosticFloatingHint     = { link = 'Paynes4' },
+   DiagnosticFloatingInfo     = { link = 'Paynes4' },
+   DiagnosticFloatingWarn     = { link = 'Paynes4' },
    DiagnosticHint             = { link = 'Comment' },
    DiagnosticInfo             = { link = 'Comment' },
    DiagnosticVirtualTextError = { fg = fg.red },
    DiagnosticVirtualTextHint  = { link = 'Comment' },
    DiagnosticVirtualTextInfo  = { link = 'Comment' },
    DiagnosticVirtualTextWarn  = { link = 'Comment' },
-   DiagnosticWarn             = { fg = fg.norm },
+   DiagnosticWarn             = { fg = fg[3] },
    DiagnosticUnnecessary      = {},
    --^ Color for unused variables. Disable, as the LSP warnings also cover the
    --  same thing
@@ -278,10 +285,10 @@ for name, highlight in pairs({
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
    -- man.
-   ['manBold']       = { fg = fg.emph, bold = true },
+   ['manBold']       = { fg = fg[4], bold = true },
    ['manUnderline']  = { italic = true },
    ['manReference']  = { link = "@string.special.url" },
-   ['manOptionDesc'] = { fg = fg.emph },
+   ['manOptionDesc'] = { fg = fg[4] },
 
    -- bash.
    ['@punctuation.special.bash'] = { link = 'Identifier' },
@@ -294,34 +301,34 @@ for name, highlight in pairs({
 
    -- Asciidoc.
    ['asciidocAttributeEntry'] = { fg = fg.slate },
-   ['asciidocAttributeList']  = { fg = fg.dim },
-   ['asciidocBlockTitle']     = { fg = fg.emph, italic = true },
+   ['asciidocAttributeList']  = { fg = fg[2] },
+   ['asciidocBlockTitle']     = { fg = fg[4], italic = true },
    ['asciidocLineBreak']      = { fg = fg.slate },
-   ['asciidocListingBlock']   = { fg = fg.dim },
+   ['asciidocListingBlock']   = { fg = fg[2] },
    ['asciidocMacro']          = { fg = fg.paynes },
    ['asciidocURL']            = { link = '@string.special.url' },
 
    -- C
-   ['@type.builtin.c'] = { fg = fg.dim },
+   ['@type.builtin.c'] = { fg = fg[2] },
 
    -- markup (misc.)
    ['@markup.bold']       = { bold = true },
-   ['@markup.heading']    = { fg = fg.emph  },
-   ['@markup.heading.1']  = { fg = fg.emph, bold = true },
-   ['@markup.heading.2']  = { fg = fg.emph, bold = true },
+   ['@markup.heading']    = { fg = fg[4]  },
+   ['@markup.heading.1']  = { fg = fg[4], bold = true },
+   ['@markup.heading.2']  = { fg = fg[4], bold = true },
    ['@markup.italic']     = { italic = true },
    ['@markup.link.label'] = { link = '@string.special.url' },
    ['@markup.link.url']   = { link = '@string.special.url' },
    ['@markup.list']       = { link = 'Delimiter' },
-   ['@markup.raw']        = { fg = fg.dim },
+   ['@markup.raw']        = { fg = fg[2] },
    ['@markup.strong']     = { bold = true },
 
    -- Markdown specific
    -- Stops things like `vimdoc` from also having underlined top-level headings.
-   ['@markup.heading.1.markdown'] = { fg = fg.emph, bold = true, underline = true },
+   ['@markup.heading.1.markdown'] = { fg = fg[4], bold = true, underline = true },
 
    -- Beancount.
-   ['@markup.italic.beancount'] = { fg = fg.emph, italic = true },
+   ['@markup.italic.beancount'] = { fg = fg[4], italic = true },
 
    --- Plugins -----------------------------------------------------------------
    -----------------------------------------------------------------------------
@@ -331,21 +338,25 @@ for name, highlight in pairs({
 
    -- lazy.nvim
    LazyNormal       = { bg = bg[0] },
-   LazyButton       = { fg = fg.norm, bg = bg[2] },
+   LazyButton       = { fg = fg[3], bg = bg[2] },
    LazyCommit       = { link = 'Comment' },
    LazyCommitType   = { link = 'Comment' },
-   LazyH1           = { link = 'PaynesEmph' },
-   LazyProp         = { link = 'PaynesDim' },
+   LazyH1           = { link = 'Paynes4' },
+   LazyProp         = { link = 'Paynes2' },
    LazyReasonCmd    = { link = 'Comment' },
    LazyReasonFt     = { link = 'Comment' },
-   LazyReasonPlugin = { fg = fg.norm },
+   LazyReasonPlugin = { fg = fg[3] },
    LazyReasonStart  = { link = 'Normal' },
-   LazySpecial      = { link = 'PaynesEmph' },
+   LazySpecial      = { link = 'Paynes4' },
 
    MasonHighlight          = { fg = fg.paynes },
    MasonHighlightSecondary = { fg = fg.slate },
-   MasonMutedBlock         = { fg = fg.norm, bg = bg[2] },
+   MasonMutedBlock         = { fg = fg[3], bg = bg[2] },
    MasonHighlightBlockBold = { link = 'Visual' },
+
+   jjChanged = { fg = fg.slate },
+   jjAdded   = { fg = fg[4]  },
+   jjRemoved = { fg = fg.red   },
    --}}}
 
 }) do

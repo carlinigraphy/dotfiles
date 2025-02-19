@@ -15,7 +15,7 @@ return {
          vim.g['conjure#client#scheme#stdio#prompt_pattern']       = '> $?'
          vim.g['conjure#client#scheme#stdio#value_prefix_pattern'] = false
 
-         vim.g['conjure#filetype#fennel'] = 'conjure.client.fennel.stdio'
+         vim.g["conjure#filetype#fennel"] = "conjure.client.fennel.aniseed"
 
          -- Be more like slimv. I find the default options more verbose.
          vim.g['conjure#mapping#prefix']           = ','
@@ -35,9 +35,9 @@ return {
       end,
    },
 
-   { 'gpanders/nvim-parinfer',
-      ft = { 'scheme', 'racket', 'fennel' },
-   },
+   -- { 'gpanders/nvim-parinfer',
+   --    ft = { 'scheme', 'racket', 'fennel' },
+   -- },
 
    { 'ekaitz-zarraga/nvim-paredit-scheme',
       ft = { 'scheme', 'racket' },

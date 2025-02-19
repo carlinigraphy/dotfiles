@@ -5,6 +5,7 @@ email = "marcus@carlini.com"
 
 [aliases]
 dc   = ["describe"]
+dm   = ["describe", "-m"]
 loga = ["log", "all()"]
 sk   = ["squash"]
 

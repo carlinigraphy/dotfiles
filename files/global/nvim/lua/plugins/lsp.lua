@@ -74,14 +74,7 @@ vim.diagnostic.config({
       header = false,
       suffix = "",
       prefix = function(diag, _, _)
-         --local hl_map = {
-         --   [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-         --   [vim.diagnostic.severity.WARN ] = "WarningMsg",
-         --   [vim.diagnostic.severity.INFO ] = "PaynesDim",
-         --   [vim.diagnostic.severity.HINT ] = "Comment",
-         --}
-         --local highlight = hl_map[diag.severity] or "Normal"
-         return (diag.code or "").."/", "PaynesDim"
+         return (diag.code or "").."/", "Paynes1"
       end,
       border = "single",
    },
@@ -113,15 +106,15 @@ local servers = {
       single_file_support = true,
    },
 
-   {  name = "fennel",
-      filetypes = { "fennel" },
-      cmd = { bin .. "fennel-ls" },
-      _root_dir = { "flsproject.fnl" },
-      settings = {},
-      capabilities = {
-         offsetEncoding = { "utf-8", "utf-16" },
-      },
-   },
+   -- {  name = "fennel",
+   --    filetypes = { "fennel" },
+   --    cmd = { bin .. "fennel-ls" },
+   --    _root_dir = { "flsproject.fnl" },
+   --    settings = {},
+   --    capabilities = {
+   --       offsetEncoding = { "utf-8", "utf-16" },
+   --    },
+   -- },
 
    {  name = "terraform",
       filetypes = { "terraform", "terraform-vars" },

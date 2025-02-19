@@ -14,6 +14,13 @@ output $mon_laptop  pos  640  1440  scale 1.5
 output $mon_middle  pos    0     0  scale 1
 output $mon_right   pos 2560     0  scale 1
 
+workspace 1 output $mon_middle
+workspace 3 output $mon_middle
+workspace 5 output $mon_middle
+workspace 2 output $mon_right
+workspace 4 output $mon_right
+workspace 6 output $mon_right
+
 input type:touchpad {
     tap enabled
 }
@@ -144,8 +151,8 @@ mode "$system_do" {
 #{{{
 # --locked allows keybinding even when session is locked
 bindsym --locked XF86AudioMute           exec pactl set-sink-mute   \@DEFAULT_SINK@   toggle
-bindsym --locked XF86AudioLowerVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   -5%
-bindsym --locked XF86AudioRaiseVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   +5%
+bindsym --locked XF86AudioLowerVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   -3%
+bindsym --locked XF86AudioRaiseVolume    exec pactl set-sink-volume \@DEFAULT_SINK@   +3%
 bindsym --locked XF86AudioMicMute        exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
 bindsym --locked XF86AudioPlay           exec playerctl play
 bindsym --locked XF86AudioPause          exec playerctl pause
