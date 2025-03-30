@@ -1,67 +1,67 @@
 return {
-   {  'carlinigraphy/scm-edit.nvim',
-      --dir = '/home/aurelius/hg/nvim_plugins/scm-edit.nvim/',
-      ft = { 'scheme', 'racket' },
+   {  "carlinigraphy/scm-edit.nvim",
+      --dir = "/home/aurelius/hg/nvim_plugins/scm-edit.nvim/",
+      ft = { "scheme" },
       config = true,
    },
 
-   { 'Olical/conjure',
-      ft = { 'scheme', 'racket', 'fennel', 'lua' },
+   { "Olical/conjure",
+      ft = { "scheme", "racket", "fennel", "lua" },
       config = function ()
-         vim.g['conjure#log#hud#enabled'] = false
-         vim.g['conjure#completion#omnifunc'] = false
+         vim.g["conjure#log#hud#enabled"] = false
+         vim.g["conjure#completion#omnifunc"] = false
 
-         vim.g['conjure#client#scheme#stdio#command']              = 'chez'
-         vim.g['conjure#client#scheme#stdio#prompt_pattern']       = '> $?'
-         vim.g['conjure#client#scheme#stdio#value_prefix_pattern'] = false
+         vim.g["conjure#client#scheme#stdio#command"]              = "chez"
+         vim.g["conjure#client#scheme#stdio#prompt_pattern"]       = "> $?"
+         vim.g["conjure#client#scheme#stdio#value_prefix_pattern"] = false
 
          vim.g["conjure#filetype#fennel"] = "conjure.client.fennel.aniseed"
 
          -- Be more like slimv. I find the default options more verbose.
-         vim.g['conjure#mapping#prefix']           = ','
-         vim.g['conjure#mapping#eval_root_form']   = 'd'
-         vim.g['conjure#mapping#eval_marked_form'] = 'm'
-         vim.g['conjure#mapping#log_toggle']       = 't'
-         vim.g['conjure#mapping#eval_buf']         = 'b'
-         vim.g['conjure#mapping#eval_file']        = 'f'
-         vim.g['conjure#mapping#eval_visual']      = 'r'
+         vim.g["conjure#mapping#prefix"]           = ","
+         vim.g["conjure#mapping#eval_root_form"]   = "d"
+         vim.g["conjure#mapping#eval_marked_form"] = "m"
+         vim.g["conjure#mapping#log_toggle"]       = "t"
+         vim.g["conjure#mapping#eval_buf"]         = "b"
+         vim.g["conjure#mapping#eval_file"]        = "f"
+         vim.g["conjure#mapping#eval_visual"]      = "r"
 
          -- colors.
-         vim.g['conjure#highlight#enabled*']    = true
-         vim.g['conjure#eval#inline#highlight'] = 'Type'
+         vim.g["conjure#highlight#enabled*"]    = true
+         vim.g["conjure#eval#inline#highlight"] = "Type"
 
          -- disable mappings.
-         vim.g['conjure#mapping#doc_word'] = false  -- not supported
+         vim.g["conjure#mapping#doc_word"] = false  -- not supported
       end,
    },
 
-   -- { 'gpanders/nvim-parinfer',
-   --    ft = { 'scheme', 'racket', 'fennel' },
+   -- { "gpanders/nvim-parinfer",
+   --    ft = { "scheme", "racket", "fennel" },
    -- },
 
-   { 'ekaitz-zarraga/nvim-paredit-scheme',
-      ft = { 'scheme', 'racket' },
+   { "ekaitz-zarraga/nvim-paredit-scheme",
+      ft = "scheme",
       pin = true,
       dependencies = {
-         'julienvincent/nvim-paredit'
+         "julienvincent/nvim-paredit"
       },
       config = function ()
-         local paredit = require('nvim-paredit')
-         local paredit_scheme = require('nvim-paredit-scheme')
+         local paredit = require("nvim-paredit")
+         local paredit_scheme = require("nvim-paredit-scheme")
          paredit_scheme.setup(paredit)
       end,
    },
 
-   { 'julienvincent/nvim-paredit',
-      ft  = { 'scheme', 'racket' },
+   { "julienvincent/nvim-paredit",
+      ft  = { "scheme", "racket", "fennel" },
       pin = true,
 
       config = function ()
-         local paredit = require('nvim-paredit')
+         local paredit = require("nvim-paredit")
 
          -- <Nop> normal-mode defaults.
-         vim.api.nvim_buf_set_keymap(0, 'n', 's', '', {nowait=true})
-         vim.api.nvim_buf_set_keymap(0, 'n', 'S', '', {nowait=true})
+         vim.api.nvim_buf_set_keymap(0, "n", "s", "", {nowait=true})
+         vim.api.nvim_buf_set_keymap(0, "n", "S", "", {nowait=true})
 
          local function wrap_form(left, right)
             return function ()
@@ -103,11 +103,6 @@ return {
                ['sr']  = { paredit.api.raise_element , 'Raise element' },
                ['sfr'] = { paredit.api.raise_form    , 'Raise form'    },
 
-               --[[ TODO;
-               maybe `s(` wrap and insert head, `s)` insert tail.
-               but probably use 9 instead of (, and 0 instead of ),
-               just to save the extra <shift>.
-               --]]
                ['s9']  = { wrap_element('(', ')') , 'Wrap element insert tail' },
                ['sf9'] = { wrap_form('(', ')')    , 'Wrap form insert tail'    },
 

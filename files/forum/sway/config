@@ -15,11 +15,13 @@ output $mon_middle  pos    0     0  scale 1
 output $mon_right   pos 2560     0  scale 1
 
 workspace 1 output $mon_middle
+workspace 2 output $mon_middle
 workspace 3 output $mon_middle
+workspace 4 output $mon_middle
 workspace 5 output $mon_middle
-workspace 2 output $mon_right
-workspace 4 output $mon_right
 workspace 6 output $mon_right
+workspace 7 output $mon_right
+workspace 8 output $mon_right
 
 input type:touchpad {
     tap enabled
@@ -172,7 +174,7 @@ bindsym Control+Shift+Period             exec dunstctl action
 #                                 applications
 #-------------------------------------------------------------------------------
 #{{{
-bindsym $mod+Return  exec wezterm
+bindsym $mod+Return  exec ghostty
 bindsym $mod+e       exec thunar
 bindsym $mod+d exec fuzzel
 #}}}
@@ -181,14 +183,22 @@ for_window [app_id="galculator"                ] floating enable
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 
 for_window [app_id="thunar"] \
-   floating enable           \
+   , floating enable         \
    , resize set 1150 700     \
    , move center
 
 for_window [app_id="firefox" title="Picture-in-Picture"] \
-   floating enable \
+   , floating enable    \
    , resize set 621 349 \
    , move position 10 px 38 px
+
+# I'd love to get a pre-determined layout to work here, but just don't have the
+# patience right now to wrangle sway into doing what I want.
+for_window [class="Plover"                  ] floating disable
+for_window [title="Plover: Lookup"          ] floating enable
+for_window [title="Plover: Configuration"   ] floating enable
+for_window [title="Plover: Plugins Manager" ] floating enable
+for_window [title="Plover: Add Translation" ] floating enable
 
 #                                   startup
 #-------------------------------------------------------------------------------

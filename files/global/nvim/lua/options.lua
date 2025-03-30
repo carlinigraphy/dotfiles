@@ -67,6 +67,7 @@ opt.virtualedit    = "block"
 opt.wildmenu       = true
 opt.wildmode       = { "longest", "full" }
 opt.wildoptions    = { "pum" } -- want to like 'fuzzy', but doesn't fit my use
+opt.wrap           = false
 
 g.netrw_keepdir  = 0
 g.netrw_winsize  = -40

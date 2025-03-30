@@ -28,42 +28,42 @@ Refinement of my previous colorschemes. Guiding principals:
 
 --]]---------------------------------------------------------------------------
 
-vim.cmd('hi clear')
-if vim.fn.exists('syntax_on') then
-    vim.cmd('syntax reset')
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") then
+    vim.cmd("syntax reset")
 end
 
-vim.g.colors_name = 'paynes-greyscale'
+vim.g.colors_name = "paynes-greyscale"
 
 local bg = {
    -- Values obtained by setting my laptop to ~3% brightness, drawing windows,
    -- boxes, and buttons, and determining the minimum step required for
    -- legibility. On my laptop, to my eye.
-   [-2] = '#000000',
-   [-1] = '#0d0d0d',
-   [ 0] = '#121212',
-   [ 1] = '#151515',
-   [ 2] = '#181818',
-   [ 3] = '#202020',
+   [-2] = "#000000",
+   [-1] = "#0d0d0d",
+   [ 0] = "#121212",
+   [ 1] = "#151515",
+   [ 2] = "#181818",
+   [ 3] = "#202020",
 
-   red  = '#572d41'
+   red  = "#572d41"
 }
 
 local fg = {
    -- Monochrome.
-   [0] = '#404040',
-   [1] = '#606060',
-   [2] = '#a0a0a0',
-   [3] = '#d0d0d0',
-   [4] = '#ffffff',
+   [0] = "#404040",
+   [1] = "#606060",
+   [2] = "#909090",
+   [3] = "#d0d0d0",
+   [4] = "#ffffff",
 
    -- Accent.
-   paynes  = '#536878',
-   slate   = '#708090',
+   paynes  = "#536878",
+   slate   = "#708090",
 
    -- Color.
-   red     = '#ae6878',
-   yellow  = '#cf9b70',
+   red     = "#ae6878",
+   yellow  = "#cba381",
 }
 
 
@@ -124,14 +124,15 @@ for name, highlight in pairs({
    ---------------------------------------------------------------------------]]
 
    -- These are quite dim, but ot fully background-y.
-   Delimiter             = { fg = fg[1]   },
-   ["@bracket"]          = { link = "Delimiter" },
-   ["@punctuation"]      = { link = "Delimiter" },
-   ["@constructor"]      = { link = "Delimiter" },
-   ["@keyword.operator"] = { link = "Delimiter" },
+   Delimiter              = { fg = fg[1] },
+   Operator               = { link = "Delimiter" },
+   ["@bracket"]           = { link = "Delimiter" },
+   ["@punctuation"]       = { link = "Delimiter" },
+   ["@keyword.operator"]  = { link = "Delimiter" },
+   ["@attribute"]         = { link = "Delimiter" },
+   ["@attribute.builtin"] = { link = "Delimiter" },
 
    Define       = { fg = fg[2] },
-   Operator     = { fg = fg[2] },
    PreProc      = { fg = fg[2] },
    Keyword      = { fg = fg[2] },
    ["@keyword"] = { link = "Keyword" },
@@ -148,6 +149,7 @@ for name, highlight in pairs({
    Question   = { link = "Normal" },
    Statement  = { link = "Normal" },
    ["@field"] = { link = "Normal" },
+   ["@variable.parameter"] = { link = "Normal" },
 
    Number      = { link = "Normal" },
    Float       = { link = "Number" },
@@ -157,6 +159,7 @@ for name, highlight in pairs({
    ["@function"]         = { link = "Function" },
    ["@function.builtin"] = { link = "Function" },
    ["@function.call"]    = { link = "Function" },
+   ["@constructor"]      = { link = "Function" },
 
    -- REVIEW: for lua, this table keys, which should not be emphasized. Does
    -- that apply to other languages? Maybe they make sense to be highlighted
@@ -175,16 +178,16 @@ for name, highlight in pairs({
    Exception      = { fg = fg[4] },
 
    Identifier     = { fg = fg[4] },
-   ['@variable']  = { link = 'Identifier' },
-   ['@constant']  = { link = 'Identifier' },
+   ["@variable"]  = { link = "Identifier" },
+   ["@constant"]  = { link = "Identifier" },
 
    Type           = { fg = fg.slate },
-   TypeDef        = { link = 'Type' },
-   Label          = { link = 'Type' },
-   ['@module']    = { link = 'Type' },
+   TypeDef        = { link = "Type" },
+   Label          = { link = "Type" },
+   ["@module"]    = { link = "Type" },
 
    String         = { fg = fg.paynes },
-   Character      = { link = 'String' },
+   Character      = { link = "String" },
    --}}}
 
    --[[  Important  ---------------------------------------------------------{{{
@@ -262,10 +265,10 @@ for name, highlight in pairs({
 
    -- Floating windows.
    FloatBorder        = { fg = fg.slate },
-   FloatFooter        = { link = 'Title' },
+   FloatFooter        = { link = "Title" },
    FloatShadow        = { bg = bg[-1] },
-   FloatShadowThrough = { link = 'Normal' },
-   FloatTitle         = { link = 'Title' },
+   FloatShadowThrough = { link = "Normal" },
+   FloatTitle         = { link = "Title" },
    NormalFloat        = { bg = bg[0] },
 
    -- lsp
@@ -274,16 +277,26 @@ for name, highlight in pairs({
    DiagnosticFloatingHint     = { fg = fg[3] },
    DiagnosticFloatingInfo     = { fg = fg[3] },
    DiagnosticFloatingWarn     = { fg = fg[3] },
-   DiagnosticHint             = { link = 'Comment' },
-   DiagnosticInfo             = { link = 'Comment' },
+   DiagnosticHint             = { link = "Comment" },
+   DiagnosticInfo             = { link = "Comment" },
    DiagnosticVirtualTextError = { fg = fg.red },
-   DiagnosticVirtualTextHint  = { link = 'Comment' },
-   DiagnosticVirtualTextInfo  = { link = 'Comment' },
-   DiagnosticVirtualTextWarn  = { link = 'Comment' },
+   DiagnosticVirtualTextHint  = { link = "Comment" },
+   DiagnosticVirtualTextInfo  = { link = "Comment" },
+   DiagnosticVirtualTextWarn  = { link = "Comment" },
    DiagnosticWarn             = { fg = fg[3] },
    DiagnosticUnnecessary      = {},
    --^ Color for unused variables. Disable, as the LSP warnings also cover the
    --  same thing
+
+   DapUIType            = { link = "Type" },
+   DapUIScope           = { link = "@markup.heading.1" },
+   DapUIBreakpointsPath = { link = "@markup.heading.1" },
+   DapUIBreakpointsLine = { link = "LineNr" },
+   DapUIBreakpointsInfo = { link = "Type" },
+   DapUIDecoration      = { link = "Delimiter" },
+   DapUIWatchesEmpty    = { link = "Todo" },
+   DapUIWatchesValue    = { link = "@markup.heading.1" },
+   DapUIModifiedValue   = { link = "Variable" },
 
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
@@ -301,6 +314,9 @@ for name, highlight in pairs({
    ["@function.builtin.scheme"] = { italic = true },
    ["@keyword.racket"]          = { italic = true },
    ["@keyword.scheme"]          = { italic = true },
+
+   -- lua.
+   ["@constructor.lua"] = { link = "Delimiter" },
 
    -- Asciidoc.
    ["asciidocAttributeEntry"] = { fg = fg.slate },
@@ -323,7 +339,7 @@ for name, highlight in pairs({
    ["@markup.link.label"] = { link = "@string.special.url" },
    ["@markup.link.url"]   = { link = "@string.special.url" },
    ["@markup.list"]       = { link = "Delimiter" },
-   ["@markup.raw"]        = { fg = fg[3] },
+   ["@markup.raw"]        = { fg = fg[2] },
    ["@markup.strong"]     = { bold = true },
 
    -- Markdown specific

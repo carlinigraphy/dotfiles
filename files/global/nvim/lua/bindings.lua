@@ -22,6 +22,7 @@ Maybe can be for toggling a terminal.
 local set = vim.keymap.set
 
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 -- Terminal.
 set('n', '<leader>t',  ':sp | :term<CR>a')
@@ -34,7 +35,6 @@ set('t', '<S-Space>',  '<Space>')
 set('n', '<leader>sp', ':set spell! | set spell?<CR>')
 set('n', '<leader>sf', '1z=') -- mnemonic: [s]pell [f]ix
 
-set('n', '<leader>xa', ':wa | qa!<CR>')
 set('n', 'U', '<C-r>')
 set({'n', 'v', 'x'}, '<leader>y', '"+y')
 set('v', '<leader>col', '! column -L -t -s= -o=<CR>')
@@ -46,20 +46,11 @@ set('n', '<C-y>', '3<C-y>')
 set('n', '<leader>n', ':bnext<CR>')
 set('n', '<leader>b', ':ls<CR>:b<SPACE>')
 
--- Removes large blocks of whitespace. Should probably generalize in a
--- function, such that it works on ranges.
-set('n', '<leader>rs', [[m'Elciw <Esc>`']])
-set('n', '<leader>ri', [[ciw <Esc>]])
-
 -- Would love to have bindings to open in a split, but `:vs <cfile>` doesn't
 -- take the line number into account.
 set('n', 'gf', 'gF')
 
 set("n", "<leader>v", ":vert res 87")
-
--- Some LSP diagnostic nonsense.
-set('n', '<C-k>', vim.diagnostic.open_float)
-set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- The only option that's allowed here, because it's pretty much a binding.
 set('c', '<C-b>', '<Left>')  -- OVERWRITES: cursor to beginning of line
@@ -98,3 +89,9 @@ set('ca', 'vres', 'vert res')
 --    Changed from J/K to <C-n>, <C-p>. Didn't like that it overwrote [J]oin.
 set('v', '<C-n>', [[:move '>+1'<CR>gv=gv]])
 set('v', '<C-p>', [[:move '<-2'<CR>gv=gv]])
+
+
+-- Removes large blocks of whitespace. Should probably generalize in a
+-- function, such that it works on ranges.
+-- set('n', '<leader>rs', [[m'Elciw <Esc>`']])
+-- set('n', '<leader>ri', [[ciw <Esc>]])

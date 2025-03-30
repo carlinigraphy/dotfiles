@@ -41,7 +41,7 @@ config.colors = {
 
    ansi = {
       "#404040",  -- black
-      "#ae6878",  -- red
+      "#9b4a6b",  -- red
       "#709090",  -- green
       "#cba381",  -- yellow
       "#708090",  -- blue     ::  slate
@@ -68,6 +68,14 @@ config.colors = {
    quick_select_label_fg = { Color = '#f0a96e' },
    quick_select_match_bg = { Color = '#000000' },
    quick_select_match_fg = { Color = '#ffffff' },
+}
+
+config.keys = {
+    {
+      key = ' ',
+      mods = 'SHIFT',
+      action = term.action.SendKey({ key = ' ' }),
+    },
 }
 
 return config

@@ -8,6 +8,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
    callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+      vim.keymap.set('n', '<C-k>'   , vim.diagnostic.open_float)
+
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
          vim.lsp.handlers.hover, { border = "single" }
       )
@@ -35,21 +38,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
                vim.lsp.buf.document_symbol({ loclist = true })
             end,
          },
-         ["gd"]  = {
-            name = "textDocument/definition",
-            fn   = vim.lsp.buf.definition
-         },
-         ["gri"] = {
-            name = "textDocument/implementation",
-            fn   = vim.lsp.buf.implementation,
-         },
          ["grn"] = {
             name = "textDocument/rename",
             fn   = vim.lsp.buf.rename
          },
+         ["gd"]  = {
+            name = "textDocument/definition",
+            fn = function()
+               vim.lsp.buf.definition({ loclist=true })
+            end,
+         },
+         ["gri"] = {
+            name = "textDocument/implementation",
+            fn = function()
+               vim.lsp.buf.implementation(nil, { loclist=true })
+            end,
+         },
          ["grr"] = {
             name = "textDocument/references",
-            fn   = vim.lsp.buf.references,
+            fn = function()
+               vim.lsp.buf.references(nil, { loclist=true })
+            end,
          },
       }) do
          if client.supports_method(method.name) then
@@ -88,7 +97,7 @@ local bin =
 local servers = {
    {  name = "bash",
       filetypes = { "sh" },
-      _root_dir = { ".git", ".hg" },
+      _root_dir = { ".jj", ".git", ".hg" },
       cmd = { bin .. "bash-language-server", "start" },
       settings = {
          bashIde = {
@@ -100,7 +109,7 @@ local servers = {
 
    {  name = "lua",
       filetypes = { "lua" },
-      _root_dir = { ".git", ".hg", ".luarc.json" },
+      _root_dir = { ".jj", ".git", ".hg", ".luarc.json" },
       cmd = { bin .. "lua-language-server" },
       log_level = vim.lsp.protocol.MessageType.Warning,
       single_file_support = true,
@@ -116,10 +125,17 @@ local servers = {
    --    },
    -- },
 
+   -- {  name = "fennel",
+   --    filetypes = { "fennel" },
+   --    cmd = { bin .. "fennel-language-server" },
+   --    single_file_support = true,
+   --    _root_dir = { ".git", ".jj", ".luarc.json" },
+   -- },
+
    {  name = "terraform",
       filetypes = { "terraform", "terraform-vars" },
       cmd = { bin .. "terraform-ls", "serve" },
-      _root_dir = { ".terraform", ".git "},
+      _root_dir = { ".terraform", ".git", ".jj" },
    }
 }
 
