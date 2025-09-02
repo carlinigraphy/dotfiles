@@ -111,7 +111,7 @@ for name, highlight in pairs({
    CursorLineNr   = { link = 'CursorLine' },
    ColorColumn    = { link = 'CursorLine' },
 
-   FoldColumn     = { fg = fg[0], bg = bg[0] },
+   FoldColumn     = { fg = fg.paynes, bg = bg[0] },
    CursorLineFold = { link = 'FoldColumn' },
    --}}}
 
@@ -143,12 +143,13 @@ for name, highlight in pairs({
    emphasized.
          - statements
    ---------------------------------------------------------------------------]]
-   Constant   = { link = "Normal" },
-   Macro      = { link = "Normal" },
-   MoreMsg    = { link = "Normal" },
-   Question   = { link = "Normal" },
-   Statement  = { link = "Normal" },
-   ["@field"] = { link = "Normal" },
+   Constant      = { link = "Normal" },
+   Macro         = { link = "Normal" },
+   MoreMsg       = { link = "Normal" },
+   Question      = { link = "Normal" },
+   Statement     = { link = "Normal" },
+   ["@field"]    = { link = "Normal" },
+   ["@property"] = { link = "Normal" },
    ["@variable.parameter"] = { link = "Normal" },
 
    Number      = { link = "Normal" },
@@ -160,11 +161,6 @@ for name, highlight in pairs({
    ["@function.builtin"] = { link = "Function" },
    ["@function.call"]    = { link = "Function" },
    ["@constructor"]      = { link = "Function" },
-
-   -- REVIEW: for lua, this table keys, which should not be emphasized. Does
-   -- that apply to other languages? Maybe they make sense to be highlighted
-   -- elsewhere.
-   ["@property"] = { fg = fg[2] },
    --}}}
 
    --[[  Emphasis  ----------------------------------------------------------{{{
@@ -198,20 +194,13 @@ for name, highlight in pairs({
    Conditional = { fg = fg[4], bold = true },
    Repeat      = { fg = fg[4], bold = true },
 
-   Todo                 = { fg = fg.yellow, bold = true },
-   WarningMsg           = { link = "Todo" },
-   ["@comment.todo"]    = { link = "Todo" },
-   ["@comment.warning"] = { link = "Todo" },
-   ["@comment.error"]   = { link = "Todo" },
-   ["@comment.note"]    = { link = "Todo" },
-
    DiffAdd      = { bg = bg[3] },
    DiffChange   = { fg = fg[3], bg = bg[3] },
    DiffText     = { fg = fg[4], bg = bg[3], bold = true },
    DiffDelete   = { fg = bg[3], bg = bg[0] },
    Directory    = { fg = fg.slate, bold = true },
    ErrorMsg     = { fg = fg.red },
-   MatchParen   = { fg = fg[4], bg = fg.paynes, bold = true },
+   MatchParen   = { fg = bg[0], bg = fg.paynes, bold = true },
    Title        = { fg = fg[4], bold = true, underline = true },
 
    Error        = { fg = fg[4], bg = bg.red },
@@ -222,7 +211,7 @@ for name, highlight in pairs({
    SpellCap     = {},
    SpellRare    = {},
 
-   Visual       = { fg = bg[-2], bg = fg[3], bold = true },
+   Visual       = { fg = fg[4], bg = fg.paynes },
    CurSearch    = { link = "Visual" },
    Substitute   = { link = "Visual" },
    Search       = { link = "Visual" },
@@ -245,11 +234,24 @@ for name, highlight in pairs({
    Nonsense that kinds doesn't fit anywhere else.
    ---------------------------------------------------------------------------]]
 
+   Todo                 = { fg = fg.yellow, bold = true },
+   WarningMsg           = { link = "Todo" },
+   ["@comment.todo"]    = { link = "Todo" },
+   ["@comment.warning"] = { link = "Todo" },
+   ["@comment.error"]   = { link = "Todo" },
+   ["@comment.note"]    = { link = "Todo" },
+
+   debugPc = { link = "Visual" },
+   debugBreakpoint = { link = "WarningMsg" },
+
    --- UI elements -------------------------------------------------------------
-   Pmenu        = { fg = fg[3], bg = bg[1] },
+   Pmenu        = { fg = fg[3], bg = bg[2] },
    PmenuSbar    = { bg = bg[3] },
-   PmenuSel     = { fg = fg[4], bg = bg[3], bold = true },
+   PmenuSel     = { fg = fg[4], bg = bg[3] },
    PmenuThumb   = { bg = fg.paynes },
+
+   PmenuMatch    = { fg = fg[3] },
+   PmenuMatchSel = { fg = fg[4] },
 
    -- My statusline groups.
    Statusline_Filetype     = { fg = fg[3]  , bg = bg[2] },
@@ -300,24 +302,6 @@ for name, highlight in pairs({
 
    -- Language specific --------------------------------------------------------
    -----------------------------------------------------------------------------
-   -- man.
-   ["manBold"]       = { fg = fg[4], bold = true },
-   ["manUnderline"]  = { italic = true },
-   ["manReference"]  = { link = "@string.special.url" },
-   ["manOptionDesc"] = { fg = fg[4] },
-
-   -- bash.
-   ["@punctuation.special.bash"] = { link = "Identifier" },
-
-   -- scheme.
-   ["@function.builtin.racket"] = { italic = true },
-   ["@function.builtin.scheme"] = { italic = true },
-   ["@keyword.racket"]          = { italic = true },
-   ["@keyword.scheme"]          = { italic = true },
-
-   -- lua.
-   ["@constructor.lua"] = { link = "Delimiter" },
-
    -- Asciidoc.
    ["asciidocAttributeEntry"] = { fg = fg.slate },
    ["asciidocAttributeList"]  = { fg = fg[3] },
@@ -327,8 +311,33 @@ for name, highlight in pairs({
    ["asciidocMacro"]          = { fg = fg.paynes },
    ["asciidocURL"]            = { link = "@string.special.url" },
 
-   -- C
-   ["@type.builtin.c"] = { fg = fg[3] },
+   -- bash.
+   ["@punctuation.special.bash"] = { link = "Identifier" },
+
+   -- C.
+   ["@type.builtin.c"]     = { link = "Delimiter" },
+   ["@keyword.type.c"]     = { link = "Delimiter" },
+   ["@keyword.modifier.c"] = { link = "Delimiter" },
+
+   -- lua.
+   ["@constructor.lua"] = { link = "Delimiter" },
+
+   -- man.
+   ["manBold"]       = { fg = fg[4], bold = true },
+   ["manUnderline"]  = { italic = true },
+   ["manReference"]  = { link = "@string.special.url" },
+   ["manOptionDesc"] = { fg = fg[4] },
+
+   -- netrw
+   netrwTreebar   = { link = 'Comment' },
+   netrwMarkFile  = { link = "Todo" },
+   netrwExe       = { fg = fg[4], bold = true },
+
+   -- scheme.
+   ["@function.builtin.racket"] = { italic = true },
+   ["@function.builtin.scheme"] = { italic = true },
+   ["@keyword.racket"]          = { italic = true },
+   ["@keyword.scheme"]          = { italic = true },
 
    -- markup (misc.)
    ["@markup.bold"]       = { bold = true },

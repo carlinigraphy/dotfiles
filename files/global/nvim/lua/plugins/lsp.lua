@@ -3,26 +3,50 @@ if vim.opt.diff:get() then
    return {}
 end
 
+local border = {
+   "🭽",  -- Top left
+
+   "▔",  -- Top
+
+   "🭾",  -- Top right
+
+   "▕",  -- Right
+
+   "🭿",  -- Bottom right
+
+   "▁",  -- Bottom
+
+   "🭼",  -- Bottom left
+
+   "▏",  -- Left
+}
+
+
 vim.api.nvim_create_autocmd("LspAttach", {
    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
    callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if not client then return end
 
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
       vim.keymap.set('n', '<C-k>'   , vim.diagnostic.open_float)
 
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-         vim.lsp.handlers.hover, { border = "single" }
-      )
+      if client:supports_method("textDocument/hover") then
+         vim.keymap.set("n", "<S-k>", function()
+            vim.lsp.buf.hover({ border=border })
+         end, {
+            buffer = args.buf,
+            desc = "LSP::hover()",
+         })
+      end
 
-      if client.supports_method("textDocument/signatureHelp") then
-         vim.keymap.set("i", "<C-l>", vim.lsp.buf.signature_help, {
+      if client:supports_method("textDocument/signatureHelp") then
+         vim.keymap.set("i", "<C-l>", function()
+            vim.lsp.buf.signature_help({ border=border})
+         end, {
             buffer = args.buf,
             desc = "LSP::signature_help()"
          })
-         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-            vim.lsp.handlers.signature_help, { border = "single" }
-         )
       end
 
       -- Find available methods via:
@@ -51,7 +75,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
          ["gri"] = {
             name = "textDocument/implementation",
             fn = function()
-               vim.lsp.buf.implementation(nil, { loclist=true })
+               vim.lsp.buf.implementation({ loclist=true })
             end,
          },
          ["grr"] = {
@@ -61,7 +85,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end,
          },
       }) do
-         if client.supports_method(method.name) then
+         if client:supports_method(method.name) then
             vim.keymap.set("n", binding, method.fn, {
                buffer = args.buf,
                desc = method[1],
@@ -80,12 +104,12 @@ vim.diagnostic.config({
       format = function() return "" end,
    },
    float = {
-      header = false,
+      header = nil,
       suffix = "",
       prefix = function(diag, _, _)
          return (diag.code or "").."/", "Paynes1"
       end,
-      border = "single",
+      border = border,
    },
 })
 
@@ -113,23 +137,34 @@ local servers = {
       cmd = { bin .. "lua-language-server" },
       log_level = vim.lsp.protocol.MessageType.Warning,
       single_file_support = true,
+      settings = {
+         Lua = {
+            runtime = {
+               version = 'LuaJIT'
+            },
+            workspace = {
+               checkThirdParty = false,
+               library = { vim.env.VIMRUNTIME }
+            }
+         }
+      },
    },
 
+   -- 2025-04-17
+   --    Still doesn't quite feel "there" yet. No matter what I try, can't get
+   --    the LSP to recognize vim as a global, or load 'nvim' as a `:library`.
+   --    Perhaps both are stemming from the same issue--not recognizing the
+   --    _flsproject.fnl_ config file? Either way, not what I want to spend my
+   --    time debugging.
+   --
    -- {  name = "fennel",
    --    filetypes = { "fennel" },
-   --    cmd = { bin .. "fennel-ls" },
+   --    cmd = { "fennel-ls" },
    --    _root_dir = { "flsproject.fnl" },
    --    settings = {},
    --    capabilities = {
    --       offsetEncoding = { "utf-8", "utf-16" },
    --    },
-   -- },
-
-   -- {  name = "fennel",
-   --    filetypes = { "fennel" },
-   --    cmd = { bin .. "fennel-language-server" },
-   --    single_file_support = true,
-   --    _root_dir = { ".git", ".jj", ".luarc.json" },
    -- },
 
    {  name = "terraform",
@@ -161,7 +196,7 @@ return {
       cmd  = "Mason",
       opts = {
          ui = {
-            border = "single",
+            border = border,
             height = 0.8,
             width  = 0.5,
          },

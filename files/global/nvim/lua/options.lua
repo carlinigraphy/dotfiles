@@ -34,6 +34,8 @@ opt.diffopt        = {
 opt.expandtab      = true
 opt.expandtab      = true
 opt.fillchars      = { fold = " ", vert = "│", diff = "╲" }
+opt.findfunc       = "v:lua.RgFind"
+opt.foldcolumn     = "auto:3"
 opt.hidden         = true
 opt.hlsearch       = false
 opt.ignorecase     = true
@@ -54,7 +56,8 @@ opt.relativenumber = true
 opt.scrolloff      = 3
 opt.shiftround     = true
 opt.shiftwidth     = 3
---opt.shortmess:append("c") -- remove messages for insertion completion
+-- opt.shortmess:append("c") -- remove messages for insertion completion
+opt.sidescrolloff  = 3
 opt.signcolumn     = "auto"
 opt.smartcase      = true
 opt.softtabstop    = 3
@@ -71,6 +74,25 @@ opt.wrap           = false
 
 g.netrw_keepdir  = 0
 g.netrw_winsize  = -40
+
+-- For 'findfunc'
+_G.RgFind = function(search, _)
+   local files = vim.fn.systemlist(table.concat({
+      "rg",
+      "--files",
+      "--hidden",
+      "--color=never",
+      "--glob='!.git'",
+      "--glob='!.jj'",
+      "--glob='!node_modules'",
+   }, " "))
+
+   if search == "" then
+      return files
+   else
+      return vim.fn.matchfuzzy(files, search)
+   end
+end
 
 -- Highlight on yank. Iunno. Kinda good visual confirmation I guess.
 local augroup = vim.api.nvim_create_augroup

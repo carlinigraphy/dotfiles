@@ -1,5 +1,14 @@
 return {
-   { "https://git.sr.ht/~carlinigraphy/steno.nvim" },
+   { "thoughts.nvim",
+      dir = "~/hg/nvim_plugins/thoughts.nvim",
+   },
+   { "buffy.nvim",
+      enabled = true,
+      dir = "~/hg/nvim_plugins/buffy.nvim",
+   },
+   {
+      "https://git.sr.ht/~carlinigraphy/steno.nvim"
+   },
    {
       "https://git.sr.ht/~carlinigraphy/dictd.nvim",
       config = function()
@@ -9,10 +18,7 @@ return {
          })
       end,
    },
-
-   { "tpope/vim-fugitive" },
    { "tpope/vim-vinegar" },
-
    {
       "isovector/cornelis",
       dependencies = {
@@ -23,5 +29,5 @@ return {
       version = "v2.7.*",
       build   = "stack install",
       config  = require("plugins.config.cornelis")
-   }
+   },
 }

@@ -1,6 +1,6 @@
 * {
    /* `otf-font-awesome` is required to be installed for icons */
-   font-family: "Aurelius Round", FontAwesome, "Jetbrains Mono";
+   font-family: "Berkeley Mono", FontAwesome, "Jetbrains Mono";
    font-size: 12px;
 }
 
@@ -220,20 +220,19 @@ label:focus {
 }
 
 #mpd {
-   background-color: #66cc99;
-   color: #2a5c45;
+   background-color: #303030;
 }
 
 #mpd.disconnected {
-   background-color: #f53c3c;
+   background-color: #202020;
 }
 
 #mpd.stopped {
-   background-color: #90b1b1;
+   background-color: #202020;
 }
 
 #mpd.paused {
-   background-color: #51a37a;
+   background-color: #202020;
 }
 
 #scratchpad {

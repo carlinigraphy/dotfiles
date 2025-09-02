@@ -19,7 +19,6 @@ workspace 2 output $mon_middle
 workspace 3 output $mon_middle
 workspace 4 output $mon_middle
 workspace 5 output $mon_middle
-workspace 6 output $mon_right
 workspace 7 output $mon_right
 workspace 8 output $mon_right
 
@@ -40,13 +39,13 @@ bar {
 gaps inner 5
 gaps outer 0
 
-default_border          pixel 1
-default_floating_border pixel 1
+default_border          pixel 2
+default_floating_border pixel 2
 floating_maximum_size   1880 x 1140
 floating_modifier       $mod normal
 smart_borders           on
 
-font pango:Jetbrains Mono 9
+font pango:Berkeley Mono 9
 
 # Columns:
 #  (1) border around title bar
@@ -59,7 +58,7 @@ font pango:Jetbrains Mono 9
 client.focused            #303030  #181818  #ffffff  #ffffff  #a0a0a0
 client.focused_inactive   #202020  #181818  #e0e0e0  #a0a0a0  #707070
 client.focused_tab_title  #202020  #181818  #e0e0e0  #ffffff  #202020
-client.unfocused          #121212  #121212  #909090  #121212  #121212
+client.unfocused          #181818  #121212  #909090  #121212  #121212
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r reload

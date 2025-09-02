@@ -1,4 +1,6 @@
 Xft.dpi: 144
+Xcursor.theme: Adwaita
+XCussor.size: 24
 
 ! special
 *.foreground:   #e0e0e0

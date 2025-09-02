@@ -33,21 +33,6 @@ set show-all-if-unmodified     on
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 
-
-# Command mode only bindings.
 set keymap vi-command
 "gg": beginning-of-history
 "G": end-of-history
-
-
-# Insert mode only bindings.
-set keymap vi-insert
-
-# Emacs only bindings.
-set keymap emacs
-"\e-r": 
-
-$if Gdb
-   set editing-mode emacs
-   "\C-o": "\C-xo"
-$endif

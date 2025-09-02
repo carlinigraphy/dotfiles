@@ -13,7 +13,7 @@ config.line_height = 1.15
 config.font_size = 8.5
 config.font = term.font_with_fallback({
    -- ref. https://wezfurlong.org/wezterm/config/lua/wezterm/font.html
-   {  family = "Aurelius Round",
+   {  family = "Berkeley Mono SemiLight",
       weight = "Regular",
       stretch = "Normal",
    },

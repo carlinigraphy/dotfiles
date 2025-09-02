@@ -69,9 +69,8 @@
     },
 
     "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+        "format-stopped": "Stopped ",
         "unknown-tag": "N/A",
         "interval": 5,
         "consume-icons": {
@@ -129,7 +128,7 @@
 
     "pulseaudio": {
         "format"                : "<span color='#707070'>VOL:</span>{volume}% {icon} {format_source}",
-        "format-bluetooth"      : "<span color='#707070'>VOL:</span>{volume}% {icon} {format_source}",
+        "format-bluetooth"      : "<span color='#707070'>{desc} VOL:</span>{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted"          : " {format_source}",
         "format-source"         : "<span color='#707070'>VOL:</span>{volume}% ",

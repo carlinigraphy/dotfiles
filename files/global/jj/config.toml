@@ -6,25 +6,20 @@ email = "marcus@carlini.com"
 [aliases]
 ds   = ["describe"]
 loga = ["log", "all()"]
+book = ["bookmark"]
+bm   = ["bookmark", "move", "--from", "@-", "--to", "@"]
 sk   = ["squash"]
 
 
 [ui]
 editor = "nvim"
+
 default-command = [ "log"
    , "--template" , "builtin_log_comfortable"
    , "--revisions", "@--::"
    ]
 
-# 2025-01-29
-#     Until I can figure out how to use `nvim -d` for diffs, going with
-#     `difft`. Gives good enough diffs to be useful.
-#
-#     Looks like the diff is firing up a pager, and expecting the diff command
-#     to output something? Not sure how to change/configure this, but seems to
-#     be why running with nvim isn't displaying anything.
-#
-diff.tool = ["difft"
+diff-formatter = ["difft"
    , "--syntax-highlight", "off"
    , "--color", "always"
    , "$left"
@@ -32,8 +27,8 @@ diff.tool = ["difft"
    ]
 
 
-[git]
-push-bookmark-prefix = "carlinigraphy/push-"
+# [git]
+# push-bookmark-prefix = "carlinigraphy/push-"
 
 
 [templates]

@@ -14,36 +14,20 @@ return {
    },
 
    { 'nvim-treesitter/nvim-treesitter',
-      --dependencies = { 'nvim-treesitter/nvim-treesitter-refactor' },
       build  = ':TSUpdate',
-      config = function(_, opts)
-         require('nvim-treesitter.configs').setup(opts)
-      end,
-      opts = {
-         ensure_installed = {
-            "bash",
-            "beancount",
-            "elixir",
-            "lua",
-            "scheme",
-            "toml",
-            "yaml",
-         },
-         highlight = {
-            enable = true,
-         },
-         --[[
-         -- This is interesting, but I just didn't end up using it. To make
-         -- more usable, should also set the hl group TSDefinitionUsage, and
-         -- 'updatetime=0'. Though the updatetime would impact anything else
-         -- subscribing to the CursorHold event.
-         refactor = {
-            highlight_definitions = {
-               enable = true,
-               clear_on_cursor_move = true,
+      config = function()
+         require('nvim-treesitter.configs').setup({
+            ensure_installed = {
+               "bash",
+               "lua",
+               "scheme",
+               "toml",
+               "yaml",
             },
-         }
-         --]]
-      },
+            highlight = {
+               enable = true,
+            },
+         })
+      end,
    },
 }

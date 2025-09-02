@@ -78,7 +78,9 @@ return { {
          element_mappings = {},
          expand_lines = true,
          floating = {
-            border = "single",
+            border = {
+               "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏",
+            },
             mappings = {
                close = { "q", "<Esc>" }
             }

@@ -12,7 +12,9 @@ require('lazy').setup('plugins', {
       notify  = false,
    },
    ui = {
-      border = "single",
+      border = {
+         "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏",
+      },
       backdrop = 100,
    },
    diff = { cmd = 'git' },

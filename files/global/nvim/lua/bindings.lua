@@ -27,9 +27,6 @@ vim.g.maplocalleader = ','
 -- Terminal.
 set('n', '<leader>t',  ':sp | :term<CR>a')
 set('t', '<C-w>',      '<C-\\><C-n><C-w>')
-set('t', '<S-Space>',  '<Space>')
-   -- I've only had this issue on `wezterm`, and only in the neovim terminal,
-   -- but it seems to be sending <C-u>? I don't care for it.
 
 -- Spelling.
 set('n', '<leader>sp', ':set spell! | set spell?<CR>')
@@ -42,6 +39,14 @@ set('v', '<leader>col', '! column -L -t -s= -o=<CR>')
 
 set('n', '<C-e>', '3<C-e>')
 set('n', '<C-y>', '3<C-y>')
+
+set("n", "n", "nzzzv", { desc="Next search (center view)" })
+set("n", "N", "Nzzzv", { desc="Prev search (center view)" })
+set("n", "<C-d>", "<C-d>zz", { desc="Half-page down (center view)" })
+set("n", "<C-u>", "<C-u>zz", { desc="Half-page up (center view)" })
+
+set("v", ">", ">gv", { desc="Indent, maintain visual mode" })
+set("v", "<", "<gv", { desc="Indent, maintain visual mode" })
 
 set('n', '<leader>n', ':bnext<CR>')
 set('n', '<leader>b', ':ls<CR>:b<SPACE>')
@@ -56,6 +61,10 @@ set("n", "<leader>v", ":vert res 87")
 set('c', '<C-b>', '<Left>')  -- OVERWRITES: cursor to beginning of line
 set('c', '<C-f>', '<Right>') -- OVERWRITES: `cedit` key (below)
 vim.o.cedit = '<C-o>'
+
+-- Make more consistent with how I have my vi bindings set up.
+set("c", "<C-n>", "<Down>")
+set("c", "<C-p>", "<Up>")
 
 set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
    local is_set
@@ -74,24 +83,11 @@ set("n", "<leader>fu", function()   -- mnemonic  [fu]zzy
    vim.cmd("set wildoptions") -- print current opts
 end)
 
-
---                               abbreviations
---------------------------------------------------------------------------------
-set('ca', 'vres', 'vert res')
-
 --                                 trial run
 --------------------------------------------------------------------------------
--- Potential candidates to be demoed if unused, or don't fit into workflow.
-
 -- 2024-06-30
 --    Created.
 -- 2024-10-29
 --    Changed from J/K to <C-n>, <C-p>. Didn't like that it overwrote [J]oin.
-set('v', '<C-n>', [[:move '>+1'<CR>gv=gv]])
 set('v', '<C-p>', [[:move '<-2'<CR>gv=gv]])
-
-
--- Removes large blocks of whitespace. Should probably generalize in a
--- function, such that it works on ranges.
--- set('n', '<leader>rs', [[m'Elciw <Esc>`']])
--- set('n', '<leader>ri', [[ciw <Esc>]])
+set('v', '<C-n>', [[:move '>+1'<CR>gv=gv]])

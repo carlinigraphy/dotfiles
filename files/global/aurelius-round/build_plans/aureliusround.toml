@@ -1,6 +1,6 @@
 [buildPlans.AureliusRound]
 family = "Aurelius Round"
-spacing = "fixed"
+spacing = "terminal"
 serifs = "sans"
 noCvSs = true
 exportGlyphNames = false
@@ -191,10 +191,10 @@ pilcrow = "low"
 partial-derivative = "curly-bar"
 micro-sign = "toothless-corner-serifless"
 
-[buildPlans.AureliusRound.weights.Light]
-shape = 300
-menu = 300
-css = 300
+[buildPlans.AureliusRound.weights.Regular]
+shape = 350
+menu = 350
+css = 350
 
 [buildPlans.AureliusRound.weights.Bold]
 shape = 750
